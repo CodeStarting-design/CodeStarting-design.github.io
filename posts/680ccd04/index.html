@@ -20,17 +20,22 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心之所向，行之可往">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mark&#39;s blogs">
-<meta property="og:url" content="http://marksblog.cn/archives/2023/page/3/index.html">
+  <meta name="description" content="动态规划 动态规划数组的下标及含义： dp[i] 表示总计 i 个楼梯的爬楼方式，总计的长度为n  递推公式： dp[i]&#x3D;dp[i-1]+dp[i-2] ，此处的理解可以使当前剩余 i 阶楼梯，当前这一步分别走一步或者两步。  dp数组的初始化：当 i&#x3D;1 时，明显不存在方法 dp[1]&#x3D;1 ，当 i&#x3D;2 时，只能走一步 dp[2]&#x3D;2  遍历顺序：此处需要求解的是 dp[n] 那么明显需要从前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-70-爬楼梯">
+<meta property="og:url" content="http://marksblog.cn/posts/680ccd04/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="心之所向，行之可往">
+<meta property="og:description" content="动态规划 动态规划数组的下标及含义： dp[i] 表示总计 i 个楼梯的爬楼方式，总计的长度为n  递推公式： dp[i]&#x3D;dp[i-1]+dp[i-2] ，此处的理解可以使当前剩余 i 阶楼梯，当前这一步分别走一步或者两步。  dp数组的初始化：当 i&#x3D;1 时，明显不存在方法 dp[1]&#x3D;1 ，当 i&#x3D;2 时，只能走一步 dp[2]&#x3D;2  遍历顺序：此处需要求解的是 dp[n] 那么明显需要从前">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-14T16:00:24.000Z">
+<meta property="article:modified_time" content="2023-05-14T16:00:57.179Z">
 <meta property="article:author" content="Mark">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/archives/2023/page/3/">
+<link rel="canonical" href="http://marksblog.cn/posts/680ccd04/">
 
 
 <script id="page-configurations">
@@ -38,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Mark's blogs</title>
+  <title>LeetCode-70-爬楼梯 | Mark's blogs</title>
   
 
 
@@ -175,219 +180,210 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/680ccd04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-70-爬楼梯
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-15 00:00:24 / 修改时间：00:00:57" itemprop="dateCreated datePublished" datetime="2023-05-15T00:00:24+08:00">2023-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 29 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/680ccd04/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/680ccd04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>726</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <h1 id="LeetCode-70-爬楼梯"><a href="#LeetCode-70-爬楼梯" class="headerlink" title="LeetCode 70 爬楼梯"></a>LeetCode 70 爬楼梯</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/climbing-stairs/">70.爬楼梯</a></p>
+<p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol>
+<li><p>动态规划数组的下标及含义： <code>dp[i]</code> 表示总计 <code>i</code> 个楼梯的爬楼方式，总计的长度为n</p>
+</li>
+<li><p>递推公式： <code>dp[i]=dp[i-1]+dp[i-2]</code> ，此处的理解可以使当前剩余 <code>i</code> 阶楼梯，当前这一步分别走一步或者两步。</p>
+</li>
+<li><p>dp数组的初始化：当 <code>i=1</code> 时，明显不存在方法 <code>dp[1]=1</code> ，当 <code>i=2</code> 时，只能走一步 <code>dp[2]=2</code></p>
+</li>
+<li><p>遍历顺序：此处需要求解的是 <code>dp[n]</code> 那么明显需要从前向后进行递推</p>
+</li>
+<li><p>举例推导：n=3 <code>dp[3]=dp[1]+dp[2]=3</code> 满足要求</p>
+</li>
+</ol>
+<p>此处在初始化时，有一个较为重要的细节，就是对于 <code>dp[0]</code> 的定义和初始化，从 <code>dp</code> 数组的定义来看，此处的 <code>dp[0]</code> 应该代表的是，总计0个阶梯有几种爬法，那么应该是不存在爬得方式，应该是初始化为0，但是如果使用 <code>dp[0],dp[1]</code> 去计算 <code>dp[2]</code> 将会得到错误的结果，因此此处不应该初始化 <code>dp[0]</code> 将 <code>dp[1],dp[2]</code> 作为初始值去计算。</p>
+<p>根据此处的递推公式：当前状态 <code>i</code> 的决策，也只和前两个状态有关，那么只需要保存前两个状态的值，实现空间复杂度的化简。</p>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">climbStairs</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">3</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">int</span> dp[<span class="number">2</span>];</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>,dp[<span class="number">1</span>]=<span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            res=dp[<span class="number">0</span>]+dp[<span class="number">1</span>];</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">            dp[<span class="number">1</span>]=res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+ 
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-04T12:38:58+08:00"
-              content="2023-05-04">
-          05-04
-        </time>
-      </div>
+   </div>
+ 
+        
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/4ffa4b0/" itemprop="url">
-            <span itemprop="name">LeetCode-93-复原IP地址</span>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mark
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://marksblog.cn/posts/680ccd04/" title="LeetCode-70-爬楼梯">http://marksblog.cn/posts/680ccd04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
           </a>
-      </div>
+        </div>
 
-    </header>
-  </article>
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-04T00:02:41+08:00"
-              content="2023-05-04">
-          05-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/7c703a92/" itemprop="url">
-            <span itemprop="name">LeetCode-131-分割回文串</span>
+            <span class="label">RSS</span>
           </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-03T09:59:59+08:00"
-              content="2023-05-03">
-          05-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8f070fad/" itemprop="url">
-            <span itemprop="name">LeetCode-102-二叉树的层序遍历</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T23:27:39+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/fd2367bd/" itemprop="url">
-            <span itemprop="name">二叉树的前中后序遍历</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T22:58:53+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/71c65029/" itemprop="url">
-            <span itemprop="name">LeetCode-40-组合总和II</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T21:15:43+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8224097d/" itemprop="url">
-            <span itemprop="name">LeetCode-39-组合总和</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T16:10:16+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/36115911/" itemprop="url">
-            <span itemprop="name">LeetCode-17-电话号码的字母组合</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T16:04:21+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/1e0d822d/" itemprop="url">
-            <span itemprop="name">LeetCode-216-组合总和III</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-05-02T15:15:25+08:00"
-              content="2023-05-02">
-          05-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/7567a5e4/" itemprop="url">
-            <span itemprop="name">LeetCode-77-组合</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
+        </div>
     </div>
   </div>
-  
-  
-  
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/3f7ed50e/" rel="prev" title="LeetCode-509-斐波那契数">
+      <i class="fa fa-chevron-left"></i> LeetCode-509-斐波那契数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/403dae8f/" rel="next" title="LeetCode-746-使用最小花费爬楼梯">
+      LeetCode-746-使用最小花费爬楼梯 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2023/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2023/">1</a><a class="page-number" href="/archives/2023/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  
+  
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -434,6 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-70-%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-text">LeetCode 70 爬楼梯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

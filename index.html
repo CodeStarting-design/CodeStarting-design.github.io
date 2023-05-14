@@ -293,6 +293,357 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/403dae8f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/403dae8f/" class="post-title-link" itemprop="url">LeetCode-746-使用最小花费爬楼梯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-15 00:01:26 / 修改时间：00:01:56" itemprop="dateCreated datePublished" datetime="2023-05-15T00:01:26+08:00">2023-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/403dae8f/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/403dae8f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>807</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol>
+<li><p>确定dp数组（dp table）以及下标的含义：使用 <code>dp[i]</code> 作为动态规划数组，表示到达阶梯 <code>i</code> 的最小花费</p>
+</li>
+<li><p>确定递推公式：对于要到达第 <code>i</code> 个楼梯，存在两种方案，第一种是从 <code>i-1</code> 向前一步，或者从 <code>i-2</code> 向前两步，对应的递推公式为： <code>dp[i]=min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2])</code></p>
+</li>
+<li><p>dp数组如何初始化：对于 <code>dp[0]</code> 应该初始化为0，对于 <code>dp[1]</code> 也可以选择从1开始走，也初始化为0。</p>
+</li>
+<li><p>确定遍历顺序：此处需要求解的是 <code>dp[n+1]</code> ，显而易见是从前向后遍历</p>
+</li>
+<li><p>举例推导dp数组：对于 <code>cost = [10,15,20]</code> 那么 <code>dp[2]=min(0+15,0+10)=10</code> , <code>dp[3]=min(10+20,0+15)=15</code> 验证成立</p>
+</li>
+</ol>
+<p>并且此处当前状态的决策只和前两个状态有关，因此可以在常数空间复杂度内实现。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/403dae8f/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/680ccd04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/680ccd04/" class="post-title-link" itemprop="url">LeetCode-70-爬楼梯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-15 00:00:24 / 修改时间：00:00:57" itemprop="dateCreated datePublished" datetime="2023-05-15T00:00:24+08:00">2023-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/680ccd04/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/680ccd04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>726</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol>
+<li><p>动态规划数组的下标及含义： <code>dp[i]</code> 表示总计 <code>i</code> 个楼梯的爬楼方式，总计的长度为n</p>
+</li>
+<li><p>递推公式： <code>dp[i]=dp[i-1]+dp[i-2]</code> ，此处的理解可以使当前剩余 <code>i</code> 阶楼梯，当前这一步分别走一步或者两步。</p>
+</li>
+<li><p>dp数组的初始化：当 <code>i=1</code> 时，明显不存在方法 <code>dp[1]=1</code> ，当 <code>i=2</code> 时，只能走一步 <code>dp[2]=2</code></p>
+</li>
+<li><p>遍历顺序：此处需要求解的是 <code>dp[n]</code> 那么明显需要从前向后进行递推</p>
+</li>
+<li><p>举例推导：n=3 <code>dp[3]=dp[1]+dp[2]=3</code> 满足要求</p>
+</li>
+</ol>
+<p>此处在初始化时，有一个较为重要的细节，就是对于 <code>dp[0]</code> 的定义和初始化，从 <code>dp</code> 数组的定义来看，此处的 <code>dp[0]</code> 应该代表的是，总计0个阶梯有几种爬法，那么应该是不存在爬得方式，应该是初始化为0，但是如果使用 <code>dp[0],dp[1]</code> 去计算 <code>dp[2]</code> 将会得到错误的结果，因此此处不应该初始化 <code>dp[0]</code> 将 <code>dp[1],dp[2]</code> 作为初始值去计算。</p>
+<p>根据此处的递推公式：当前状态 <code>i</code> 的决策，也只和前两个状态有关，那么只需要保存前两个状态的值，实现空间复杂度的化简。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/680ccd04/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/3f7ed50e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/3f7ed50e/" class="post-title-link" itemprop="url">LeetCode-509-斐波那契数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-14 23:59:29" itemprop="dateCreated datePublished" datetime="2023-05-14T23:59:29+08:00">2023-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-15 00:00:04" itemprop="dateModified" datetime="2023-05-15T00:00:04+08:00">2023-05-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/3f7ed50e/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/3f7ed50e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>757</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处已经给定了相应的状态转移方程，当前的决策是和前两个状态相关的，那么就需要从前向后递推。使用动态规划求解的步骤如下：</p>
+<p>动规五部曲：</p>
+<p>这里我们要用一个一维dp数组来保存递归的结果</p>
+<p>1.确定dp数组以及下标的含义</p>
+<p><code>dp[i]</code> 的定义为：第i个数的斐波那契数值是 <code>dp[i]</code> 由于在计算时只需要使用到前两个状态，那么在就只需要保存前两个序列即可。</p>
+<p>2.确定递推公式</p>
+<p>状态转移方程 <code>dp[i] = dp[i - 1] + dp[i - 2]</code> ;</p>
+<p>3.dp数组如何初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/3f7ed50e/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/d8d7d1c6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -318,7 +669,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-11 19:44:51 / 修改时间：19:45:28" itemprop="dateCreated datePublished" datetime="2023-05-11T19:44:51+08:00">2023-05-11</time>
+              <time title="创建时间：2023-05-11 19:44:51 / 修改时间：19:45:41" itemprop="dateCreated datePublished" datetime="2023-05-11T19:44:51+08:00">2023-05-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -422,7 +773,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-11 19:41:49 / 修改时间：19:45:25" itemprop="dateCreated datePublished" datetime="2023-05-11T19:41:49+08:00">2023-05-11</time>
+              <time title="创建时间：2023-05-11 19:41:49 / 修改时间：19:45:41" itemprop="dateCreated datePublished" datetime="2023-05-11T19:41:49+08:00">2023-05-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1057,348 +1408,6 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/15552c94/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/15552c94/" class="post-title-link" itemprop="url">LeetCode-257-二叉树的所有路径</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-07 23:39:41" itemprop="dateCreated datePublished" datetime="2023-05-07T23:39:41+08:00">2023-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-11 19:39:45" itemprop="dateModified" datetime="2023-05-11T19:39:45+08:00">2023-05-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/15552c94/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/15552c94/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-paths/">257.二叉树的所有路径</a></p>
-<p>给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。</p>
-<p>叶子节点 是指没有子节点的节点</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/15552c94/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/fae63bb5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/fae63bb5/" class="post-title-link" itemprop="url">LeetCode-513-找树左下角的值</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-07 23:38:29" itemprop="dateCreated datePublished" datetime="2023-05-07T23:38:29+08:00">2023-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-11 19:39:39" itemprop="dateModified" datetime="2023-05-11T19:39:39+08:00">2023-05-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/fae63bb5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/fae63bb5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>948</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-1-BFS实现"><a href="#1-1-BFS实现" class="headerlink" title="1.1 BFS实现"></a>1.1 BFS实现</h2><p>此处的条件实际上可以简化为，先找到最低层的树节点，然后输出最左边的节点</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/fae63bb5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/74305938/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/74305938/" class="post-title-link" itemprop="url">LeetCode-654-最大二叉树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-07 23:36:28" itemprop="dateCreated datePublished" datetime="2023-05-07T23:36:28+08:00">2023-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-11 19:39:42" itemprop="dateModified" datetime="2023-05-11T19:39:42+08:00">2023-05-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/74305938/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/74305938/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-2-单调栈实现"><a href="#1-2-单调栈实现" class="headerlink" title="1.2 单调栈实现"></a>1.2 单调栈实现</h2><p>将构造的过程转化为基于节点数和数组实现：</p>
-<ol>
-<li>初始时，我们只有一个根节点，其中存储了整个数组；</li>
-<li>在每一步操作中，我们可以「任选」一个存储了超过一个数的节点，找出其中的最大值并存储在该节点。最大值左侧的数组部分下放到该节点的左子节点，右侧的数组部分下放到该节点的右子节点；</li>
-<li>如果所有的节点都恰好存储了一个数，那么构造结束。</li>
-</ol>
-<p>此处，在题解中提出，在进行树的构造过程中，并不需要按照最大二叉树的定义进行构造，实际上在上述的定义中，存在一个特性：对于最大的节点一定是根节点，第二大的节点则一定是根节点的左/右孩子，但是对于第三大的节点就存在不确定性。</p>
-<p>构造方式：每次选择数组中值最大的那个节点进行构造。这样一来，我们就可以保证按照数组中元素降序排序的顺序依次构造每个节点。当选择节点中的数组最大值为nums[i]时，说明大于nums[i]的元素已经全部构造，小于的元素还没有构造。</p>
-<p>在最终构造出的树上，以nums[i] 为根节点的子树，在原数组中对应的区间，左边界为nums[i] 左侧第一个比它大的元素所在的位置，右边界为nums[i] 右侧第一个比它大的元素所在的位置。左右边界均为开边界。如果某一侧边界不存在，则那一侧边界为数组的边界。如果两侧边界均不存在，说明其为最大值，即根节点。</p>
-<p>并且nums[i] 的父结点是两个边界中较小的那个元素对应的节点</p>
-<p>此处的思想就是，先找到相应的元素，然后确定当前元素在原来序列中的划分边界，并且有nums[i] 的父结点是两个边界中较小的那个元素对应的节点（左右孩子的问题则需要根据边界的位置来进行确定）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/74305938/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1469,7 +1478,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1482,7 +1491,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1539,18 +1548,18 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">55k</span>
+    <span title="站点总字数">57k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">50 分钟</span>
+    <span title="站点阅读时长">52 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共20.9k字</span>
+  <span class="post-count">博客全站共22.3k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
