@@ -293,6 +293,120 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/52c57120/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/52c57120/" class="post-title-link" itemprop="url">LeetCode-343-整数拆分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-18 20:21:03 / 修改时间：20:21:32" itemprop="dateCreated datePublished" datetime="2023-05-18T20:21:03+08:00">2023-05-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/52c57120/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/52c57120/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处使用动态规划求解，首先需要确定的是问题的划分，对于整数 <code>n</code> 拆分的方式存在多种 <code>1+n-1</code> 或 <code>2+n-2</code> ，同时也可以进一步对 <code>n-1</code> 和 <code>n-2</code> 进行拆分，此处使用一个动态规划数组 <code>dp[i]</code> 来表示，将数字 <code>i</code> 拆分为任意份后能够得到的最大乘积，那么对于数字 <code>n</code> 的拆分为 $n-i$ 和 $i$ 的情形最大乘积求解存在三种情况：</p>
+<ol>
+<li><p>两个值都拆分的情形 $n=(n-i)+i$ 在此基础上将 $n-i$ 和 $i$ 进一步拆分为多个值的最大值 $n^1_{最大乘积}=dp[n-i]*dp[i]$ 。</p>
+</li>
+<li><p>两个值都不进行拆分的情况： $n=(n-i)+i$ 两个值都不进行拆分，那么 $n^2_{最大乘积}=(n-i)*i$</p>
+</li>
+<li><p>两个值一个拆分，另一个不拆分： $n=(n-i)+i$ 对 $n-i$ 进行拆分 $n^3_{最大乘积}=dp[n-i]<em>i$ 对 $i$ 进行拆分 $n^4_{最大乘积}=(n-i)</em>dp[i]$</p>
+</li>
+</ol>
+<p>在此基础上得到递推公式为：</p>
+<script type="math/tex; mode=display">dp[n]=max(max_{i}(n^1_{最大乘积},n^2_{最大乘积},n^3_{最大乘积},n^4_{最大乘积}))</script><p>其中 $i=1…n/2$</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/52c57120/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/8922dec9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -318,7 +432,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-16 20:30:22 / 修改时间：20:31:21" itemprop="dateCreated datePublished" datetime="2023-05-16T20:30:22+08:00">2023-05-16</time>
+              <time title="创建时间：2023-05-16 20:30:22 / 修改时间：20:31:46" itemprop="dateCreated datePublished" datetime="2023-05-16T20:30:22+08:00">2023-05-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1306,111 +1420,6 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/880c5c7b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/880c5c7b/" class="post-title-link" itemprop="url">LeetCode-332-重新安排行程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-05-08 22:27:03 / 修改时间：22:29:03" itemprop="dateCreated datePublished" datetime="2023-05-08T22:27:03+08:00">2023-05-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/880c5c7b/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/880c5c7b/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="空间换时间"><a href="#空间换时间" class="headerlink" title="空间换时间"></a>空间换时间</h2><p>使用一个 <code>map</code> 完成有序地映射，从而在每一层根据出发地选取机票时，都能够优先选取目的地字典序最小的机票，此处本质上是一个图，并且题设告知存在路径。使用一个 <code>unordered_map&lt;string,map&lt;string,int&gt;&gt; tic_map</code> 去进行记录，本质上是 <code>unordered_map&lt;出发地,map&lt;目的地,机票数&gt;&gt; tic_map</code> 。</p>
-<p>那么首先在结果数组 <code>res</code> 中加入一个 <code>JFK</code> 作为出发地，那么在每一层递归中只需要在 <code>tic_map[res.back()]</code> 中选取机票，此时优先选到的机票一定是字典序在前的。那么在每次优先选取最优的基础上，那么就一定能够找到最有路径。在找到最有路径后递归结束。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/880c5c7b/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1481,7 +1490,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1551,18 +1560,18 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">62k</span>
+    <span title="站点总字数">63k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">56 分钟</span>
+    <span title="站点阅读时长">58 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共24.3k字</span>
+  <span class="post-count">博客全站共25.2k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
