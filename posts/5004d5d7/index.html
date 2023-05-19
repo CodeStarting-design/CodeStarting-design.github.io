@@ -20,24 +20,24 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="动态规划 确定动态规划数组的含义：定义二维动态规划数组 dp[i][j] 表示到达途中 i,j 位置处存在几条路径  确定递推关系：由于在题中规定只能向下和向右移动，那么对于位置 i，j 存在着两中到达的方式，第一种是从上方 i-1,j 向下一步，第二种是从左边 i,j-1 向右一步到达。那么 dp[i][j]&#x3D;dp[i-1][j]+dp[i][j-1]  动态规划数组的初始化：首先是 dp[0]">
+  <meta name="description" content="LeetCode 96 不同的二叉搜索树96.不同的二叉搜索树 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的二叉搜索树有多少种？返回满足题意的二叉搜索树的种数。 动态规划此处要使用动态规划进行求解，首先需要完成对于问题的划分。要找到 1-n 个节点对应的不同形态得到二叉搜索树，那么最简单的划分方式就是：分别以 1-n 做根节点去建立树。 从 n&#x3D;3 出发：   前">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-62-不同路径">
-<meta property="og:url" content="http://marksblog.cn/posts/d9271181/index.html">
+<meta property="og:title" content="LeetCode-96-不同的二叉搜索树">
+<meta property="og:url" content="http://marksblog.cn/posts/5004d5d7/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="动态规划 确定动态规划数组的含义：定义二维动态规划数组 dp[i][j] 表示到达途中 i,j 位置处存在几条路径  确定递推关系：由于在题中规定只能向下和向右移动，那么对于位置 i，j 存在着两中到达的方式，第一种是从上方 i-1,j 向下一步，第二种是从左边 i,j-1 向右一步到达。那么 dp[i][j]&#x3D;dp[i-1][j]+dp[i][j-1]  动态规划数组的初始化：首先是 dp[0]">
+<meta property="og:description" content="LeetCode 96 不同的二叉搜索树96.不同的二叉搜索树 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的二叉搜索树有多少种？返回满足题意的二叉搜索树的种数。 动态规划此处要使用动态规划进行求解，首先需要完成对于问题的划分。要找到 1-n 个节点对应的不同形态得到二叉搜索树，那么最简单的划分方式就是：分别以 1-n 做根节点去建立树。 从 n&#x3D;3 出发：   前">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://marksblog.cn/posts/d9271181/LeetCode_62_%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84.png">
-<meta property="article:published_time" content="2023-05-16T11:37:49.000Z">
-<meta property="article:modified_time" content="2023-05-16T12:29:56.399Z">
+<meta property="og:image" content="http://marksblog.cn/posts/5004d5d7/img/%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.png">
+<meta property="article:published_time" content="2023-05-19T10:32:42.000Z">
+<meta property="article:modified_time" content="2023-05-19T10:33:16.850Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://marksblog.cn/posts/d9271181/LeetCode_62_%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84.png">
+<meta name="twitter:image" content="http://marksblog.cn/posts/5004d5d7/img/%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.png">
 
-<link rel="canonical" href="http://marksblog.cn/posts/d9271181/">
+<link rel="canonical" href="http://marksblog.cn/posts/5004d5d7/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>LeetCode-62-不同路径 | Mark's blogs</title>
+  <title>LeetCode-96-不同的二叉搜索树 | Mark's blogs</title>
   
 
 
@@ -301,7 +301,7 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/d9271181/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/5004d5d7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -314,7 +314,7 @@ mjx-container[display="true"] + br {
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-62-不同路径
+          LeetCode-96-不同的二叉搜索树
         </h1>
 
         <div class="post-meta">
@@ -325,7 +325,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-16 19:37:49 / 修改时间：20:29:56" itemprop="dateCreated datePublished" datetime="2023-05-16T19:37:49+08:00">2023-05-16</time>
+              <time title="创建时间：2023-05-19 18:32:42 / 修改时间：18:33:16" itemprop="dateCreated datePublished" datetime="2023-05-19T18:32:42+08:00">2023-05-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -353,8 +353,8 @@ mjx-container[display="true"] + br {
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/d9271181/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/d9271181/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/5004d5d7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/5004d5d7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -364,14 +364,14 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -383,40 +383,36 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-62-不同路径"><a href="#LeetCode-62-不同路径" class="headerlink" title="LeetCode 62 不同路径"></a>LeetCode 62 不同路径</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a></p>
-<p>一个机器人位于一个 <code>m x n</code> 网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p>
-<p>问总共有多少条不同的路径？</p>
-<p><img src="LeetCode_62_不同路径.png" alt="LeetCode_62_不同路径"></p>
-
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol>
-<li><p>确定动态规划数组的含义：定义二维动态规划数组 <code>dp[i][j]</code> 表示到达途中 <code>i,j</code> 位置处存在几条路径</p>
+        
+<h1 id="LeetCode-96-不同的二叉搜索树"><a href="#LeetCode-96-不同的二叉搜索树" class="headerlink" title="LeetCode 96 不同的二叉搜索树"></a>LeetCode 96 不同的二叉搜索树</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-binary-search-trees/">96.不同的二叉搜索树</a></p>
+<p>给你一个整数 <code>n</code> ，求恰由 <code>n</code> 个节点组成且节点值从 <code>1</code> 到 <code>n</code> 互不相同的二叉搜索树有多少种？返回满足题意的二叉搜索树的种数。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处要使用动态规划进行求解，首先需要完成对于问题的划分。要找到 <code>1-n</code> 个节点对应的不同形态得到二叉搜索树，那么最简单的划分方式就是：分别以 <code>1-n</code> 做根节点去建立树。</p>
+<p>从 <code>n=3</code> 出发：</p>
+<p><img src="img/不同的二叉搜索树.png" alt="不同的二叉搜索树"></p>
+<ol>
+<li><p>前两棵树：就是将 <code>1</code> 作为根节点去建立树，右子树有两个节点，并且这两个节点的布局就和 <code>n=2</code> 时对应的二叉搜索树的布局相同。此处，将问题换一种方式去理解：给定一个整数 <code>n</code> ，求解的是 <code>n</code> 个数组成的二叉搜索树有多少种，但是不要求是 <code>1-n</code> 的数，仅仅是升序的 <code>n</code> 个数。左子树有0个节点，节点的布局就和 <code>n=0</code> 时对应的二叉搜索树的布局相同（与就是一棵空树）。那么此处就能够将 <code>n=3</code> 的情形与 <code>n=2，0</code> 情形建立联系。</p>
 </li>
-<li><p>确定递推关系：由于在题中规定只能向下和向右移动，那么对于位置 <code>i，j</code> 存在着两中到达的方式，第一种是从上方 <code>i-1,j</code> 向下一步，第二种是从左边 <code>i,j-1</code> 向右一步到达。那么 <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code></p>
+<li><p>第三课树：将 <code>2</code> 作为根节点去建立树，左边一个节点，和 <code>n=1</code> 时对应的二叉搜索树的布局相同，右边一个节点，和 <code>n=1</code> 时对应的二叉搜索树的布局相同。那么此时就是将 <code>n=3</code> 与 <code>n=1</code> 情形建立联系。</p>
 </li>
-<li><p>动态规划数组的初始化：首先是 <code>dp[0][0]</code> 也就是起点，那么只有一条路径，初始化为 <code>dp[0][0]=1</code> ，对于 <code>dp[i][0]</code> 也就是最左边一列的元素，只能从起点处不断向下走 <code>dp[i][0]=1</code> ，同理最上方一行 <code>dp[0][i]=1</code> 。</p>
-</li>
-<li><p>遍历方式：采取逐行或者逐列遍历的方式都是可行的。</p>
-</li>
-<li><p>举例说明： <code>m = 3, n = 2</code> ，首先完成初始化：<code>dp[0][0]=0,dp[1][0]=1,dp[2][0]=1,dp[0][1]=1</code> 再基础上逐行进行推导：第2行 <code>dp[1][1]=dp[0][1]+dp[1][0]=2</code> 在此基础上推导第三行： <code>dp[2][1]=dp[1][1]+dp[2][0]=3</code> 验证正确。</p>
+<li><p>后两棵树：将 <code>3</code> 作为根节点去建立树，右子树有0个节点，节点的布局就和 <code>n=0</code> 时对应的二叉搜索树的布局相同（与就是一棵空树）。左子树有两个节点，并且这两个节点的布局就和 <code>n=2</code> 时对应的二叉搜索树的布局相同。那么此处就能够将 <code>n=3</code> 的情形与 <code>n=2，0</code> 情形建立联系。</p>
 </li>
 </ol>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> </span>{</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; dp;</span><br><span class="line">        dp.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">        <span class="comment">// 初始化第一行和第一列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            dp[<span class="number">0</span>][i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">            dp[i][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 递推动态规划数组</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;m;i++){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;n;j++){</span><br><span class="line">                dp[i][j]=dp[i<span class="number">-1</span>][j]+dp[i][j<span class="number">-1</span>];</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-<p>对空间复杂度进行优化：使用一维的数组作为滚动数组来替代原本的动态规划数组。创建一个动态规划数组 <code>dp[n]</code> 全部初始化为1，也就是对应这原本动态规划数组的第一列，那么在次基础上即可按行进行计算：第二行的第一个值 <code>dp[1][0]</code> ，此处的第二维为0，值一定为1，不需要进行计算。第二行的第二值 <code>dp[1][1]=dp[0][1]+dp[1][0]</code> 转化到一维数组就是 <code>dp[1]=dp[1]+dp[0]</code> 计算第二行的第三个数值： <code>dp[1][2]=dp[0][2]+dp[1][1]</code> 此处的 <code>dp[1][1]</code> 已经计算出了，并且 <code>dp[0][2]</code> 就是 <code>dp[2]</code> ，那么就是 <code>dp[2]=dp[2]+dp[1]</code> 。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> </span>{</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) dp[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; m; j++) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) {</span><br><span class="line">                dp[i] += dp[i - <span class="number">1</span>];</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>];</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-<p>通过使用滚动数组的方式将空间复杂度削减到 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p>
-<h2 id="组合数学求解"><a href="#组合数学求解" class="headerlink" title="组合数学求解"></a>组合数学求解</h2><p>从出发点 <code>[0,0]</code> 走到终点 <code>[m-1,n-1]</code> ，至少需要向下走 <code>m-1</code> 步，向右走 <code>n-1</code> 步，总结需要 <code>m+n-2</code> 步，那么求解总共有多少中走法，就将问题转化为了：在 <code>m+n-2</code> 步中选取 <code>m-1</code> 步作为向下走的步数，剩余的 <code>n-1</code> 步自然就作为向右走的步数，那么对应路径数就为：</p>
-<script type="math/tex; mode=display">C_{m+n-2}^{m-1}=\left(\begin{array}{c}
-m+n-2 \\
-m-1
-\end{array}\right)=\frac{(m+n-2)(m+n-3) \cdots n}{(m-1) !}=\frac{(m+n-2) !}{(m-1) !(n-1) !}</script><p>那么要实现 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.804ex;" xmlns="http://www.w3.org/2000/svg" width="7.459ex" height="2.801ex" role="img" focusable="false" viewBox="0 -882.5 3296.9 1237.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g><g data-mml-node="TeXAtom" transform="translate(845.3,411.6) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(878,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1656,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(748,-297.3) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(878,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(1656,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2256,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(3034,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></g></svg></mjx-container> 的求解，只需要使用一个for循环即可，并且对应的空间复杂度为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="4.618ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2041 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(1152,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(1652,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> </span>{</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> res=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n,j=<span class="number">1</span>;j&lt;m;i++,j++){</span><br><span class="line">            res=res*i/j;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-<p>关于计算过程中的整除问题：</p>
-<p>第一次（53 / 1）任何数都可整除1</p>
-<p>第二次（53*52 / 1*2）连续的2个数中一定有一个是2的倍数</p>
-<p>第三次（53*52*51 / 1*2*3）连续的3个数中一定有一个是3的倍数</p>
-<p>以此类推，每次都可以整除</p>
+<p>最后 <code>n=3</code> 的计算方式为： <code>dp[3]=dp[2]*dp[0]+dp[1]*dp[1]+dp[0]*dp[2]</code></p>
+<p>在此基础上使用动态规划进行求解：</p>
+<ol>
+<li><p>确定动态规划数组： <code>dp[i]</code> 表示 <code>i</code> 个整数组成的互不相同的二叉搜索树共有多少种。</p>
+</li>
+<li><p>动态规划数组的递推公式：根据上述的推导过程可得： <script type="math/tex">dp[i]=\sum_{j=1}^{i}dp[i-j]*dp[j-1]</script></p>
+</li>
+<li><p>动态规划数组的初始化： <code>dp[0]=1</code> 对应于一棵空树的形态。</p>
+</li>
+<li><p>数组的遍历顺序：计算 <code>dp[i]</code> 时需要使用到前值，从前向后计算。</p>
+</li>
+<li><p>举例实现： <code>n=2</code> 那么 <code>dp[1]=dp[0]*dp[0]=1</code> ， <code>dp[2]=dp[1]*dp[0]+dp[0]*dp[1]=2</code> 验证结果正确。</p>
+</li>
+</ol>
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numTrees</span><span class="params">(<span class="type">int</span> n)</span> </span>{</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++){</span><br><span class="line">                dp[i]+=dp[i-j]*dp[j<span class="number">-1</span>];</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -442,7 +438,7 @@ m-1
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/d9271181/" title="LeetCode-62-不同路径">http://marksblog.cn/posts/d9271181/</a>
+    <a href="http://marksblog.cn/posts/5004d5d7/" title="LeetCode-96-不同的二叉搜索树">http://marksblog.cn/posts/5004d5d7/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -492,13 +488,10 @@ m-1
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/403dae8f/" rel="prev" title="LeetCode-746-使用最小花费爬楼梯">
-      <i class="fa fa-chevron-left"></i> LeetCode-746-使用最小花费爬楼梯
+    <a href="/posts/52c57120/" rel="prev" title="LeetCode-343-整数拆分">
+      <i class="fa fa-chevron-left"></i> LeetCode-343-整数拆分
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/8922dec9/" rel="next" title="LeetCode-63-不同路径II">
-      LeetCode-63-不同路径II <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -558,7 +551,7 @@ m-1
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84"><span class="nav-text">LeetCode 62 不同路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E6%B1%82%E8%A7%A3"><span class="nav-text">组合数学求解</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-text">LeetCode 96 不同的二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
