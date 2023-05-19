@@ -20,22 +20,22 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1.2 DFS自底向上搜索本质思想就是先判断子树是否是平衡二叉树，当子树是一颗平衡二叉树时，希望能够返回树的深度（如何返回二叉树的深度）。若是子树不平衡，那么整个树一定都是不平衡的。 关于深度的计算：当前节点为空时，直接返回0值，当前节点非空，则需要判断，需要理解递归的思想，在当前节点的两颗子树都是平衡二叉树时，只需要返回max深度+1即可。">
+  <meta name="description" content="01背包问题有 n 件物品和一个最多能背重量为 w 的背包。第 i 件物品的重量是 weight[i] ，得到的价值是 value[i] 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。 此处最简单的方式就是使用回溯法去暴力求解：每一个物品有且仅有两种状态，放入背包或不放入背包，时间复杂度 $o(2^n)$ 。 使用动态规划进行求解，削减时间复杂度：此处的重点依旧在于问题的划分上。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-110-平衡二叉树">
-<meta property="og:url" content="http://marksblog.cn/posts/4641027c/index.html">
+<meta property="og:title" content="01背包问题">
+<meta property="og:url" content="http://marksblog.cn/posts/6935a6f4/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="1.2 DFS自底向上搜索本质思想就是先判断子树是否是平衡二叉树，当子树是一颗平衡二叉树时，希望能够返回树的深度（如何返回二叉树的深度）。若是子树不平衡，那么整个树一定都是不平衡的。 关于深度的计算：当前节点为空时，直接返回0值，当前节点非空，则需要判断，需要理解递归的思想，在当前节点的两颗子树都是平衡二叉树时，只需要返回max深度+1即可。">
+<meta property="og:description" content="01背包问题有 n 件物品和一个最多能背重量为 w 的背包。第 i 件物品的重量是 weight[i] ，得到的价值是 value[i] 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。 此处最简单的方式就是使用回溯法去暴力求解：每一个物品有且仅有两种状态，放入背包或不放入背包，时间复杂度 $o(2^n)$ 。 使用动态规划进行求解，削减时间复杂度：此处的重点依旧在于问题的划分上。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-07T15:45:01.000Z">
-<meta property="article:modified_time" content="2023-05-11T11:39:35.710Z">
+<meta property="article:published_time" content="2023-05-19T12:46:07.000Z">
+<meta property="article:modified_time" content="2023-05-19T12:46:39.347Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="树和二叉树">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/4641027c/">
+<link rel="canonical" href="http://marksblog.cn/posts/6935a6f4/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>LeetCode-110-平衡二叉树 | Mark's blogs</title>
+  <title>01背包问题 | Mark's blogs</title>
   
 
 
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4641027c/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/6935a6f4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -200,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-110-平衡二叉树
+          01背包问题
         </h1>
 
         <div class="post-meta">
@@ -209,16 +209,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-05-07 23:45:01" itemprop="dateCreated datePublished" datetime="2023-05-07T23:45:01+08:00">2023-05-07</time>
+              <time title="创建时间：2023-05-19 20:46:07 / 修改时间：20:46:39" itemprop="dateCreated datePublished" datetime="2023-05-19T20:46:07+08:00">2023-05-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-11 19:39:35" itemprop="dateModified" datetime="2023-05-11T19:39:35+08:00">2023-05-11</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -245,8 +239,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/4641027c/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/4641027c/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/6935a6f4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/6935a6f4/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -256,14 +250,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -275,17 +269,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-110-平衡二叉树"><a href="#LeetCode-110-平衡二叉树" class="headerlink" title="LeetCode 110 平衡二叉树"></a>LeetCode 110 平衡二叉树</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/balanced-binary-tree/">110.平衡二叉树</a></p>
-<p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
-<p>本题中，一棵高度平衡二叉树定义为：</p>
-<p>一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。</p>
-<h2 id="1-1-DFS自顶向下暴力法实现"><a href="#1-1-DFS自顶向下暴力法实现" class="headerlink" title="1.1 DFS自顶向下暴力法实现"></a>1.1 DFS自顶向下暴力法实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getDepth</span><span class="params">(TreeNode *root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">getDepth</span>(root-&gt;left),<span class="built_in">getDepth</span>(root-&gt;right))+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> d_l=<span class="built_in">getDepth</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> d_r=<span class="built_in">getDepth</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(d_r-d_l)&lt;=<span class="number">1</span>&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;left)&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>此处存在时间复杂度的浪费，在深度计算上还存在这优化的空间。在计算深度时存在这对统一节点深度的反复计算。</p>
+        
+<h1 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h1><p>有 <code>n</code> 件物品和一个最多能背重量为 <code>w</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。</p>
+<p>此处最简单的方式就是使用回溯法去暴力求解：每一个物品有且仅有两种状态，放入背包或不放入背包，时间复杂度 $o(2^n)$ 。</p>
+<p>使用动态规划进行求解，削减时间复杂度：此处的重点依旧在于问题的划分上。</p>
 
-<h2 id="1-2-DFS自底向上搜索"><a href="#1-2-DFS自底向上搜索" class="headerlink" title="1.2 DFS自底向上搜索"></a>1.2 DFS自底向上搜索</h2><p>本质思想就是先判断子树是否是平衡二叉树，当子树是一颗平衡二叉树时，希望能够返回树的深度（如何返回二叉树的深度）。若是子树不平衡，那么整个树一定都是不平衡的。</p>
-<p>关于深度的计算：当前节点为空时，直接返回0值，当前节点非空，则需要判断，需要理解递归的思想，在当前节点的两颗子树都是平衡二叉树时，只需要返回max深度+1即可。</p>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">balance</span><span class="params">(TreeNode *root)</span></span>&#123;  <span class="comment">// 判断子树是否平衡的同时返回深度值，实际上就是获取到深度后再判断，-1表示不平衡</span></span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">            <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">            <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>)?<span class="built_in">max</span>(br,bl)+<span class="number">1</span>:<span class="number">-1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;  <span class="comment">// 在总体的函数中就只需要进行简单的判断</span></span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="动态规划的过程"><a href="#动态规划的过程" class="headerlink" title="动态规划的过程"></a>动态规划的过程</h2><p>首先使用经典的动态规划方式进行问题的划分：</p>
+<ol>
+<li>动态规划数组的定义：<code>dp[i]</code> 表示最多能背重量为 <code>i</code> 的背包能够装的物品的价值总和。</li>
+<li>动态规划数组的推导：当 <code>weight[j]&lt;i</code> 时， <code>dp[i]=max(dp[i-weight[j]]+value[j])</code> 其中 <code>j=0..n</code></li>
+<li>动态规划数组的初始化：此处在进行数组的初始化时，就会出现问题，并且这样的处理还存在一个问题，无法处理小数的情况（通常是整数）</li>
+</ol>
+<p>使用二维的动态规划数组进行处理：</p>
+<ol>
+<li><p>动态规划数组的定义： <code>dp[i][j]</code> 表示从下标为 <code>[0-i]</code> 的物品里任意取，放进容量为 <code>j</code> 的背包，价值总和最大是多少。</p>
+</li>
+<li><p>动态规划数组的推导：对于 <code>dp[i][j]</code> 相较于上一行 <code>dp[i-1][j]</code> 背包的容量是相同的，但是可选的物品多了一个 <code>i</code> ，那么要么尝试选择物品 <code>i</code> （若是 <code>weight[i]&lt;=j</code> ）就有 <code>dp[i][j]=value[i]+dp[i-1][j-weight[i]]</code> ，要么不选取物品 <code>i</code> 那么依旧是从前 <code>i-1</code> 个物品中进行选取，那么 <code>dp[i][j]=dp[i-1][j]</code> ，在上述两种情况中取最大值即可。那么就有 <code>dp[i][j]=max(dp[i-1][j],dp[i-1][j-weight[i]]+value[i])</code></p>
+</li>
+<li><p>动态规划数组的初始化：对于第一列 <code>dp[i][0]</code> 容量为0，那么全部初始化为0，对于第一行 <code>dp[0][j]</code> ，在 <code>weight[0]&gt;j</code> 时全部初始化为0，当 <code>weight[0]&lt;=j</code> 时，全部初始化为 <code>value[0]</code></p>
+</li>
+<li><p>动态规划数组的遍历方式：在计算 <code>dp[i][j]</code> 时，将会使用到前行的信息，所以采取从左向右逐行遍历的方式。（实际上在计算 <code>dp[i][j]</code> 所使用到的前面的 <code>dp[a][b]</code> 的信息，此处的 <code>a&lt;i&amp;&amp;b&lt;j</code> 所以，采取逐列遍历的方式也是可以的。 ）</p>
+</li>
+<li><p>举例验证：对于 <code>vector&lt;int&gt; weight=&#123;1,3,4&#125;; vector&lt;int&gt; value=&#123;15,20,30&#125;;</code> 情形，按照上述方式计算得到的值为35，验证正确。</p>
+</li>
+</ol>
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::vector;</span><br><span class="line"><span class="keyword">using</span> std::max;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">backpack01</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; weight,vector&lt;<span class="type">int</span>&gt;&amp; value,<span class="type">int</span> w)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n=weight.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; dp;</span><br><span class="line">    dp.<span class="built_in">resize</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(w+<span class="number">1</span>,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=weight[<span class="number">0</span>];i&lt;=w;i++)&#123; <span class="comment">// 直接从第一个物品的容量开始</span></span><br><span class="line">        dp[<span class="number">0</span>][i]=value[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123; <span class="comment">// 总计n行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=w;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j&gt;=weight[i])&#123; <span class="comment">// 能够放下</span></span><br><span class="line">                dp[i][j]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][j],dp[i<span class="number">-1</span>][j-weight[i]]+value[i]);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j]=dp[i<span class="number">-1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n<span class="number">-1</span>][w];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; weight=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; value=&#123;<span class="number">15</span>,<span class="number">20</span>,<span class="number">30</span>&#125;;</span><br><span class="line">    std::cout&lt;&lt;<span class="built_in">backpack01</span>(weight,value,<span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用滚动数组优化空间复杂度"><a href="#使用滚动数组优化空间复杂度" class="headerlink" title="使用滚动数组优化空间复杂度"></a>使用滚动数组优化空间复杂度</h2><p>此处在进行 <code>dp[i][j]</code> 数组的计算时，实际上只需要使用到前一行中 <code>dp[i-1][j]</code> 和 <code>dp[i-1][j-weight[i]]</code> 的信息，因此可以使用一个一维数组来实现。</p>
+<p>使用滚动数组的实现方式：想要计算第 <code>i+1</code> 行的信息，将第 <code>i</code> 行作为第 <code>i+1</code> 行的初始值，并且此处在计算 <code>dp[i][j]</code> 时还需要使用到 <code>dp[i-1][j-weight[i]]</code> 的信息，在使用滚动数组的前提下也就是需要使用 <code>dp[i][j-weight[i]]</code> 的信息，那么在行内的遍历方式就需要从右向左进行。从实际问题的角度出发去理解：若是采取从左向右的便利方式，那么就会出现物品被重复放入的问题，在第 <code>i</code> 次迭代中， <code>dp[k]</code> 将物品 <code>i</code> 放入一次，计算得到新的 <code>dp[k]</code> ，在 <code>dp[k+1]</code> 时可能再次放入 <code>i</code> 并且使用 <code>dp[k]</code> 去更新 <code>dp[k+1]</code> 这就出现了重复放置的问题。</p>
+<ol>
+<li><p>动态规划数组的定义：初始 <code>dp[j]</code> 表示，在物品 <code>0</code> 中选取，容量为 <code>j</code> 的背包能够得到的最大价值，在迭代 <code>i</code> 次后， <code>dp[j]</code> 表示在物品 <code>0-i</code> 中选取，容量为 <code>j</code> 的背包能够得到的最大价值。 <code>dp.size()=w+1</code></p>
+</li>
+<li><p>动态规划数组的递推：对于 <code>dp[j]</code> 在第 <code>i</code> 次迭代时，<code>dp[j]=max(dp[j],dp[j-weight[i]]+value[i]) if j&gt;=weiht[i] else dp[j]</code> </p>
+</li>
+<li><p>动态规划数组的初始化：依旧是 <code>dp[i]=value[0] if i&gt;=weight[0] else 0</code></p>
+</li>
+<li><p>动态规划数组的遍历顺序：首先是对从前向后对物品进行遍历 <code>i=1,...,n-1</code> ，再从右向左对背包进行遍历 <code>j=w,...,1</code> (此处背包为0的情况直接省略，无须遍历)</p>
+</li>
+<li><p>举例验证：对于 <code>vector&lt;int&gt; weight=&#123;1,3,4&#125;; vector&lt;int&gt; value=&#123;15,20,30&#125;;</code> 情形，按照上述方式计算得到的值为35，验证正确。</p>
+</li>
+</ol>
+<p>代码实现：</p>
+<p>在上述的遍历过程可以进行进一步的改写，对于 <code>j</code> 的取值范围，当 <code>j&lt;weight[i]</code> 时在继续遍历实际上就没有意义了，此时 <code>dp[j]=dp[j]</code> 即可。因此 <code>j</code> 的范围是 <code>w,...,weight[i]</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::vector;</span><br><span class="line"><span class="keyword">using</span> std::max;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">backpack01</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; weight,vector&lt;<span class="type">int</span>&gt;&amp; value,<span class="type">int</span> w)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n=weight.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(w+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=weight[<span class="number">0</span>];i&lt;=w;i++)</span><br><span class="line">        dp[i]=value[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=w;j&gt;=weight[i];j--)&#123;</span><br><span class="line">            dp[j]=<span class="built_in">max</span>(dp[j],dp[j-weight[i]]+value[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[w];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; weight=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; value=&#123;<span class="number">15</span>,<span class="number">20</span>,<span class="number">30</span>&#125;;</span><br><span class="line">    std::cout&lt;&lt;<span class="built_in">backpack01</span>(weight,value,<span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -311,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/4641027c/" title="LeetCode-110-平衡二叉树">http://marksblog.cn/posts/4641027c/</a>
+    <a href="http://marksblog.cn/posts/6935a6f4/" title="01背包问题">http://marksblog.cn/posts/6935a6f4/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -352,7 +378,7 @@
           <div class="post-tags">
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-              <a href="/tags/%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 树和二叉树</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
           </div>
 
         
@@ -361,13 +387,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/15552c94/" rel="prev" title="LeetCode-257-二叉树的所有路径">
-      <i class="fa fa-chevron-left"></i> LeetCode-257-二叉树的所有路径
+    <a href="/posts/5004d5d7/" rel="prev" title="LeetCode-96-不同的二叉搜索树">
+      <i class="fa fa-chevron-left"></i> LeetCode-96-不同的二叉搜索树
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/df6206fa/" rel="next" title="LeetCode-222-完全二叉树的节点数">
-      LeetCode-222-完全二叉树的节点数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -427,7 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-110-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-text">LeetCode 110 平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-DFS%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%9A%B4%E5%8A%9B%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-text">1.1 DFS自顶向下暴力法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-DFS%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A%E6%90%9C%E7%B4%A2"><span class="nav-text">1.2 DFS自底向上搜索</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-text">01背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">动态规划的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84%E4%BC%98%E5%8C%96%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">使用滚动数组优化空间复杂度</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
