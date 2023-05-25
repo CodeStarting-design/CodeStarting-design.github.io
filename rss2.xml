@@ -9,8 +9,48 @@
     <atom:link href="http://marksblog.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>心之所向，行之可往</description>
-    <pubDate>Wed, 24 May 2023 13:22:40 GMT</pubDate>
+    <pubDate>Thu, 25 May 2023 12:15:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>LeetCode-474-一和零</title>
+      <link>http://marksblog.cn/posts/cc66f981/</link>
+      <guid>http://marksblog.cn/posts/cc66f981/</guid>
+      <pubDate>Thu, 25 May 2023 12:15:16 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;问题的要求：寻找数组的子集，在子集中最多包含 &lt;code&gt;m&lt;/code&gt; 个 &lt;code&gt;0&lt;/code&gt; 和 &lt;code&gt;n&lt;/code&gt; 个 &lt;code&gt;1&lt;/code&gt; ，使得子集中的元素尽可能的多。&lt;/p&gt;
+&lt;p&gt;此处完全就是一个0/1背包问题，背包的容量为： &lt;code&gt;m&lt;/code&gt; 个 &lt;code&gt;0&lt;/code&gt; 和 &lt;code&gt;n&lt;/code&gt; 个 &lt;code&gt;1&lt;/code&gt; ，每一个物品的价值都是1，要装下尽可能多的物品。将背包的维度从原本的一维情形转变成了2维。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[m+1][n+1]&lt;/code&gt; ，其中 &lt;code&gt;dp[i][j]&lt;/code&gt; 表示能装 &lt;code&gt;i&lt;/code&gt; 个 &lt;code&gt;0&lt;/code&gt; 、 &lt;code&gt;j&lt;/code&gt; 个 &lt;code&gt;1&lt;/code&gt; 的背包能够放下的物品个数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的推导：在第 &lt;code&gt;k&lt;/code&gt; 次迭代中，在 &lt;code&gt;0-k&lt;/code&gt; 个元素中进行选择，相较于上一次迭代，新增了第 &lt;code&gt;k&lt;/code&gt; 个元素，记第 &lt;code&gt;k&lt;/code&gt; 个元素中 &lt;code&gt;0&lt;/code&gt; 的个数为 $k_0$ ， &lt;code&gt;1&lt;/code&gt; 的个数为 $k_1$ ，此处有两种情况：可以选择元素 &lt;code&gt;k&lt;/code&gt; ，或者不选元素 &lt;code&gt;k&lt;/code&gt; ，应该在两者之中选择能够装下最多元素数量的情形，那么递推公式为： $i&amp;gt;k_0&#92; ,j&amp;gt;k_1$ &lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;dp[i][j]=max(dp[i-k_0][j-k_1]+1,dp[i][j])&lt;/script&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的初始化：在初始状态仅在元素 &lt;code&gt;0&lt;/code&gt; 中进行选择，那么对于 &lt;code&gt;dp[m][n]&lt;/code&gt; 首先全初始化为 &lt;code&gt;0&lt;/code&gt; ，对与 $i&amp;gt;k_0,j&amp;gt;k_1$ 的 $dp[i][j]=1$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的遍历顺序：外层循环将元素逐个加入，从左向右遍历元素数组 &lt;code&gt;strs&lt;/code&gt; ，内层循环遍历动态规划数组，并且为了防止重复选择 &lt;code&gt;i,j&lt;/code&gt; 都需要从大到小进行遍历。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="LeetCode-474-一和零"><a href="#LeetCode-474-一和零" class="headerlink" title="LeetCode 474 一和零"></a>LeetCode 474 一和零</h1><p><a href="https://leetcode.cn/problems/ones-and-zeroes/">474.一和零</a></p><p>给你一个二进制字符串数组 <code>strs</code> 和两个整数 <code>m</code> 和 <code>n</code> 。</p><p>请你找出并返回 <code>strs</code> 的最大子集的长度，该子集中最多有 <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> 。</p><p>如果 <code>x</code> 的所有元素也是 <code>y</code> 的元素，集合 <code>x</code> 是集合 <code>y</code> 的子集 。</p><p>示例：</p><blockquote><p>输入：strs = [“10”, “0001”, “111001”, “1”, “0”], m = 5, n = 3<br>输出：4<br>解释：最多有 5 个 0 和 3 个 1 的最大子集是 {“10”,”0001”,”1”,”0”} ，因此答案是 4 。<br>其他满足题意但较小的子集包括 {“0001”,”1”} 和 {“10”,”1”,”0”} 。{“111001”} 不满足题意，因为它含 4 个 1 ，大于 n 的值 3 。</p></blockquote><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>问题的要求：寻找数组的子集，在子集中最多包含 <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> ，使得子集中的元素尽可能的多。</p><p>此处完全就是一个0/1背包问题，背包的容量为： <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> ，每一个物品的价值都是1，要装下尽可能多的物品。将背包的维度从原本的一维情形转变成了2维。</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[m+1][n+1]</code> ，其中 <code>dp[i][j]</code> 表示能装 <code>i</code> 个 <code>0</code> 、 <code>j</code> 个 <code>1</code> 的背包能够放下的物品个数。</p></li><li><p>动态规划数组的推导：在第 <code>k</code> 次迭代中，在 <code>0-k</code> 个元素中进行选择，相较于上一次迭代，新增了第 <code>k</code> 个元素，记第 <code>k</code> 个元素中 <code>0</code> 的个数为 $k_0$ ， <code>1</code> 的个数为 $k_1$ ，此处有两种情况：可以选择元素 <code>k</code> ，或者不选元素 <code>k</code> ，应该在两者之中选择能够装下最多元素数量的情形，那么递推公式为： $i&gt;k_0\ ,j&gt;k_1$ </p><script type="math/tex; mode=display">dp[i][j]=max(dp[i-k_0][j-k_1]+1,dp[i][j])</script></li><li><p>动态规划数组的初始化：在初始状态仅在元素 <code>0</code> 中进行选择，那么对于 <code>dp[m][n]</code> 首先全初始化为 <code>0</code> ，对与 $i&gt;k_0,j&gt;k_1$ 的 $dp[i][j]=1$</p></li><li><p>动态规划数组的遍历顺序：外层循环将元素逐个加入，从左向右遍历元素数组 <code>strs</code> ，内层循环遍历动态规划数组，并且为了防止重复选择 <code>i,j</code> 都需要从大到小进行遍历。</p></li></ol><ol><li>举例验证：对于 <code>strs = [&quot;10&quot;, &quot;0&quot;, &quot;1&quot;], m = 1, n = 1</code> 动态规划数组的求解过程为：验证正确。</li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">2</span>][<span class="number">2</span>]=[[<span class="number">0</span> <span class="number">0</span>], [<span class="number">0</span> <span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">dp[<span class="number">2</span>][<span class="number">2</span>]=[[<span class="number">0</span> <span class="number">1</span>], [<span class="number">0</span> <span class="number">1</span>]] </span><br><span class="line"></span><br><span class="line">dp[<span class="number">2</span>][<span class="number">2</span>]=[[<span class="number">0</span> <span class="number">1</span>], [<span class="number">1</span> <span class="number">2</span>]]</span><br></pre></td></tr></table></figure><p>代码实现：(在本题中，动态规划数组可以全部初始化为0，外层循环从第 <code>0</code> 个元素开始选取，下述代码实现中采用这样的方式)</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">string2nums</span><span class="params">(string &amp;s,<span class="type">int</span> &amp;n0,<span class="type">int</span> &amp;n1)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> a:s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="string">&#x27;0&#x27;</span>) n0++;</span><br><span class="line">            <span class="keyword">else</span> n1++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findMaxForm</span><span class="params">(vector&lt;string&gt;&amp; strs, <span class="type">int</span> m, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(m+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n+<span class="number">1</span>,<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;strs.<span class="built_in">size</span>();k++)&#123;</span><br><span class="line">            <span class="type">int</span> n0=<span class="number">0</span>,n1=<span class="number">0</span>;</span><br><span class="line">            <span class="built_in">string2nums</span>(strs[k],n0,n1);</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=dp.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=n0;i--)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=dp[<span class="number">0</span>].<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;=n1;j--)&#123;</span><br><span class="line">                    dp[i][j]=<span class="built_in">max</span>(dp[i-n0][j-n1]+<span class="number">1</span>,dp[i][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp.<span class="built_in">back</span>().<span class="built_in">back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/0-1%E8%83%8C%E5%8C%85/">0/1背包</category>
+      
+      
+      <comments>http://marksblog.cn/posts/cc66f981/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>LeetCode-494-目标和</title>
@@ -345,46 +385,6 @@
       
       
       <comments>http://marksblog.cn/posts/403dae8f/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>LeetCode-70-爬楼梯</title>
-      <link>http://marksblog.cn/posts/680ccd04/</link>
-      <guid>http://marksblog.cn/posts/680ccd04/</guid>
-      <pubDate>Sun, 14 May 2023 16:00:24 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的下标及含义： &lt;code&gt;dp[i]&lt;/code&gt; 表示总计 &lt;code&gt;i&lt;/code&gt; 个楼梯的爬楼方式，总计的长度为n&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;递推公式： &lt;code&gt;dp[i]=dp[i-1]+dp[i-2]&lt;/code&gt; ，此处的理解可以使当前剩余 &lt;code&gt;i&lt;/code&gt; 阶楼梯，当前这一步分别走一步或者两步。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;dp数组的初始化：当 &lt;code&gt;i=1&lt;/code&gt; 时，明显不存在方法 &lt;code&gt;dp[1]=1&lt;/code&gt; ，当 &lt;code&gt;i=2&lt;/code&gt; 时，只能走一步 &lt;code&gt;dp[2]=2&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;遍历顺序：此处需要求解的是 &lt;code&gt;dp[n]&lt;/code&gt; 那么明显需要从前向后进行递推&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;举例推导：n=3 &lt;code&gt;dp[3]=dp[1]+dp[2]=3&lt;/code&gt; 满足要求&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;此处在初始化时，有一个较为重要的细节，就是对于 &lt;code&gt;dp[0]&lt;/code&gt; 的定义和初始化，从 &lt;code&gt;dp&lt;/code&gt; 数组的定义来看，此处的 &lt;code&gt;dp[0]&lt;/code&gt; 应该代表的是，总计0个阶梯有几种爬法，那么应该是不存在爬得方式，应该是初始化为0，但是如果使用 &lt;code&gt;dp[0],dp[1]&lt;/code&gt; 去计算 &lt;code&gt;dp[2]&lt;/code&gt; 将会得到错误的结果，因此此处不应该初始化 &lt;code&gt;dp[0]&lt;/code&gt; 将 &lt;code&gt;dp[1],dp[2]&lt;/code&gt; 作为初始值去计算。&lt;/p&gt;
-&lt;p&gt;根据此处的递推公式：当前状态 &lt;code&gt;i&lt;/code&gt; 的决策，也只和前两个状态有关，那么只需要保存前两个状态的值，实现空间复杂度的化简。&lt;/p&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="LeetCode-70-爬楼梯"><a href="#LeetCode-70-爬楼梯" class="headerlink" title="LeetCode 70 爬楼梯"></a>LeetCode 70 爬楼梯</h1><p><a href="https://leetcode.cn/problems/climbing-stairs/">70.爬楼梯</a></p><p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p><p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol><li><p>动态规划数组的下标及含义： <code>dp[i]</code> 表示总计 <code>i</code> 个楼梯的爬楼方式，总计的长度为n</p></li><li><p>递推公式： <code>dp[i]=dp[i-1]+dp[i-2]</code> ，此处的理解可以使当前剩余 <code>i</code> 阶楼梯，当前这一步分别走一步或者两步。</p></li><li><p>dp数组的初始化：当 <code>i=1</code> 时，明显不存在方法 <code>dp[1]=1</code> ，当 <code>i=2</code> 时，只能走一步 <code>dp[2]=2</code></p></li><li><p>遍历顺序：此处需要求解的是 <code>dp[n]</code> 那么明显需要从前向后进行递推</p></li><li><p>举例推导：n=3 <code>dp[3]=dp[1]+dp[2]=3</code> 满足要求</p></li></ol><p>此处在初始化时，有一个较为重要的细节，就是对于 <code>dp[0]</code> 的定义和初始化，从 <code>dp</code> 数组的定义来看，此处的 <code>dp[0]</code> 应该代表的是，总计0个阶梯有几种爬法，那么应该是不存在爬得方式，应该是初始化为0，但是如果使用 <code>dp[0],dp[1]</code> 去计算 <code>dp[2]</code> 将会得到错误的结果，因此此处不应该初始化 <code>dp[0]</code> 将 <code>dp[1],dp[2]</code> 作为初始值去计算。</p><p>根据此处的递推公式：当前状态 <code>i</code> 的决策，也只和前两个状态有关，那么只需要保存前两个状态的值，实现空间复杂度的化简。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">climbStairs</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">3</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">int</span> dp[<span class="number">2</span>];</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>,dp[<span class="number">1</span>]=<span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            res=dp[<span class="number">0</span>]+dp[<span class="number">1</span>];</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">            dp[<span class="number">1</span>]=res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      
-      <comments>http://marksblog.cn/posts/680ccd04/#disqus_thread</comments>
       
     </item>
     
