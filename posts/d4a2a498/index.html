@@ -20,22 +20,23 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="双hash+回溯递归本题在46.全排列问题的基础之上发生了改变，主要的不同之处在于：给定的序列中包含重复的元素，那么在全排列的过程中就会导致重复的结果，例如 nums&#x3D;[1,1,2] 完全按照排列问题进行处理将会出现重复结果： [1,2,1] 和 [1,1,2] ，那么在于全排列问题的基础上此处的重点就在于处理重复的结果。 那么基本思路还是：递归实现，每一层选取一个元素作为排列中的第 cur 个元">
+  <meta name="description" content="动态规划本题是一个经典的完全背包的变体，此时背包的容量就是 amount ，物品的重量为 coins ，求解物品将背包装满的方案数。不同于之前0&#x2F;1背包问题的变体（494.目标和），此处的硬币数量是无限的，并且是完全对于硬币做加法的。 那么这样的完全背包问题就适用于动态规划求解：  动态规划数组的定义：定义数组 dp[amount+1] 表示在背包容量为 amount 时，将背包装满的方案数  动">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-47-全排列II">
-<meta property="og:url" content="http://marksblog.cn/posts/4dfcc4fe/index.html">
+<meta property="og:title" content="LeetCode-518-零钱兑换II">
+<meta property="og:url" content="http://marksblog.cn/posts/d4a2a498/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="双hash+回溯递归本题在46.全排列问题的基础之上发生了改变，主要的不同之处在于：给定的序列中包含重复的元素，那么在全排列的过程中就会导致重复的结果，例如 nums&#x3D;[1,1,2] 完全按照排列问题进行处理将会出现重复结果： [1,2,1] 和 [1,1,2] ，那么在于全排列问题的基础上此处的重点就在于处理重复的结果。 那么基本思路还是：递归实现，每一层选取一个元素作为排列中的第 cur 个元">
+<meta property="og:description" content="动态规划本题是一个经典的完全背包的变体，此时背包的容量就是 amount ，物品的重量为 coins ，求解物品将背包装满的方案数。不同于之前0&#x2F;1背包问题的变体（494.目标和），此处的硬币数量是无限的，并且是完全对于硬币做加法的。 那么这样的完全背包问题就适用于动态规划求解：  动态规划数组的定义：定义数组 dp[amount+1] 表示在背包容量为 amount 时，将背包装满的方案数  动">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-07T15:28:05.000Z">
-<meta property="article:modified_time" content="2023-05-07T15:29:53.982Z">
+<meta property="article:published_time" content="2023-05-26T12:58:11.000Z">
+<meta property="article:modified_time" content="2023-05-26T12:58:45.173Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="回溯法">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="完全背包">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/4dfcc4fe/">
+<link rel="canonical" href="http://marksblog.cn/posts/d4a2a498/">
 
 
 <script id="page-configurations">
@@ -48,7 +49,7 @@
   };
 </script>
 
-  <title>LeetCode-47-全排列II | Mark's blogs</title>
+  <title>LeetCode-518-零钱兑换II | Mark's blogs</title>
   
 
 
@@ -79,119 +80,7 @@
   </style>
 </noscript>
 
-<style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style><link rel="alternate" href="/rss2.xml" title="Mark's blogs" type="application/rss+xml">
+<link rel="alternate" href="/rss2.xml" title="Mark's blogs" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -299,7 +188,7 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4dfcc4fe/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/d4a2a498/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -312,7 +201,7 @@ mjx-container[display="true"] + br {
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-47-全排列II
+          LeetCode-518-零钱兑换II
         </h1>
 
         <div class="post-meta">
@@ -323,7 +212,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-07 23:28:05 / 修改时间：23:29:53" itemprop="dateCreated datePublished" datetime="2023-05-07T23:28:05+08:00">2023-05-07</time>
+              <time title="创建时间：2023-05-26 20:58:11 / 修改时间：20:58:45" itemprop="dateCreated datePublished" datetime="2023-05-26T20:58:11+08:00">2023-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -351,8 +240,8 @@ mjx-container[display="true"] + br {
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/4dfcc4fe/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/4dfcc4fe/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/d4a2a498/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/d4a2a498/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -362,14 +251,14 @@ mjx-container[display="true"] + br {
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -381,23 +270,42 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-47-全排列II"><a href="#LeetCode-47-全排列II" class="headerlink" title="LeetCode 47 全排列II"></a>LeetCode 47 全排列II</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/permutations-ii/">47.全排列II</a></p>
-<p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
+        <h1 id="LeetCode-518-零钱兑换II"><a href="#LeetCode-518-零钱兑换II" class="headerlink" title="LeetCode 518 零钱兑换II"></a>LeetCode 518 零钱兑换II</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change-ii/">518.零钱兑换II</a></p>
+<p>给你一个整数数组 <code>coins</code> 表示不同面额的硬币，另给一个整数 <code>amount</code> 表示总金额。</p>
+<p>请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 <code>0</code> 。</p>
+<p>假设每一种面额的硬币有无限个。 </p>
+<p>题目数据保证结果符合32位带符号整数。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：amount = 5, coins = [1, 2, 5]<br>输出：4<br>解释：有四种方式可以凑成总金额：<br>5=5<br>5=2+2+1<br>5=2+1+1+1<br>5=1+1+1+1+1</p>
+</blockquote>
 
-<h2 id="双hash-回溯递归"><a href="#双hash-回溯递归" class="headerlink" title="双hash+回溯递归"></a>双hash+回溯递归</h2><p>本题在<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/permutations/">46.全排列</a>问题的基础之上发生了改变，主要的不同之处在于：给定的序列中包含重复的元素，那么在全排列的过程中就会导致重复的结果，例如 <code>nums=[1,1,2]</code> 完全按照排列问题进行处理将会出现重复结果： <code>[1,2,1]</code> 和 <code>[1,1,2]</code> ，那么在于全排列问题的基础上此处的重点就在于处理重复的结果。</p>
-<p>那么基本思路还是：递归实现，每一层选取一个元素作为排列中的第 <code>cur</code> 个元素，当 <code>cur=nums.size()</code> 选取结束，将排列加入到结果集中。</p>
-<p>此处采取双hash的方式进行处理，创建两个hash表：</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>本题是一个经典的完全背包的变体，此时背包的容量就是 <code>amount</code> ，物品的重量为 <code>coins</code> ，求解物品将背包装满的方案数。不同于之前0/1背包问题的变体（<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/target-sum/">494.目标和</a>），此处的硬币数量是无限的，并且是完全对于硬币做加法的。</p>
+<p>那么这样的完全背包问题就适用于动态规划求解：</p>
 <ol>
-<li><code>used[8]</code> 是一个全局变量，记录的是整个序列中那些位置的的元素已经使用了 <code>used[i]=true</code> 代表 <code>nums[i]</code> 处的元素已经在前层使用了。那么在某层选取 <code>nums[i]</code> 后需要对 <code>used[i]</code> 进行标记，在递归返回后需要进行回溯，取消标记（ <code>nums</code> 的最大长度为8，定长数组即可）</li>
-<li><code>curUsed[21]</code> 是递归函数中的局部变量，记录的是在当前层中那些元素值已经使用过了， <code>curUed[i]=true</code> 表示在当前层元素值 <code>i</code> 已经使用过了，假设当前的递归层数为第 <code>j</code> 层，那么表示在排列的第 <code>j</code> 个位置已经使用过元素 <code>i</code> ，那么在当前层的后续选择中遇到元素 <code>i</code> 就需要进行跳过</li>
+<li><p>动态规划数组的定义：定义数组 <code>dp[amount+1]</code> 表示在背包容量为 <code>amount</code> 时，将背包装满的方案数</p>
+</li>
+<li><p>动态规划数组的推导：在第 <code>i</code> 次迭代中，考虑元素 <code>coins[i]</code> ，可以选取 0/n 个元素 <code>coins[i]</code> ，那么递推公式为 <code>dp[j]=dp[j]+dp[j-coins[i]]</code></p>
+</li>
+<li><p>动态规划数组的初始化：在初识时在元素 <code>coins[0]</code> 中选取元素尝试装满背包，那么对于元素 <code>coins[0]</code> 的倍数容量的背包就都能够被装满，也就是存在一种可行的方案。 <code>for(int i=0;i*coins[0]&lt;=amount;i++)  dp[i*coins[0]]=1;</code> </p>
+</li>
+<li><p>动态规划数组的遍历顺序：此处采取先遍历硬币再遍历背包的方式，遍历的顺序都是从前向后遍历。</p>
+</li>
+<li><p>举例验证：对于 <code>coins=&#123;1,2,5&#125;,amount=5</code> 动态规划数组的变化为：验证正确</p>
+</li>
 </ol>
+<blockquote>
+<p>  dp={1,1,1,1,1,1}<br>    dp={1,1,2,2,3,3}<br>    dp={1,1,2,2,3,4}</p>
+</blockquote>
 
 <p>代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="type">int</span> curUsed[<span class="number">21</span>]={<span class="literal">false</span>}; <span class="comment">// 记录当前层那些元素值被使用了</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(!used[i]&amp;&amp;!curUsed[nums[i]+<span class="number">10</span>]){ <span class="comment">// 在前层和当前层都没有使用过</span></span><br><span class="line">                used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">                tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                curUsed[nums[i]+<span class="number">10</span>]=<span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">                tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">                used[i]=<span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-<h2 id="单hash削减空间复杂度"><a href="#单hash削减空间复杂度" class="headerlink" title="单hash削减空间复杂度"></a>单hash削减空间复杂度</h2><p>将数组 <code>nums</code> 排序，使用单个hash进行记录。使用一个hash <code>vis</code> 记录 <code>nums</code> 数组中的第i个元素是否被使用。在第i层进行元素的选取时，若是当前元素和前一个元素相等，并且上一个元素在当前层没有被选择，那么就不选择该元素。也就是对于多个连续的重复元素，在第i层中要对齐进行选取，仅仅选取一次，那么这一次就是选取多个连续重复元素中的第一个元素。当然对于 <code>vis[i]==true</code> 的情形，肯定是不能进行选取了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>] &amp;&amp; !vis[i - <span class="number">1</span>]) {</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>整体代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(used[i]||(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]&amp;&amp;!used[i<span class="number">-1</span>])){</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">            tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">            tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">            used[i]=<span class="literal">false</span>;        </span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">change</span><span class="params">(<span class="type">int</span> amount, vector&lt;<span class="type">int</span>&gt;&amp; coins)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(amount+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i*coins[<span class="number">0</span>]&lt;=amount;i++)</span><br><span class="line">            dp[i*coins[<span class="number">0</span>]]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;coins.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=coins[i];j&lt;=amount;j++)&#123;</span><br><span class="line">                dp[j]=dp[j]+dp[j-coins[i]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp.<span class="built_in">back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对换遍历顺序：先遍历背包，再遍历物品，也就是初始的背包容量为0，那么 <code>dp[0]=1</code> 。逐步增加背包的容量，每一次计算的是，背包容量为 <code>j</code> 时，将背包装满的最大方案数。采取： <code>dp[j]=j&gt;=coins[i]?dp[j]+dp[j-coins[i]]:dp[j];</code> 的方式去递推，这样的递推方式存在一个问题，将单纯的选择问题转换为了有序的，这样的计算方式：在当前尝试选择元素 <code>coins[i]</code> ，例如对于 <code>dp[3]</code> 机会出现： <code>dp[3]=dp[1]+dp[2]</code> 此处将方案：<code>1，2 和 2，1</code> 进行了重复计算。因此在本题中遍历的顺序需要是先遍历物品在遍历背包。</p>
+<p>关于遍历的顺序：</p>
+<ul>
+<li>如果求组合数就是外层for循环遍历物品，内层for遍历背包。</li>
+<li>如果求排列数就是外层for遍历背包，内层for循环遍历物品。</li>
+</ul>
 
     </div>
 
@@ -423,7 +331,7 @@ mjx-container[display="true"] + br {
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/4dfcc4fe/" title="LeetCode-47-全排列II">http://marksblog.cn/posts/4dfcc4fe/</a>
+    <a href="http://marksblog.cn/posts/d4a2a498/" title="LeetCode-518-零钱兑换II">http://marksblog.cn/posts/d4a2a498/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -464,7 +372,8 @@ mjx-container[display="true"] + br {
           <div class="post-tags">
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-              <a href="/tags/%E5%9B%9E%E6%BA%AF%E6%B3%95/" rel="tag"># 回溯法</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/" rel="tag"># 完全背包</a>
           </div>
 
         
@@ -473,13 +382,10 @@ mjx-container[display="true"] + br {
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/548c004/" rel="prev" title="LeetCode-46-全排列">
-      <i class="fa fa-chevron-left"></i> LeetCode-46-全排列
+    <a href="/posts/5cdb273d/" rel="prev" title="完全背包问题">
+      <i class="fa fa-chevron-left"></i> 完全背包问题
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/74305938/" rel="next" title="LeetCode-654-最大二叉树">
-      LeetCode-654-最大二叉树 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -539,7 +445,7 @@ mjx-container[display="true"] + br {
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-47-%E5%85%A8%E6%8E%92%E5%88%97II"><span class="nav-text">LeetCode 47 全排列II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8Chash-%E5%9B%9E%E6%BA%AF%E9%80%92%E5%BD%92"><span class="nav-text">双hash+回溯递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95hash%E5%89%8A%E5%87%8F%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">单hash削减空间复杂度</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2II"><span class="nav-text">LeetCode 518 零钱兑换II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -742,61 +648,6 @@ $(document).ready(function() {
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
