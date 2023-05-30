@@ -1,61 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>01背包问题总结</title>
-    <url>/posts/39479a98/</url>
-    <content><![CDATA[
-<h1 id="01背包问题总结"><a href="#01背包问题总结" class="headerlink" title="01背包问题总结"></a>01背包问题总结</h1><p>首先，需要清楚的是0/1背包问题本身：有 <code>n</code> 件物品和一个最多能背重量为 <code>w</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。</p>
-<p>此处使用动态规划求解，问题的划分方式为：使用一个二维数组对问题进行两部分的划分。对于 <code>dp[i][j]</code> 求解的是，当背包容量为 <code>j</code> 时，在物品 <code>0-i</code> 中选择能够获取到的最大的容量。</p>
-<p>那么在采取逐行便利的方式，就是每一次增加物品的数量，递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p>
-<p>采取逐列遍历的方式，每一次增加的是背包的容量，那么递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p>
-<p>使用滚动数组实现动态规划的过程：基于背包容量的滚动数组实现，那么此处就一定要先遍历物品再遍历背包了，因为动态规划数组的含义是，在第 <code>i</code> 次迭代中，使用 <code>0-i</code> 个物品去填充背包，能够得到的背包中物品的最大价值。并且是0/1背包问题，那么对于背包的遍历顺序一定要是</p>
-<p>能否基于物品数量的滚动数组实现：</p>
-<ol>
-<li><p>动态规划数组的定义：定义数组 <code>dp[n]</code> ，在初始时表示，当背包容量为0时，能够装下的最大的物品价值。</p>
-</li>
-<li><p>动态规划数组的推导：对于第 <code>j</code> 次迭代时，表示当背包容量为 <code>j</code> 时，能够装下的物品的最大价值。在一维的情形下，背包容量减去 <code>weight[i]</code> 的情形无法实现递推。</p>
-</li>
-</ol>
-<p>因此在0/1背包中使用滚动数组，只能基于背包容量的数组来实现。</p>
-
-<h2 id="LeetCode-416-分割等和子集"><a href="#LeetCode-416-分割等和子集" class="headerlink" title="LeetCode 416 分割等和子集"></a>LeetCode 416 分割等和子集</h2><p><a href="https://leetcode.cn/problems/partition-equal-subset-sum/">416.分割等和子集</a></p>
-<p>给你一个只包含正整数的非空数组 <code>nums</code> 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
-<p>此处的重点是问题的转化，要求两个子集的元素和相等，将元素的和转化为背包的大小，也就是使用一个容量等于全部元素和一半的背包去装数组元素能否恰好将背包装满。这一半能够装满，那么另外一半也能够装满。也就完成了划分。</p>
-<p>动态规划数组的定义为： <code>dp[j]</code> 表示：当背包容量为 <code>j</code> 时，能够恰好将背包装满，那么递推公式就为：在第 <code>i</code> 次迭代中在 <code>0-i</code> 个元素中进行选择，<code>dp[j]=dp[j]||dp[j-nums[i]]</code> 此处的背包也是需要从后向前遍历，为了防止重复选择。</p>
-<p>本题的重点在于问题的转化，将等和子集划分，转化为一个0/1背包问题。</p>
-<h2 id="LeetCode-1049-最后一块石头的重量II"><a href="#LeetCode-1049-最后一块石头的重量II" class="headerlink" title="LeetCode 1049 最后一块石头的重量II"></a>LeetCode 1049 最后一块石头的重量II</h2><p><a href="https://leetcode.cn/problems/last-stone-weight-ii/">1049.最后一块石头的重量II</a></p>
-<p>有一堆石头，用整数数组 <code>stones</code> 表示。其中 <code>stones[i]</code> 表示第 <code>i</code> 块石头的重量。</p>
-<p>每一回合，从中选出任意两块石头，然后将它们一起粉碎。假设石头的重量分别为 <code>x</code> 和 <code>y</code>，且 <code>x &lt;= y</code> 。那么粉碎的可能结果如下：</p>
-<ul>
-<li>如果 <code>x == y</code> ，那么两块石头都会被完全粉碎；</li>
-<li>如果 <code>x != y</code> ，那么重量为 <code>x</code> 的石头将会完全粉碎，而重量为 <code>y</code> 的石头新重量为 <code>y-x</code> 。</li>
-</ul>
-<p>最后，最多只会剩下一块石头。返回此石头最小的可能重量。如果没有石头剩下，就返回0。</p>
-<p>本题的求解方式也是需要对问题进行转化，两块石头粉碎后的重量一定是小重量石头的两倍，那问题就像是一个消消乐游戏。那么想要找到最优的方案，就是将石头划分为两个集合，这两个集合的石头总重量要尽可能的接近。</p>
-<p>最接近的划分方式就是：两个集合的总重量恰好为全部石头总重量的一半，转为背包容量为sum/2，能否将背包恰好装满。定义动态规划数组 <code>dp[sum/2+1]</code> ，表示能否恰好将 <code>sum/2</code> 容量的背包装满，那么最后只要找到能够恰好装满的最大容量的背包即可。问题和分割等和子集类似。</p>
-<h2 id="LeetCode-494-目标和"><a href="#LeetCode-494-目标和" class="headerlink" title="LeetCode 494 目标和"></a>LeetCode 494 目标和</h2><p><a href="https://leetcode.cn/problems/target-sum/">494.目标和</a></p>
-<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>target</code> 。</p>
-<p>向数组中的每个整数前添加 <code>+</code> 或 <code>-</code> ，然后串联起所有整数，可以构造一个表达式：</p>
-<p>例如，<code>nums = [2, 1]</code> ，可以在 <code>2</code> 之前添加 <code>+</code> ，在 <code>1</code> 之前添加 <code>-</code> ，然后串联起来得到表达式 <code>+2-1</code> 。<br>返回可以通过上述方法构造的、运算结果等于 <code>target</code> 的不同表达式的数目。</p>
-<p>本题对于问题的转化是相对复杂的：首先，假设在表达式中为负号元素的总和为 <code>neg</code> ，所有元素的总和为 <code>sum</code> ，那么就有 <code>sum-neg-neg=target</code> ，那么就有 <code>neg=(sum-neg)/2</code> 此处 <code>sum&lt;target</code> 或 <code>(sum-target)%2==1</code> 说明没有可行方案。</p>
-<p>那么讲问题转化为：将容量为 <code>neg</code> 的背包装满有多少种方案。依旧是使用基于滚动数组的动态规划实现，先便利物品在遍历背包，背包从后向前遍历。此处主要是递推公式存在区别 <code>dp[j]=dp[j]+dp[j-nums[i]]</code> 此处的含义在于：包含的方案有在第 <code>i</code> 次迭代时，不选择 <code>nums[i]</code> 的方案 <code>dp[j]</code> 和选择 <code>nums[i]</code> 的方案 <code>dp[j-nums[i]]</code></p>
-<h2 id="LeetCode-474-一和零"><a href="#LeetCode-474-一和零" class="headerlink" title="LeetCode 474 一和零"></a>LeetCode 474 一和零</h2><p><a href="https://leetcode.cn/problems/ones-and-zeroes/">474.一和零</a></p>
-<p>给你一个二进制字符串数组 <code>strs</code> 和两个整数 <code>m</code> 和 <code>n</code> 。</p>
-<p>请你找出并返回 <code>strs</code> 的最大子集的长度，该子集中最多有 <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> 。</p>
-<p>如果 <code>x</code> 的所有元素也是 <code>y</code> 的元素，集合 <code>x</code> 是集合 <code>y</code> 的子集 。</p>
-<p>此处也是一个0/1背包问题，但是将背包的容量转变为了2维，此处每一个物品的价值都为1，那么创建一个二维数组，基于滚动数组的方式实现。那么依旧是在第 <code>k</code> 次迭代中，在元素 <code>0-k</code> 中进行选择。递推公式 <code>dp[i][j]=max(dp[i][j],dp[i-k0][j-k1]+1)</code> 也就是在第 <code>k</code> 迭代中，比较选取元素 <code>strs[k]</code> 或者不选择，哪一个能够获得最大长度。</p>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>动态规划</tag>
-        <tag>0/1背包</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>01背包问题</title>
     <url>/posts/6935a6f4/</url>
     <content><![CDATA[
@@ -101,6 +46,61 @@
 <p>代码实现：</p>
 <p>在上述的遍历过程可以进行进一步的改写，对于 <code>j</code> 的取值范围，当 <code>j&lt;weight[i]</code> 时在继续遍历实际上就没有意义了，此时 <code>dp[j]=dp[j]</code> 即可。因此 <code>j</code> 的范围是 <code>w,...,weight[i]</code></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::vector;</span><br><span class="line"><span class="keyword">using</span> std::max;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">backpack01</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; weight,vector&lt;<span class="type">int</span>&gt;&amp; value,<span class="type">int</span> w)</span></span>{</span><br><span class="line">    <span class="type">int</span> n=weight.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(w+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=weight[<span class="number">0</span>];i&lt;=w;i++)</span><br><span class="line">        dp[i]=value[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++){</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=w;j&gt;=weight[i];j--){</span><br><span class="line">            dp[j]=<span class="built_in">max</span>(dp[j],dp[j-weight[i]]+value[i]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[w];</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; weight={<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; value={<span class="number">15</span>,<span class="number">20</span>,<span class="number">30</span>};</span><br><span class="line">    std::cout&lt;&lt;<span class="built_in">backpack01</span>(weight,value,<span class="number">4</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>动态规划</tag>
+        <tag>0/1背包</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>01背包问题总结</title>
+    <url>/posts/39479a98/</url>
+    <content><![CDATA[
+<h1 id="01背包问题总结"><a href="#01背包问题总结" class="headerlink" title="01背包问题总结"></a>01背包问题总结</h1><p>首先，需要清楚的是0/1背包问题本身：有 <code>n</code> 件物品和一个最多能背重量为 <code>w</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。</p>
+<p>此处使用动态规划求解，问题的划分方式为：使用一个二维数组对问题进行两部分的划分。对于 <code>dp[i][j]</code> 求解的是，当背包容量为 <code>j</code> 时，在物品 <code>0-i</code> 中选择能够获取到的最大的容量。</p>
+<p>那么在采取逐行遍历的方式，就是每一次增加物品的数量，递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p>
+<p>采取逐列遍历的方式，每一次增加的是背包的容量，那么递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p>
+<p>使用滚动数组实现动态规划的过程：基于背包容量的滚动数组实现，那么此处就一定要先遍历物品再遍历背包了，因为动态规划数组的含义是，在第 <code>i</code> 次迭代中，使用 <code>0-i</code> 个物品去填充背包，能够得到的背包中物品的最大价值。并且是0/1背包问题，那么对于背包的遍历顺序一定要是</p>
+<p>能否基于物品数量的滚动数组实现：</p>
+<ol>
+<li><p>动态规划数组的定义：定义数组 <code>dp[n]</code> ，在初始时表示，当背包容量为0时，能够装下的最大的物品价值。</p>
+</li>
+<li><p>动态规划数组的推导：对于第 <code>j</code> 次迭代时，表示当背包容量为 <code>j</code> 时，能够装下的物品的最大价值。在一维的情形下，背包容量减去 <code>weight[i]</code> 的情形无法实现递推。</p>
+</li>
+</ol>
+<p>因此在0/1背包中使用滚动数组，只能基于背包容量的数组来实现。</p>
+
+<h2 id="LeetCode-416-分割等和子集"><a href="#LeetCode-416-分割等和子集" class="headerlink" title="LeetCode 416 分割等和子集"></a>LeetCode 416 分割等和子集</h2><p><a href="https://leetcode.cn/problems/partition-equal-subset-sum/">416.分割等和子集</a></p>
+<p>给你一个只包含正整数的非空数组 <code>nums</code> 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p>此处的重点是问题的转化，要求两个子集的元素和相等，将元素的和转化为背包的大小，也就是使用一个容量等于全部元素和一半的背包去装数组元素能否恰好将背包装满。这一半能够装满，那么另外一半也能够装满。也就完成了划分。</p>
+<p>动态规划数组的定义为： <code>dp[j]</code> 表示：当背包容量为 <code>j</code> 时，能够恰好将背包装满，那么递推公式就为：在第 <code>i</code> 次迭代中在 <code>0-i</code> 个元素中进行选择，<code>dp[j]=dp[j]||dp[j-nums[i]]</code> 此处的背包也是需要从后向前遍历，为了防止重复选择。</p>
+<p>本题的重点在于问题的转化，将等和子集划分，转化为一个0/1背包问题。</p>
+<h2 id="LeetCode-1049-最后一块石头的重量II"><a href="#LeetCode-1049-最后一块石头的重量II" class="headerlink" title="LeetCode 1049 最后一块石头的重量II"></a>LeetCode 1049 最后一块石头的重量II</h2><p><a href="https://leetcode.cn/problems/last-stone-weight-ii/">1049.最后一块石头的重量II</a></p>
+<p>有一堆石头，用整数数组 <code>stones</code> 表示。其中 <code>stones[i]</code> 表示第 <code>i</code> 块石头的重量。</p>
+<p>每一回合，从中选出任意两块石头，然后将它们一起粉碎。假设石头的重量分别为 <code>x</code> 和 <code>y</code>，且 <code>x &lt;= y</code> 。那么粉碎的可能结果如下：</p>
+<ul>
+<li>如果 <code>x == y</code> ，那么两块石头都会被完全粉碎；</li>
+<li>如果 <code>x != y</code> ，那么重量为 <code>x</code> 的石头将会完全粉碎，而重量为 <code>y</code> 的石头新重量为 <code>y-x</code> 。</li>
+</ul>
+<p>最后，最多只会剩下一块石头。返回此石头最小的可能重量。如果没有石头剩下，就返回0。</p>
+<p>本题的求解方式也是需要对问题进行转化，两块石头粉碎后的重量一定是小重量石头的两倍，那问题就像是一个消消乐游戏。那么想要找到最优的方案，就是将石头划分为两个集合，这两个集合的石头总重量要尽可能的接近。</p>
+<p>最接近的划分方式就是：两个集合的总重量恰好为全部石头总重量的一半，转为背包容量为sum/2，能否将背包恰好装满。定义动态规划数组 <code>dp[sum/2+1]</code> ，表示能否恰好将 <code>sum/2</code> 容量的背包装满，那么最后只要找到能够恰好装满的最大容量的背包即可。问题和分割等和子集类似。</p>
+<h2 id="LeetCode-494-目标和"><a href="#LeetCode-494-目标和" class="headerlink" title="LeetCode 494 目标和"></a>LeetCode 494 目标和</h2><p><a href="https://leetcode.cn/problems/target-sum/">494.目标和</a></p>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>target</code> 。</p>
+<p>向数组中的每个整数前添加 <code>+</code> 或 <code>-</code> ，然后串联起所有整数，可以构造一个表达式：</p>
+<p>例如，<code>nums = [2, 1]</code> ，可以在 <code>2</code> 之前添加 <code>+</code> ，在 <code>1</code> 之前添加 <code>-</code> ，然后串联起来得到表达式 <code>+2-1</code> 。<br>返回可以通过上述方法构造的、运算结果等于 <code>target</code> 的不同表达式的数目。</p>
+<p>本题对于问题的转化是相对复杂的：首先，假设在表达式中为负号元素的总和为 <code>neg</code> ，所有元素的总和为 <code>sum</code> ，那么就有 <code>sum-neg-neg=target</code> ，那么就有 <code>neg=(sum-neg)/2</code> 此处 <code>sum&lt;target</code> 或 <code>(sum-target)%2==1</code> 说明没有可行方案。</p>
+<p>那么讲问题转化为：将容量为 <code>neg</code> 的背包装满有多少种方案。依旧是使用基于滚动数组的动态规划实现，先便利物品在遍历背包，背包从后向前遍历。此处主要是递推公式存在区别 <code>dp[j]=dp[j]+dp[j-nums[i]]</code> 此处的含义在于：包含的方案有在第 <code>i</code> 次迭代时，不选择 <code>nums[i]</code> 的方案 <code>dp[j]</code> 和选择 <code>nums[i]</code> 的方案 <code>dp[j-nums[i]]</code></p>
+<h2 id="LeetCode-474-一和零"><a href="#LeetCode-474-一和零" class="headerlink" title="LeetCode 474 一和零"></a>LeetCode 474 一和零</h2><p><a href="https://leetcode.cn/problems/ones-and-zeroes/">474.一和零</a></p>
+<p>给你一个二进制字符串数组 <code>strs</code> 和两个整数 <code>m</code> 和 <code>n</code> 。</p>
+<p>请你找出并返回 <code>strs</code> 的最大子集的长度，该子集中最多有 <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> 。</p>
+<p>如果 <code>x</code> 的所有元素也是 <code>y</code> 的元素，集合 <code>x</code> 是集合 <code>y</code> 的子集 。</p>
+<p>此处也是一个0/1背包问题，但是将背包的容量转变为了2维，此处每一个物品的价值都为1，那么创建一个二维数组，基于滚动数组的方式实现。那么依旧是在第 <code>k</code> 次迭代中，在元素 <code>0-k</code> 中进行选择。递推公式 <code>dp[i][j]=max(dp[i][j],dp[i-k0][j-k1]+1)</code> 也就是在第 <code>k</code> 迭代中，比较选取元素 <code>strs[k]</code> 或者不选择，哪一个能够获得最大长度。</p>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -232,6 +232,30 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-110-平衡二叉树</title>
+    <url>/posts/4641027c/</url>
+    <content><![CDATA[<h1 id="LeetCode-110-平衡二叉树"><a href="#LeetCode-110-平衡二叉树" class="headerlink" title="LeetCode 110 平衡二叉树"></a>LeetCode 110 平衡二叉树</h1><p><a href="https://leetcode.cn/problems/balanced-binary-tree/">110.平衡二叉树</a></p>
+<p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
+<p>本题中，一棵高度平衡二叉树定义为：</p>
+<p>一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。</p>
+<h2 id="1-1-DFS自顶向下暴力法实现"><a href="#1-1-DFS自顶向下暴力法实现" class="headerlink" title="1.1 DFS自顶向下暴力法实现"></a>1.1 DFS自顶向下暴力法实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getDepth</span><span class="params">(TreeNode *root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">getDepth</span>(root-&gt;left),<span class="built_in">getDepth</span>(root-&gt;right))+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> d_l=<span class="built_in">getDepth</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> d_r=<span class="built_in">getDepth</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(d_r-d_l)&lt;=<span class="number">1</span>&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;left)&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>此处存在时间复杂度的浪费，在深度计算上还存在这优化的空间。在计算深度时存在这对统一节点深度的反复计算。</p>
+
+<h2 id="1-2-DFS自底向上搜索"><a href="#1-2-DFS自底向上搜索" class="headerlink" title="1.2 DFS自底向上搜索"></a>1.2 DFS自底向上搜索</h2><p>本质思想就是先判断子树是否是平衡二叉树，当子树是一颗平衡二叉树时，希望能够返回树的深度（如何返回二叉树的深度）。若是子树不平衡，那么整个树一定都是不平衡的。</p>
+<p>关于深度的计算：当前节点为空时，直接返回0值，当前节点非空，则需要判断，需要理解递归的思想，在当前节点的两颗子树都是平衡二叉树时，只需要返回max深度+1即可。</p>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">balance</span><span class="params">(TreeNode *root)</span></span>&#123;  <span class="comment">// 判断子树是否平衡的同时返回深度值，实际上就是获取到深度后再判断，-1表示不平衡</span></span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">            <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">            <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>)?<span class="built_in">max</span>(br,bl)+<span class="number">1</span>:<span class="number">-1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;  <span class="comment">// 在总体的函数中就只需要进行简单的判断</span></span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>树和二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-131-分割回文串</title>
     <url>/posts/7c703a92/</url>
     <content><![CDATA[<h1 id="LeetCode-131-分割回文串"><a href="#LeetCode-131-分割回文串" class="headerlink" title="LeetCode 131 分割回文串"></a>LeetCode 131 分割回文串</h1><p><a href="https://leetcode.cn/problems/palindrome-partitioning/">131.分割回文串</a></p>
@@ -304,30 +328,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode-110-平衡二叉树</title>
-    <url>/posts/4641027c/</url>
-    <content><![CDATA[<h1 id="LeetCode-110-平衡二叉树"><a href="#LeetCode-110-平衡二叉树" class="headerlink" title="LeetCode 110 平衡二叉树"></a>LeetCode 110 平衡二叉树</h1><p><a href="https://leetcode.cn/problems/balanced-binary-tree/">110.平衡二叉树</a></p>
-<p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
-<p>本题中，一棵高度平衡二叉树定义为：</p>
-<p>一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。</p>
-<h2 id="1-1-DFS自顶向下暴力法实现"><a href="#1-1-DFS自顶向下暴力法实现" class="headerlink" title="1.1 DFS自顶向下暴力法实现"></a>1.1 DFS自顶向下暴力法实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getDepth</span><span class="params">(TreeNode *root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">getDepth</span>(root-&gt;left),<span class="built_in">getDepth</span>(root-&gt;right))+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> d_l=<span class="built_in">getDepth</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> d_r=<span class="built_in">getDepth</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(d_r-d_l)&lt;=<span class="number">1</span>&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;left)&amp;&amp;<span class="built_in">isBalanced</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>此处存在时间复杂度的浪费，在深度计算上还存在这优化的空间。在计算深度时存在这对统一节点深度的反复计算。</p>
-
-<h2 id="1-2-DFS自底向上搜索"><a href="#1-2-DFS自底向上搜索" class="headerlink" title="1.2 DFS自底向上搜索"></a>1.2 DFS自底向上搜索</h2><p>本质思想就是先判断子树是否是平衡二叉树，当子树是一颗平衡二叉树时，希望能够返回树的深度（如何返回二叉树的深度）。若是子树不平衡，那么整个树一定都是不平衡的。</p>
-<p>关于深度的计算：当前节点为空时，直接返回0值，当前节点非空，则需要判断，需要理解递归的思想，在当前节点的两颗子树都是平衡二叉树时，只需要返回max深度+1即可。</p>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">balance</span><span class="params">(TreeNode *root)</span></span>&#123;  <span class="comment">// 判断子树是否平衡的同时返回深度值，实际上就是获取到深度后再判断，-1表示不平衡</span></span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">            <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">            <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>)?<span class="built_in">max</span>(br,bl)+<span class="number">1</span>:<span class="number">-1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;  <span class="comment">// 在总体的函数中就只需要进行简单的判断</span></span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">int</span> bl=<span class="built_in">balance</span>(root-&gt;left);</span><br><span class="line">        <span class="type">int</span> br=<span class="built_in">balance</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> (bl!=<span class="number">-1</span>&amp;&amp;br!=<span class="number">-1</span>&amp;&amp;<span class="built_in">abs</span>(bl-br)&lt;=<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>树和二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode-216-组合总和III</title>
     <url>/posts/1e0d822d/</url>
     <content><![CDATA[<h1 id="LeetCode-216-组合总和III"><a href="#LeetCode-216-组合总和III" class="headerlink" title="LeetCode 216 组合总和III"></a>LeetCode 216 组合总和III</h1><p><a href="https://leetcode.cn/problems/combination-sum-iii/">216.组合总和III</a></p>
@@ -352,6 +352,29 @@
         <tag>c++</tag>
         <tag>LeetCode</tag>
         <tag>回溯法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode-257-二叉树的所有路径</title>
+    <url>/posts/15552c94/</url>
+    <content><![CDATA[<h1 id="LeetCode-257-二叉树的所有路径"><a href="#LeetCode-257-二叉树的所有路径" class="headerlink" title="LeetCode 257 二叉树的所有路径"></a>LeetCode 257 二叉树的所有路径</h1>
+<p><a href="https://leetcode.cn/problems/binary-tree-paths/">257.二叉树的所有路径</a></p>
+<p>给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。</p>
+<p>叶子节点 是指没有子节点的节点</p>
+
+<h2 id="1-1-后序非递归实现"><a href="#1-1-后序非递归实现" class="headerlink" title="1.1 后序非递归实现"></a>1.1 后序非递归实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        vector&lt;TreeNode*&gt; s;</span><br><span class="line">        TreeNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(root||!s.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">while</span>(root)&#123;</span><br><span class="line">                s.<span class="built_in">push_back</span>(root);</span><br><span class="line">                root=root-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            TreeNode* node=s.<span class="built_in">back</span>();</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right&amp;&amp;node-&gt;right!=pre)&#123;</span><br><span class="line">                root=node-&gt;right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(!node-&gt;right&amp;&amp;!node-&gt;left)&#123;</span><br><span class="line">                    string path;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>()<span class="number">-1</span>;i++)</span><br><span class="line">                        path+=(<span class="built_in">to_string</span>(s[i]-&gt;val)+<span class="string">&quot;-&gt;&quot;</span>);</span><br><span class="line">                    path+=<span class="built_in">to_string</span>(s[s.<span class="built_in">size</span>()<span class="number">-1</span>]-&gt;val);</span><br><span class="line">                    res.<span class="built_in">push_back</span>(path);</span><br><span class="line">                &#125;</span><br><span class="line">                pre=node;</span><br><span class="line">                s.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>此处也可以改写为使用递归方式实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">construct_path</span><span class="params">(TreeNode* root,string path,vector&lt;string&gt; &amp;res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!root-&gt;left&amp;&amp;!root-&gt;right)&#123;</span><br><span class="line">                path+=<span class="built_in">to_string</span>(root-&gt;val);</span><br><span class="line">                res.<span class="built_in">push_back</span>(path);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            path+=(<span class="built_in">to_string</span>(root-&gt;val)+<span class="string">&quot;-&gt;&quot;</span>);</span><br><span class="line">            <span class="built_in">construct_path</span>(root-&gt;left,path,res);</span><br><span class="line">            <span class="built_in">construct_path</span>(root-&gt;right,path,res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        string path;</span><br><span class="line">        <span class="built_in">construct_path</span>(root,path,res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-基于BFS实现"><a href="#1-2-基于BFS实现" class="headerlink" title="1.2 基于BFS实现"></a>1.2 基于BFS实现</h2><p>此处采取的完全是穷举的方式，创建一个路径队列，用于逐步生成全部的路径，当出栈元素是一个孩子节点时，将生成的路径加入到结果集。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q_node;</span><br><span class="line">        queue&lt;string&gt; q_path;</span><br><span class="line">        q_node.<span class="built_in">push</span>(root);</span><br><span class="line">        q_path.<span class="built_in">push</span>(<span class="built_in">to_string</span>(root-&gt;val));</span><br><span class="line">        <span class="keyword">while</span>(!q_node.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            TreeNode* node=q_node.<span class="built_in">front</span>();</span><br><span class="line">            string path=q_path.<span class="built_in">front</span>();</span><br><span class="line">            q_node.<span class="built_in">pop</span>();</span><br><span class="line">            q_path.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">if</span>(!node-&gt;left&amp;&amp;!node-&gt;right)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                q_node.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                q_path.<span class="built_in">push</span>(path+<span class="string">&quot;-&gt;&quot;</span>+<span class="built_in">to_string</span>(node-&gt;left-&gt;val));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right)&#123;</span><br><span class="line">                q_node.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">                q_path.<span class="built_in">push</span>(path+<span class="string">&quot;-&gt;&quot;</span>+<span class="built_in">to_string</span>(node-&gt;right-&gt;val));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>树和二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -386,6 +409,49 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-322-零钱兑换</title>
+    <url>/posts/d74e0b6/</url>
+    <content><![CDATA[<h1 id="LeetCode-322-零钱兑换"><a href="#LeetCode-322-零钱兑换" class="headerlink" title="LeetCode 322 零钱兑换"></a>LeetCode 322 零钱兑换</h1><p><a href="https://leetcode.cn/problems/coin-change/">322.零钱兑换</a></p>
+<p>给你一个整数数组 <code>coins</code> ，表示不同面额的硬币；以及一个整数 <code>amount</code> ，表示总金额。</p>
+<p>计算并返回可以凑成总金额所需的最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。</p>
+<p>你可以认为每种硬币的数量是无限的。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：coins = [1, 2, 5], amount = 11<br> 输出：3<br> 解释：11 = 5 + 5 + 1</p>
+</blockquote>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>不同于<a href="https://leetcode.cn/problems/coin-change-ii/">518.零钱兑换II</a>，此处需要求解的是，使用最少的硬币个数得到整数 <code>amount</code> ，此处的硬币数量是无限的。此处是一个组合问题，不存在选取顺序的问题。将之转化为完全背包问题：背包的容量为 <code>amount</code> ，物品的重量为 <code>coins</code> ，每一个物品的价值都为1，此处求解的是物品的最小价值。但是，此处的不同点在与，在向背包中装入物品时，要求将背包恰好装满。</p>
+<ol>
+<li><p>动态规划数组的定义：定义动态规划数组 <code>dp[amount+1]</code> 表示将 <code>amount</code> 装满所需的最少硬币个数。</p>
+</li>
+<li><p>动态规划数组的推导：在第 <code>i</code> 次迭代中，在硬币 <code>0-i</code> 中进行选择，那么主要是 <code>coins[i]</code> 的选择问题。此处在进行递推时，需要考虑到可行的条件。首先是 <code>dp[j]</code> 的值，若是 <code>dp[j]=-1</code> 说明之前不存在方案将之装满，那么就需要查看 <code>dp[j-coins[i]]</code> 的值是否为 <code>-1</code> ，若是为说明当前依旧无法装满，不修改值，负责当前存在从 <code>dp[j-coins[i]]</code> 的基础上将之装满的方案，对应需要的最少硬币数就是 <code>dp[j-coins[i]]+1</code> ，若是 <code>dp[j]!=-1</code> ，说明当前就存在可以装满的方案，那么尝试装入 <code>coins[i]</code> 看能否更少，当然需要 <code>dp[j-coins[i]]!=-1</code> ，那么总体的推导过程就是：</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(dp[j]!=<span class="number">-1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">        dp[j]=<span class="built_in">min</span>(dp[j],dp[j-coins[i]]+<span class="number">1</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">        dp[j]=dp[j-coins[i]]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>动态规划数组的初始化：在初始时全部初始为 <code>-1</code> 表示不存在装满的方案，而对于 <code>dp[0]</code> 装满0的背包，只需要0个硬币，初始化为 <code>dp[0]=0</code></p>
+</li>
+<li><p>动态规划数组的遍历顺序：此处先遍历物品，再遍历背包，并且在对背包遍历时从前向后遍历。</p>
+</li>
+<li><p>举例验证： <code>coins = [1, 2, 5], amount = 11</code> 那么动态规划数组的推导过程为：</p>
+</li>
+</ol>
+<p>&gt;<br>    dp={0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11}<br>    dp={0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6}<br>    dp={0, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2, 3}</p>
+
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">coinChange</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; coins, <span class="type">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(amount==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(amount+<span class="number">1</span>,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;coins.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=coins[i];j&lt;=amount;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[j]!=<span class="number">-1</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">                        dp[j]=<span class="built_in">min</span>(dp[j],dp[j-coins[i]]+<span class="number">1</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">                        dp[j]=dp[j-coins[i]]+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>动态规划</tag>
+        <tag>完全背包</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-332-重新安排行程</title>
     <url>/posts/880c5c7b/</url>
     <content><![CDATA[<h1 id="LeetCode-332-重新安排行程"><a href="#LeetCode-332-重新安排行程" class="headerlink" title="LeetCode 332 重新安排行程"></a>LeetCode 332 重新安排行程</h1><p><a href="https://leetcode.cn/problems/reconstruct-itinerary/">332.重新安排行程</a></p>
@@ -411,29 +477,6 @@
         <tag>c++</tag>
         <tag>LeetCode</tag>
         <tag>回溯法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-257-二叉树的所有路径</title>
-    <url>/posts/15552c94/</url>
-    <content><![CDATA[<h1 id="LeetCode-257-二叉树的所有路径"><a href="#LeetCode-257-二叉树的所有路径" class="headerlink" title="LeetCode 257 二叉树的所有路径"></a>LeetCode 257 二叉树的所有路径</h1>
-<p><a href="https://leetcode.cn/problems/binary-tree-paths/">257.二叉树的所有路径</a></p>
-<p>给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。</p>
-<p>叶子节点 是指没有子节点的节点</p>
-
-<h2 id="1-1-后序非递归实现"><a href="#1-1-后序非递归实现" class="headerlink" title="1.1 后序非递归实现"></a>1.1 后序非递归实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        vector&lt;TreeNode*&gt; s;</span><br><span class="line">        TreeNode* pre=<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(root||!s.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">while</span>(root)&#123;</span><br><span class="line">                s.<span class="built_in">push_back</span>(root);</span><br><span class="line">                root=root-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            TreeNode* node=s.<span class="built_in">back</span>();</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right&amp;&amp;node-&gt;right!=pre)&#123;</span><br><span class="line">                root=node-&gt;right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(!node-&gt;right&amp;&amp;!node-&gt;left)&#123;</span><br><span class="line">                    string path;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>()<span class="number">-1</span>;i++)</span><br><span class="line">                        path+=(<span class="built_in">to_string</span>(s[i]-&gt;val)+<span class="string">&quot;-&gt;&quot;</span>);</span><br><span class="line">                    path+=<span class="built_in">to_string</span>(s[s.<span class="built_in">size</span>()<span class="number">-1</span>]-&gt;val);</span><br><span class="line">                    res.<span class="built_in">push_back</span>(path);</span><br><span class="line">                &#125;</span><br><span class="line">                pre=node;</span><br><span class="line">                s.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>此处也可以改写为使用递归方式实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">construct_path</span><span class="params">(TreeNode* root,string path,vector&lt;string&gt; &amp;res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!root-&gt;left&amp;&amp;!root-&gt;right)&#123;</span><br><span class="line">                path+=<span class="built_in">to_string</span>(root-&gt;val);</span><br><span class="line">                res.<span class="built_in">push_back</span>(path);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            path+=(<span class="built_in">to_string</span>(root-&gt;val)+<span class="string">&quot;-&gt;&quot;</span>);</span><br><span class="line">            <span class="built_in">construct_path</span>(root-&gt;left,path,res);</span><br><span class="line">            <span class="built_in">construct_path</span>(root-&gt;right,path,res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        string path;</span><br><span class="line">        <span class="built_in">construct_path</span>(root,path,res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="1-2-基于BFS实现"><a href="#1-2-基于BFS实现" class="headerlink" title="1.2 基于BFS实现"></a>1.2 基于BFS实现</h2><p>此处采取的完全是穷举的方式，创建一个路径队列，用于逐步生成全部的路径，当出栈元素是一个孩子节点时，将生成的路径加入到结果集。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span>&#123; <span class="comment">// 经典的后序非递归实现</span></span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q_node;</span><br><span class="line">        queue&lt;string&gt; q_path;</span><br><span class="line">        q_node.<span class="built_in">push</span>(root);</span><br><span class="line">        q_path.<span class="built_in">push</span>(<span class="built_in">to_string</span>(root-&gt;val));</span><br><span class="line">        <span class="keyword">while</span>(!q_node.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            TreeNode* node=q_node.<span class="built_in">front</span>();</span><br><span class="line">            string path=q_path.<span class="built_in">front</span>();</span><br><span class="line">            q_node.<span class="built_in">pop</span>();</span><br><span class="line">            q_path.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">if</span>(!node-&gt;left&amp;&amp;!node-&gt;right)&#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)&#123;</span><br><span class="line">                q_node.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                q_path.<span class="built_in">push</span>(path+<span class="string">&quot;-&gt;&quot;</span>+<span class="built_in">to_string</span>(node-&gt;left-&gt;val));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right)&#123;</span><br><span class="line">                q_node.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">                q_path.<span class="built_in">push</span>(path+<span class="string">&quot;-&gt;&quot;</span>+<span class="built_in">to_string</span>(node-&gt;right-&gt;val));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>树和二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -675,6 +718,36 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-47-全排列II</title>
+    <url>/posts/4dfcc4fe/</url>
+    <content><![CDATA[<h1 id="LeetCode-47-全排列II"><a href="#LeetCode-47-全排列II" class="headerlink" title="LeetCode 47 全排列II"></a>LeetCode 47 全排列II</h1><p><a href="https://leetcode.cn/problems/permutations-ii/">47.全排列II</a></p>
+<p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
+
+<h2 id="双hash-回溯递归"><a href="#双hash-回溯递归" class="headerlink" title="双hash+回溯递归"></a>双hash+回溯递归</h2><p>本题在<a href="https://leetcode.cn/problems/permutations/">46.全排列</a>问题的基础之上发生了改变，主要的不同之处在于：给定的序列中包含重复的元素，那么在全排列的过程中就会导致重复的结果，例如 <code>nums=[1,1,2]</code> 完全按照排列问题进行处理将会出现重复结果： <code>[1,2,1]</code> 和 <code>[1,1,2]</code> ，那么在于全排列问题的基础上此处的重点就在于处理重复的结果。</p>
+<p>那么基本思路还是：递归实现，每一层选取一个元素作为排列中的第 <code>cur</code> 个元素，当 <code>cur=nums.size()</code> 选取结束，将排列加入到结果集中。</p>
+<p>此处采取双hash的方式进行处理，创建两个hash表：</p>
+<ol>
+<li><code>used[8]</code> 是一个全局变量，记录的是整个序列中那些位置的的元素已经使用了 <code>used[i]=true</code> 代表 <code>nums[i]</code> 处的元素已经在前层使用了。那么在某层选取 <code>nums[i]</code> 后需要对 <code>used[i]</code> 进行标记，在递归返回后需要进行回溯，取消标记（ <code>nums</code> 的最大长度为8，定长数组即可）</li>
+<li><code>curUsed[21]</code> 是递归函数中的局部变量，记录的是在当前层中那些元素值已经使用过了， <code>curUed[i]=true</code> 表示在当前层元素值 <code>i</code> 已经使用过了，假设当前的递归层数为第 <code>j</code> 层，那么表示在排列的第 <code>j</code> 个位置已经使用过元素 <code>i</code> ，那么在当前层的后续选择中遇到元素 <code>i</code> 就需要进行跳过</li>
+</ol>
+
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="type">int</span> curUsed[<span class="number">21</span>]={<span class="literal">false</span>}; <span class="comment">// 记录当前层那些元素值被使用了</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(!used[i]&amp;&amp;!curUsed[nums[i]+<span class="number">10</span>]){ <span class="comment">// 在前层和当前层都没有使用过</span></span><br><span class="line">                used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">                tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                curUsed[nums[i]+<span class="number">10</span>]=<span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">                tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">                used[i]=<span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+<h2 id="单hash削减空间复杂度"><a href="#单hash削减空间复杂度" class="headerlink" title="单hash削减空间复杂度"></a>单hash削减空间复杂度</h2><p>将数组 <code>nums</code> 排序，使用单个hash进行记录。使用一个hash <code>vis</code> 记录 <code>nums</code> 数组中的第i个元素是否被使用。在第i层进行元素的选取时，若是当前元素和前一个元素相等，并且上一个元素在当前层没有被选择，那么就不选择该元素。也就是对于多个连续的重复元素，在第i层中要对齐进行选取，仅仅选取一次，那么这一次就是选取多个连续重复元素中的第一个元素。当然对于 <code>vis[i]==true</code> 的情形，肯定是不能进行选取了。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>] &amp;&amp; !vis[i - <span class="number">1</span>]) {</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>整体代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(used[i]||(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]&amp;&amp;!used[i<span class="number">-1</span>])){</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">            tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">            tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">            used[i]=<span class="literal">false</span>;        </span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>回溯法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-474-一和零</title>
     <url>/posts/cc66f981/</url>
     <content><![CDATA[<h1 id="LeetCode-474-一和零"><a href="#LeetCode-474-一和零" class="headerlink" title="LeetCode 474 一和零"></a>LeetCode 474 一和零</h1><p><a href="https://leetcode.cn/problems/ones-and-zeroes/">474.一和零</a></p>
@@ -714,36 +787,6 @@
         <tag>LeetCode</tag>
         <tag>动态规划</tag>
         <tag>0/1背包</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-47-全排列II</title>
-    <url>/posts/4dfcc4fe/</url>
-    <content><![CDATA[<h1 id="LeetCode-47-全排列II"><a href="#LeetCode-47-全排列II" class="headerlink" title="LeetCode 47 全排列II"></a>LeetCode 47 全排列II</h1><p><a href="https://leetcode.cn/problems/permutations-ii/">47.全排列II</a></p>
-<p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
-
-<h2 id="双hash-回溯递归"><a href="#双hash-回溯递归" class="headerlink" title="双hash+回溯递归"></a>双hash+回溯递归</h2><p>本题在<a href="https://leetcode.cn/problems/permutations/">46.全排列</a>问题的基础之上发生了改变，主要的不同之处在于：给定的序列中包含重复的元素，那么在全排列的过程中就会导致重复的结果，例如 <code>nums=[1,1,2]</code> 完全按照排列问题进行处理将会出现重复结果： <code>[1,2,1]</code> 和 <code>[1,1,2]</code> ，那么在于全排列问题的基础上此处的重点就在于处理重复的结果。</p>
-<p>那么基本思路还是：递归实现，每一层选取一个元素作为排列中的第 <code>cur</code> 个元素，当 <code>cur=nums.size()</code> 选取结束，将排列加入到结果集中。</p>
-<p>此处采取双hash的方式进行处理，创建两个hash表：</p>
-<ol>
-<li><code>used[8]</code> 是一个全局变量，记录的是整个序列中那些位置的的元素已经使用了 <code>used[i]=true</code> 代表 <code>nums[i]</code> 处的元素已经在前层使用了。那么在某层选取 <code>nums[i]</code> 后需要对 <code>used[i]</code> 进行标记，在递归返回后需要进行回溯，取消标记（ <code>nums</code> 的最大长度为8，定长数组即可）</li>
-<li><code>curUsed[21]</code> 是递归函数中的局部变量，记录的是在当前层中那些元素值已经使用过了， <code>curUed[i]=true</code> 表示在当前层元素值 <code>i</code> 已经使用过了，假设当前的递归层数为第 <code>j</code> 层，那么表示在排列的第 <code>j</code> 个位置已经使用过元素 <code>i</code> ，那么在当前层的后续选择中遇到元素 <code>i</code> 就需要进行跳过</li>
-</ol>
-
-<p>代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="type">int</span> curUsed[<span class="number">21</span>]={<span class="literal">false</span>}; <span class="comment">// 记录当前层那些元素值被使用了</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(!used[i]&amp;&amp;!curUsed[nums[i]+<span class="number">10</span>]){ <span class="comment">// 在前层和当前层都没有使用过</span></span><br><span class="line">                used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">                tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                curUsed[nums[i]+<span class="number">10</span>]=<span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">                tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">                used[i]=<span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-<h2 id="单hash削减空间复杂度"><a href="#单hash削减空间复杂度" class="headerlink" title="单hash削减空间复杂度"></a>单hash削减空间复杂度</h2><p>将数组 <code>nums</code> 排序，使用单个hash进行记录。使用一个hash <code>vis</code> 记录 <code>nums</code> 数组中的第i个元素是否被使用。在第i层进行元素的选取时，若是当前元素和前一个元素相等，并且上一个元素在当前层没有被选择，那么就不选择该元素。也就是对于多个连续的重复元素，在第i层中要对齐进行选取，仅仅选取一次，那么这一次就是选取多个连续重复元素中的第一个元素。当然对于 <code>vis[i]==true</code> 的情形，肯定是不能进行选取了。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>] &amp;&amp; !vis[i - <span class="number">1</span>]) {</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>整体代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    <span class="type">bool</span> used[<span class="number">8</span>]={<span class="literal">false</span>}; <span class="comment">// 记录那些位置的元素被使用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> cur)</span></span>{</span><br><span class="line">        <span class="keyword">if</span>(cur==nums.<span class="built_in">size</span>()){</span><br><span class="line">            res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++){</span><br><span class="line">            <span class="keyword">if</span>(used[i]||(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]&amp;&amp;!used[i<span class="number">-1</span>])){</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            used[i]=<span class="literal">true</span>; <span class="comment">// 标记使用</span></span><br><span class="line">            tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            <span class="built_in">DFS</span>(nums,cur+<span class="number">1</span>);</span><br><span class="line">            tmp.<span class="built_in">pop_back</span>();</span><br><span class="line">            used[i]=<span class="literal">false</span>;        </span><br><span class="line">        }   </span><br><span class="line">    }</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">permuteUnique</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">DFS</span>(nums,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>回溯法</tag>
       </tags>
   </entry>
   <entry>
@@ -970,43 +1013,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode-63-不同路径II</title>
-    <url>/posts/8922dec9/</url>
-    <content><![CDATA[<h1 id="LeetCode-63-不同路径-II"><a href="#LeetCode-63-不同路径-II" class="headerlink" title="LeetCode 63 不同路径 II"></a>LeetCode 63 不同路径 II</h1><p><a href="https://leetcode.cn/problems/unique-paths-ii/">63.不同路径II</a></p>
-<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
-<p><img src="不同路径II.png" alt="不同路径II"></p>
-
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处相较于<a href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a>的不同之处在于网格中存在障碍物，那么在进行动态规划数组的推导时，将会存在不同之处，也对网格中值为 <code>0</code> 的元素，依旧就是可以从上方和左方到达： <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，对于网格中值为 <code>1</code> 的位置应该将其置为不可达的状态： <code>dp[i][j]=0</code> 。相应的，动态规划数组在初始化是也存在不同。</p>
-<ol>
-<li><p>确定动态规划数组： <code>dp[i][j]</code> 表示从起点 <code>[0][0]</code> 到达 <code>[i][j]</code> 存在的路径数。</p>
-</li>
-<li><p>动态规划数组的推导方式： 首先判断 <code>obstacleGrid[i][j]==0?</code> 若是成立，那么 <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，不成立那么 <code>dp[i][j]=0</code> 。</p>
-</li>
-<li><p>动态规划数组的初始化：依旧是对第一行和第一列进行初始化，在第一行中 <code>dp[0][0]=1</code> 接下来判断 <code>obstacleGrid[0][j]==0?</code> ，若是成立，那么 <code>dp[0][j]=1</code> ，否则 <code>dp[0][j]=0</code> 并且后续的 <code>dp[0][j]</code> 也全部为0。对于第一列的初始化：判断 <code>obstacleGrid[i][0]==0?</code> ，若是成立，那么 <code>dp[i][0]=1</code> ，否则 <code>dp[i][0]=0</code> 并且后续的 <code>dp[i][0]</code> 也全部初始化为0。</p>
-</li>
-<li><p>数组的遍历顺序：采取从前向后，逐行遍历的方式</p>
-</li>
-<li><p>举例验证：<code>obstacleGrid = [[0,1],[0,0]]</code> 那么初始为 <code>dp[0][0]=1,dp[0][1]=0,dp[1][0]=1</code> 计算 <code>dp[1][1]=dp[0][1]+dp[1][0]=1</code> 验证正确</p>
-</li>
-</ol>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; dp;</span><br><span class="line">        <span class="type">int</span> m=s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n=s[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        dp.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">        <span class="type">bool</span> flag=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[<span class="number">0</span>][i]==<span class="number">0</span>&amp;&amp;flag)&#123;</span><br><span class="line">                dp[<span class="number">0</span>][i]=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[<span class="number">0</span>][i]=<span class="number">0</span>;</span><br><span class="line">                flag=<span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        flag=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i][<span class="number">0</span>]==<span class="number">0</span>&amp;&amp;flag)&#123;</span><br><span class="line">                dp[i][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">                flag=<span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    dp[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j]+dp[i][j<span class="number">-1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>使用一维数组进行优化：依旧是使用一个一维数组作为行信息的记录，对于这个一维数组可以这样理解：对于 <code>dp[i-1]</code> 他所记录的是当前位置上方存在的路径， <code>dp[i]</code> 在更新之前所记录的是当前位置左方存在的路径，在更新之后记录的就是当前位置。此处就是在得到了第一行的信息之后去计算第二行的值。相较于<a href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a>仅仅在于需要考虑障碍物问题。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>][<span class="number">0</span>]==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> m=s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n=s[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;s[<span class="number">0</span>][i]!=<span class="number">1</span>;i++) dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    dp[j]=<span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[j]+=j==<span class="number">0</span>?<span class="number">0</span>:dp[j<span class="number">-1</span>]; <span class="comment">// 处理j=0的情况</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode-62-不同路径</title>
     <url>/posts/d9271181/</url>
     <content><![CDATA[<h1 id="LeetCode-62-不同路径"><a href="#LeetCode-62-不同路径" class="headerlink" title="LeetCode 62 不同路径"></a>LeetCode 62 不同路径</h1><p><a href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a></p>
@@ -1043,6 +1049,43 @@ m-1
 <p>第二次（53*52 / 1*2）连续的2个数中一定有一个是2的倍数</p>
 <p>第三次（53*52*51 / 1*2*3）连续的3个数中一定有一个是3的倍数</p>
 <p>以此类推，每次都可以整除</p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode-63-不同路径II</title>
+    <url>/posts/8922dec9/</url>
+    <content><![CDATA[<h1 id="LeetCode-63-不同路径-II"><a href="#LeetCode-63-不同路径-II" class="headerlink" title="LeetCode 63 不同路径 II"></a>LeetCode 63 不同路径 II</h1><p><a href="https://leetcode.cn/problems/unique-paths-ii/">63.不同路径II</a></p>
+<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
+<p><img src="不同路径II.png" alt="不同路径II"></p>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处相较于<a href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a>的不同之处在于网格中存在障碍物，那么在进行动态规划数组的推导时，将会存在不同之处，也对网格中值为 <code>0</code> 的元素，依旧就是可以从上方和左方到达： <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，对于网格中值为 <code>1</code> 的位置应该将其置为不可达的状态： <code>dp[i][j]=0</code> 。相应的，动态规划数组在初始化是也存在不同。</p>
+<ol>
+<li><p>确定动态规划数组： <code>dp[i][j]</code> 表示从起点 <code>[0][0]</code> 到达 <code>[i][j]</code> 存在的路径数。</p>
+</li>
+<li><p>动态规划数组的推导方式： 首先判断 <code>obstacleGrid[i][j]==0?</code> 若是成立，那么 <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，不成立那么 <code>dp[i][j]=0</code> 。</p>
+</li>
+<li><p>动态规划数组的初始化：依旧是对第一行和第一列进行初始化，在第一行中 <code>dp[0][0]=1</code> 接下来判断 <code>obstacleGrid[0][j]==0?</code> ，若是成立，那么 <code>dp[0][j]=1</code> ，否则 <code>dp[0][j]=0</code> 并且后续的 <code>dp[0][j]</code> 也全部为0。对于第一列的初始化：判断 <code>obstacleGrid[i][0]==0?</code> ，若是成立，那么 <code>dp[i][0]=1</code> ，否则 <code>dp[i][0]=0</code> 并且后续的 <code>dp[i][0]</code> 也全部初始化为0。</p>
+</li>
+<li><p>数组的遍历顺序：采取从前向后，逐行遍历的方式</p>
+</li>
+<li><p>举例验证：<code>obstacleGrid = [[0,1],[0,0]]</code> 那么初始为 <code>dp[0][0]=1,dp[0][1]=0,dp[1][0]=1</code> 计算 <code>dp[1][1]=dp[0][1]+dp[1][0]=1</code> 验证正确</p>
+</li>
+</ol>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; dp;</span><br><span class="line">        <span class="type">int</span> m=s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n=s[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        dp.<span class="built_in">resize</span>(m,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">        <span class="type">bool</span> flag=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[<span class="number">0</span>][i]==<span class="number">0</span>&amp;&amp;flag)&#123;</span><br><span class="line">                dp[<span class="number">0</span>][i]=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[<span class="number">0</span>][i]=<span class="number">0</span>;</span><br><span class="line">                flag=<span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        flag=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i][<span class="number">0</span>]==<span class="number">0</span>&amp;&amp;flag)&#123;</span><br><span class="line">                dp[i][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">                flag=<span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    dp[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j]+dp[i][j<span class="number">-1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用一维数组进行优化：依旧是使用一个一维数组作为行信息的记录，对于这个一维数组可以这样理解：对于 <code>dp[i-1]</code> 他所记录的是当前位置上方存在的路径， <code>dp[i]</code> 在更新之前所记录的是当前位置左方存在的路径，在更新之后记录的就是当前位置。此处就是在得到了第一行的信息之后去计算第二行的值。相较于<a href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a>仅仅在于需要考虑障碍物问题。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>][<span class="number">0</span>]==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> m=s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n=s[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;s[<span class="number">0</span>][i]!=<span class="number">1</span>;i++) dp[i]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    dp[j]=<span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[j]+=j==<span class="number">0</span>?<span class="number">0</span>:dp[j<span class="number">-1</span>]; <span class="comment">// 处理j=0的情况</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>
@@ -1177,6 +1220,34 @@ m-1
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-77-组合</title>
+    <url>/posts/7567a5e4/</url>
+    <content><![CDATA[<h1 id="LeetCode-77-组合"><a href="#LeetCode-77-组合" class="headerlink" title="LeetCode 77 组合"></a>LeetCode 77 组合</h1><p><a href="https://leetcode.cn/problems/combinations/">77.组合</a></p>
+<p>给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。</p>
+<p>你可以按 任何顺序 返回答案。</p>
+<h2 id="DFS-枚举法"><a href="#DFS-枚举法" class="headerlink" title="DFS+枚举法"></a>DFS+枚举法</h2>
+<p>解决的方式为：对于序列 [1, n]，要从中选取k个元素，那么对于每一个元素的位置实际上就存在这两种状态，第一种选取当前元素，第二种不选取当前元素，此处实际上将问题的划分转变为了一个二分问题，递归的深度也就转变为了n。那么回溯的方式也就发生了改变：选取当前元素向下递归，在递归返回后，不选取当前元素再向下递归。（此处就实现了回溯）<br></p>
+<p>并且存在着一种剪枝的方式，当处理到第cur个值时（此处的cur既是序列中的第cur个值，也是第cur个值本身），判断已选取的值个数+当前剩余未选值的个数&lt; k，若是成立，那么说明即使全部选取也不能满足条件。那么此时就可以向上返回。</p>
+<p>当选取的元素等于k时，也可以提前返回。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res; </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt; path,<span class="type">int</span> cur,<span class="type">int</span> n,<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(n-cur+<span class="number">1</span>)&lt;k)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==k)&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 重点是下面两种递归方式，一个选取一个不选取</span></span><br><span class="line">        path.<span class="built_in">push_back</span>(cur);</span><br><span class="line">        <span class="built_in">DFS</span>(path,cur+<span class="number">1</span>,n,k);<span class="comment">// 选取当前元素进行一次递归</span></span><br><span class="line">        path.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="built_in">DFS</span>(path,cur+<span class="number">1</span>,n,k); <span class="comment">// 不选取当前元素在递归一次</span></span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">DFS</span>(path,<span class="number">1</span>,n,k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在这种实现方式中，树的深度将会到n，空间复杂度 $O(n)$ ，时间复杂度 $O(\binom{n}{k}\times k)$ ，时间复杂度还存在较大的改进空间。</p>
+<h2 id="回溯法实现"><a href="#回溯法实现" class="headerlink" title="回溯法实现"></a>回溯法实现</h2><p>此处基于回溯法实现，最主要的是需要明白问题的划分：假设在第一个元素的选择上选择了1，那么接下来的工作就是在 2-n中选择k-1个元素。若是在第一个元素中选择了2，那么接下来的工作应该是在3-n中选择 k-1个元素。此处能够将1排除在外的主要原因在于：由于在第一种方法中，已经选择了1，那么生成的就都是包含1的全部序列，所以在第二种方式中就应该选择不包含1的全部序列。在第三种情形下，就应该排除1，2这样的生成的就是不包含（1，2）的全部序列。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">dfs</span>(res, path, n, k, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == k) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="comment">// 对于剩余的元素，分别选或者不选进行递归于回溯</span></span><br><span class="line">            path.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="built_in">dfs</span>(res, path, n, k, i + <span class="number">1</span>);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在上述过程中，回溯的思想主要是体现在：在第一次递归返回之后，改变了调用条件之后，再一次进行递归调用。</p>
+<p>在此基础上可以进行剪枝递归，当前选择的元素个数+剩余未选的元素个数&lt; k，此时即使后面的元素全部选择也不能满足，因此可以停止遍历。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">dfs</span>(res, path, n, k, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == k) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(n-start)+<span class="number">1</span>&lt;k) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt;= n; i++) &#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="built_in">dfs</span>(res, path, n, k, i + <span class="number">1</span>);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在进行了剪枝递归之后，执行时间将会得到较大的降低。</p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>LeetCode</tag>
+        <tag>回溯法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-78-子集</title>
     <url>/posts/dc02b901/</url>
     <content><![CDATA[<h1 id="LeetCode-78-子集"><a href="#LeetCode-78-子集" class="headerlink" title="LeetCode 78 子集"></a>LeetCode 78 子集</h1><p><a href="https://leetcode.cn/problems/subsets/">78.子集</a></p>
@@ -1227,34 +1298,6 @@ m-1
 <p>逐位判断的实现：判断某个数的第i+1位是0/1，使用与运算实现。</p>
 <p>相较于不包含重复元素集合的子集求解：不同之处在于对于 <code>[1,2,2]</code> 中两个 <code>[1,2]</code> 的处理。处理方式为：对于当前选取的元素 <code>nums[cur]</code> 若是在 <code>nums[cur-1]==nums[cur]</code> ，那么说明此时生成的序列是存在重复的，直接结束当前序列子集的生成。使用一个 <code>flag</code> 记录当前子集的生成是否被提前终端来决定是否将其加入到结果集合中。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">subsetsWithDup</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) {</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> mask=<span class="number">0</span>;mask&lt;(<span class="number">1</span>&lt;&lt;n);mask++){</span><br><span class="line">            <span class="type">bool</span> flag=<span class="literal">true</span>;</span><br><span class="line">            tmp.<span class="built_in">clear</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++){</span><br><span class="line">                <span class="keyword">if</span>(mask&amp;(<span class="number">1</span>&lt;&lt;i)){ <span class="comment">// 序列中当前元素是选择的</span></span><br><span class="line">                    <span class="keyword">if</span>(i!=<span class="number">0</span>&amp;&amp;nums[i]==nums[i<span class="number">-1</span>]&amp;&amp;(mask&amp;(<span class="number">1</span>&lt;&lt;(i<span class="number">-1</span>)))==<span class="number">0</span>){ </span><br><span class="line">                    <span class="comment">// 当前元素与前一个元素相同，并且前一个元素是未选择，说明这个序列将会导致子集的重复</span></span><br><span class="line">                        flag=<span class="literal">false</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    }<span class="keyword">else</span>{</span><br><span class="line">                        tmp.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(flag){</span><br><span class="line">                res.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>LeetCode</tag>
-        <tag>回溯法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-77-组合</title>
-    <url>/posts/7567a5e4/</url>
-    <content><![CDATA[<h1 id="LeetCode-77-组合"><a href="#LeetCode-77-组合" class="headerlink" title="LeetCode 77 组合"></a>LeetCode 77 组合</h1><p><a href="https://leetcode.cn/problems/combinations/">77.组合</a></p>
-<p>给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。</p>
-<p>你可以按 任何顺序 返回答案。</p>
-<h2 id="DFS-枚举法"><a href="#DFS-枚举法" class="headerlink" title="DFS+枚举法"></a>DFS+枚举法</h2>
-<p>解决的方式为：对于序列 [1, n]，要从中选取k个元素，那么对于每一个元素的位置实际上就存在这两种状态，第一种选取当前元素，第二种不选取当前元素，此处实际上将问题的划分转变为了一个二分问题，递归的深度也就转变为了n。那么回溯的方式也就发生了改变：选取当前元素向下递归，在递归返回后，不选取当前元素再向下递归。（此处就实现了回溯）<br></p>
-<p>并且存在着一种剪枝的方式，当处理到第cur个值时（此处的cur既是序列中的第cur个值，也是第cur个值本身），判断已选取的值个数+当前剩余未选值的个数&lt; k，若是成立，那么说明即使全部选取也不能满足条件。那么此时就可以向上返回。</p>
-<p>当选取的元素等于k时，也可以提前返回。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res; </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(vector&lt;<span class="type">int</span>&gt; path,<span class="type">int</span> cur,<span class="type">int</span> n,<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(n-cur+<span class="number">1</span>)&lt;k)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==k)&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 重点是下面两种递归方式，一个选取一个不选取</span></span><br><span class="line">        path.<span class="built_in">push_back</span>(cur);</span><br><span class="line">        <span class="built_in">DFS</span>(path,cur+<span class="number">1</span>,n,k);<span class="comment">// 选取当前元素进行一次递归</span></span><br><span class="line">        path.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="built_in">DFS</span>(path,cur+<span class="number">1</span>,n,k); <span class="comment">// 不选取当前元素在递归一次</span></span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">DFS</span>(path,<span class="number">1</span>,n,k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在这种实现方式中，树的深度将会到n，空间复杂度 $O(n)$ ，时间复杂度 $O(\binom{n}{k}\times k)$ ，时间复杂度还存在较大的改进空间。</p>
-<h2 id="回溯法实现"><a href="#回溯法实现" class="headerlink" title="回溯法实现"></a>回溯法实现</h2><p>此处基于回溯法实现，最主要的是需要明白问题的划分：假设在第一个元素的选择上选择了1，那么接下来的工作就是在 2-n中选择k-1个元素。若是在第一个元素中选择了2，那么接下来的工作应该是在3-n中选择 k-1个元素。此处能够将1排除在外的主要原因在于：由于在第一种方法中，已经选择了1，那么生成的就都是包含1的全部序列，所以在第二种方式中就应该选择不包含1的全部序列。在第三种情形下，就应该排除1，2这样的生成的就是不包含（1，2）的全部序列。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">dfs</span>(res, path, n, k, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == k) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="comment">// 对于剩余的元素，分别选或者不选进行递归于回溯</span></span><br><span class="line">            path.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="built_in">dfs</span>(res, path, n, k, i + <span class="number">1</span>);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在上述过程中，回溯的思想主要是体现在：在第一次递归返回之后，改变了调用条件之后，再一次进行递归调用。</p>
-<p>在此基础上可以进行剪枝递归，当前选择的元素个数+剩余未选的元素个数&lt; k，此时即使后面的元素全部选择也不能满足，因此可以停止遍历。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combine</span>(<span class="type">int</span> n, <span class="type">int</span> k) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">dfs</span>(res, path, n, k, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == k) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(n-start)+<span class="number">1</span>&lt;k) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt;= n; i++) &#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="built_in">dfs</span>(res, path, n, k, i + <span class="number">1</span>);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在进行了剪枝递归之后，执行时间将会得到较大的降低。</p>
 ]]></content>
       <categories>
         <category>LeetCode</category>
