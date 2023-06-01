@@ -293,6 +293,130 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4a1c4ee7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/4a1c4ee7/" class="post-title-link" itemprop="url">LeetCode-139-单词拆分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-01 08:58:59 / 修改时间：08:59:47" itemprop="dateCreated datePublished" datetime="2023-06-01T08:58:59+08:00">2023-06-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/4a1c4ee7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/4a1c4ee7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。</p>
+<p>此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序）</p>
+<p>考虑这样一种情况： <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 那么先遍历物品，再遍历背包，初始时只能使用 <code>apple</code> 那么只能将第一个 <code>apple</code> 恰好装满，在第二次迭代中，是只考虑增加 <code>pen</code> 的情形，但实际上还需要使用 <code>apple</code> 对尾部进行装填，也就是每次向背包中装入时，需要使用到全部的物品，所以应该先遍历背包再遍历物品。</p>
+<ol>
+<li><p>动态规划数组的定义：定义数组 <code>dp[s.size()+1]</code> 表示长度为 <code>s.size()</code> 的字符串能否恰好装满</p>
+</li>
+<li><p>动态规划数组的推导：在第 <code>j</code> 次迭代中，判断字符从 <code>0-j-1</code> 位置的字符串 <code>s</code> 能否恰好装满，对于每一个物品 <code>wordDict[i]</code> 都需要尝试从 <code>j-1</code> 处向前装入试试，所以有：其中 <code>match</code> 是字符串匹配操作。</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(j&gt;=wordDict[i].<span class="built_in">size</span>())&#123;</span><br><span class="line">    dp[j]=dp[j]||(dp[j-wordDict[i].<span class="built_in">size</span>()]&amp;&amp;<span class="built_in">match</span>(s,j<span class="number">-1</span>,wordDict[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>动态规划数组的初始化：对于<code>dp[0]</code> 一定是能够恰好装满的，所以 <code>dp[0]=true</code> 其他全部初始化为 <code>false</code></p>
+</li>
+<li><p>动态规划数组的遍历顺序：此处采取先遍历背包，再遍历物品的方式，物品和背包都采取从前向后遍历的方式</p>
+</li>
+<li><p>举例验证：对于 <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 动态规划数组的推导过程为：验证成立</p>
+</li>
+</ol>
+<blockquote>
+<p>  1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,1,</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/4a1c4ee7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/null/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1350,128 +1474,6 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/351f9b06/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/351f9b06/" class="post-title-link" itemprop="url">LeetCode-416-分割等和子集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-20 21:33:16" itemprop="dateCreated datePublished" datetime="2023-05-20T21:33:16+08:00">2023-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-27 20:42:25" itemprop="dateModified" datetime="2023-05-27T20:42:25+08:00">2023-05-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/351f9b06/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/351f9b06/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处是集合的划分，要求划分的两个集合中元素的和相等。此处可以将问题转化为两个背包，并且两个背包的容量相同，都等于集合中全部元素总和的一半。那么子集划分的过程，也就是向背包中放入相应元素的过程，若是能将一个背包装满，那么另外一个也就一定能够装满。首先求得集合中全部元素的总和 <code>2n</code> 。</p>
-<ol>
-<li><p>动态规划数组的定义：初始的 <code>dp[i]</code> 表示在元素 <code>0-0</code> 中，背包容量为 <code>i</code> 时，能否恰好将背包装满。能够装满则为 <code>true</code> 不能为 <code>false</code></p>
-</li>
-<li><p>动态规划数组的推导：在第 <code>i</code> 次迭代时，在元素 <code>0-i</code> 中进行选择，此处仅有两种情况，选取元素 <code>i</code> 或者不选取元素 <code>i</code> 。那么 <code>dp[j]=dp[j-nums[i]]||dp[j]</code> </p>
-</li>
-<li><p>动态规划数组的初始化：在初始时，<code>dp[i]</code> 表示在元素 <code>0-0</code> 中，背包容量为 <code>i</code> 时，能否恰好将背包装满。那么先全部初始化为 <code>false</code> ，若是 <code>nums[0]&lt;=n</code> 则令 <code>dp[nums[0]]=true</code> ，并且对于背包容量为 <code>0</code> 时，本身就是满的，因此 <code>dp[0]=true;</code></p>
-</li>
-<li><p>动态规划数据的遍历顺序：外层循环，是对元素个数进行遍历，不断增加可以放入背包的元素数量，从 <code>i=1,...,nums.size()-1</code> 进行遍历，内层循环是对 <code>dp</code> 数据进行遍历，并且dp数组的遍历过程是从右向左进行的。并且在遍历的过程中只要出现 <code>dp[n]==true</code> 即可提前结束循环。</p>
-</li>
-<li><p>举例验证：对于 <code>nums = [1,5,11,5]</code> 那么 <code>dp</code> 数组的长度为 <code>12</code> 初始化为 <code>dp[1]=true</code> 其他都为 <code>false</code> ，然后开始循环，第一遍循环： <code>dp=&#123;1,1,0,0,0,1,1,0,0,0,0,0&#125;</code> ，第二遍循环 <code>dp=&#123;1,1,0,0,0,1,1,0,0,0,0,1&#125;</code> 循环提前结束，验证正确。</p>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/351f9b06/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1542,7 +1544,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1612,18 +1614,18 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">88k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共37.2k字</span>
+  <span class="post-count">博客全站共38.2k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>

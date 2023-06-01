@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="多重背包问题的关键：在于对于每一个物体可以选择多次，在基于滚动数组的实现中，为了避免重复选择同一元素，在对背包的内层循环过程中采取从右向左的方式。那么在完全背包中要实现重复选择只需要将背包的内层循环从左向右进行即可。  动态规划数组的定义：定义数组 dp[W+1] 表示，容量为 W 的背包能够装下的物品的最高价值。  动态规划数组的推导：每次尝试将元素 i 转入到背包中看能否使得价值上升 dp[j">
+  <meta name="description" content="动态规划将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。 此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序） 考虑这样一种情况： s&#x3D;&quot;applepenapple&quot; wordDict&#x3D;[&quot;ap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="完全背包问题">
-<meta property="og:url" content="http://marksblog.cn/posts/5cdb273d/index.html">
+<meta property="og:title" content="LeetCode-139-单词拆分">
+<meta property="og:url" content="http://marksblog.cn/posts/4a1c4ee7/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="多重背包问题的关键：在于对于每一个物体可以选择多次，在基于滚动数组的实现中，为了避免重复选择同一元素，在对背包的内层循环过程中采取从右向左的方式。那么在完全背包中要实现重复选择只需要将背包的内层循环从左向右进行即可。  动态规划数组的定义：定义数组 dp[W+1] 表示，容量为 W 的背包能够装下的物品的最高价值。  动态规划数组的推导：每次尝试将元素 i 转入到背包中看能否使得价值上升 dp[j">
+<meta property="og:description" content="动态规划将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。 此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序） 考虑这样一种情况： s&#x3D;&quot;applepenapple&quot; wordDict&#x3D;[&quot;ap">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-26T12:57:05.000Z">
-<meta property="article:modified_time" content="2023-05-26T12:59:03.201Z">
+<meta property="article:published_time" content="2023-06-01T00:58:59.000Z">
+<meta property="article:modified_time" content="2023-06-01T00:59:47.795Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="完全背包">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/5cdb273d/">
+<link rel="canonical" href="http://marksblog.cn/posts/4a1c4ee7/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>完全背包问题 | Mark's blogs</title>
+  <title>LeetCode-139-单词拆分 | Mark's blogs</title>
   
 
 
@@ -188,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/5cdb273d/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4a1c4ee7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -201,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          完全背包问题
+          LeetCode-139-单词拆分
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-26 20:57:05 / 修改时间：20:59:03" itemprop="dateCreated datePublished" datetime="2023-05-26T20:57:05+08:00">2023-05-26</time>
+              <time title="创建时间：2023-06-01 08:58:59 / 修改时间：08:59:47" itemprop="dateCreated datePublished" datetime="2023-06-01T08:58:59+08:00">2023-06-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/5cdb273d/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/5cdb273d/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/4a1c4ee7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/4a1c4ee7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -251,14 +251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -270,27 +270,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h1><p>有N件物品和一个最多能背重量为 <code>W</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。</p>
-<p>相较于0/1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 <code>n</code> 个物品可供选择。</p>
-<p>假设背包的容量为4，重量和价值数组分别为： <code>weight=&#123;1,3,4&#125;,value=&#123;15,20,30&#125;</code></p>
-<p>此时需要求解背包能够装下的最大价值的物品。</p>
+        <h1 id="LeetCode-139-单词拆分"><a href="#LeetCode-139-单词拆分" class="headerlink" title="LeetCode 139 单词拆分"></a>LeetCode 139 单词拆分</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/word-break/">139.单词拆分</a></p>
+<p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p>
+<p>注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。</p>
+<p>示例：</p>
+<blockquote>
+<p>  输入: s = “leetcode”, wordDict = [“leet”, “code”]<br>    输出: true<br>    解释: 返回 true 因为 “leetcode” 可以由 “leet” 和 “code” 拼接成。</p>
+</blockquote>
+<ul>
+<li>1 &lt;= <code>s.length</code> &lt;= 300</li>
+<li>1 &lt;= <code>wordDict.length</code> &lt;= 1000</li>
+<li>1 &lt;= <code>wordDict[i].length</code> &lt;= 20</li>
+<li><code>s</code> 和 <code>wordDict[i]</code> 仅有小写英文字母组成</li>
+<li><code>wordDict</code> 中的所有字符串 互不相同</li>
+</ul>
 
-<p>多重背包问题的关键：在于对于每一个物体可以选择多次，在基于滚动数组的实现中，为了避免重复选择同一元素，在对背包的内层循环过程中采取从右向左的方式。那么在完全背包中要实现重复选择只需要将背包的内层循环从左向右进行即可。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。</p>
+<p>此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序）</p>
+<p>考虑这样一种情况： <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 那么先遍历物品，再遍历背包，初始时只能使用 <code>apple</code> 那么只能将第一个 <code>apple</code> 恰好装满，在第二次迭代中，是只考虑增加 <code>pen</code> 的情形，但实际上还需要使用 <code>apple</code> 对尾部进行装填，也就是每次向背包中装入时，需要使用到全部的物品，所以应该先遍历背包再遍历物品。</p>
 <ol>
-<li><p>动态规划数组的定义：定义数组 <code>dp[W+1]</code> 表示，容量为 <code>W</code> 的背包能够装下的物品的最高价值。</p>
+<li><p>动态规划数组的定义：定义数组 <code>dp[s.size()+1]</code> 表示长度为 <code>s.size()</code> 的字符串能否恰好装满</p>
 </li>
-<li><p>动态规划数组的推导：每次尝试将元素 <code>i</code> 转入到背包中看能否使得价值上升 <code>dp[j]=max(dp[j],dp[j-weight[i]]+value[i])</code></p>
-</li>
-<li><p>动态规划数组的初始化：初始时，未将物品装入到背包中，背包中的价值全部为 <code>0</code></p>
-</li>
-<li><p>动态规划数组的遍历顺序：在内外层循环中，既可以先遍历物品也可以先遍历背包，但是不论是对物品还是背包容量的遍历都需要从前向后进行。对于先遍历物品再遍历背包的理解：不断增加背包可选择的物品，在每一次添加物品后可以选择0或n个当前物品，将全部的物品都考虑到之后所得就是当前背包能够得到的最有化解。对于先遍历背包再遍历物品的理解：不断增加的是背包的容量，对于每一个背包容量，求解的是小容量的完全背包问题。（本质上就是一个减少物品的个数，一个减少背包的容量，从两个角度去划分子问题）</p>
+<li><p>动态规划数组的推导：在第 <code>j</code> 次迭代中，判断字符从 <code>0-j-1</code> 位置的字符串 <code>s</code> 能否恰好装满，对于每一个物品 <code>wordDict[i]</code> 都需要尝试从 <code>j-1</code> 处向前装入试试，所以有：其中 <code>match</code> 是字符串匹配操作。</p>
 </li>
 </ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(j&gt;=wordDict[i].<span class="built_in">size</span>())&#123;</span><br><span class="line">    dp[j]=dp[j]||(dp[j-wordDict[i].<span class="built_in">size</span>()]&amp;&amp;<span class="built_in">match</span>(s,j<span class="number">-1</span>,wordDict[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>动态规划数组的初始化：对于<code>dp[0]</code> 一定是能够恰好装满的，所以 <code>dp[0]=true</code> 其他全部初始化为 <code>false</code></p>
+</li>
+<li><p>动态规划数组的遍历顺序：此处采取先遍历背包，再遍历物品的方式，物品和背包都采取从前向后遍历的方式</p>
+</li>
+<li><p>举例验证：对于 <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 动态规划数组的推导过程为：验证成立</p>
+</li>
+</ol>
+<blockquote>
+<p>  1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,1,</p>
+</blockquote>
 
-<p>先遍历物品，再遍历背包的代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vectr&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(W+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;value.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=weight[i];j&lt;=W;j++)&#123; <span class="comment">// 此处需要从weight[i]开始</span></span><br><span class="line">        dp[j]=<span class="built_in">max</span>(dp[j],dp[j-weight[i]]+value[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先遍历背包再遍历物品的代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vectr&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(W+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=W;j++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;weight.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        dp[j]=j&gt;=weight[i]?<span class="built_in">max</span>(dp[j],dp[j-weight[i]]+value[i]):dp[j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">match</span><span class="params">(string&amp; s,<span class="type">int</span> j,string&amp; word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;word.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(word[i]!=s[j-word.<span class="built_in">size</span>()+<span class="number">1</span>+i])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">wordBreak</span><span class="params">(string s, vector&lt;string&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dp</span><span class="params">(s.size()+<span class="number">1</span>,<span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=s.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;wordDict.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;=wordDict[i].<span class="built_in">size</span>())&#123;</span><br><span class="line">                    dp[j]=dp[j]||(dp[j-wordDict[i].<span class="built_in">size</span>()]&amp;&amp;<span class="built_in">match</span>(s,j<span class="number">-1</span>,wordDict[i]));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.<span class="built_in">size</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -316,7 +334,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/5cdb273d/" title="完全背包问题">http://marksblog.cn/posts/5cdb273d/</a>
+    <a href="http://marksblog.cn/posts/4a1c4ee7/" title="LeetCode-139-单词拆分">http://marksblog.cn/posts/4a1c4ee7/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -367,13 +385,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/cc66f981/" rel="prev" title="LeetCode-474-一和零">
-      <i class="fa fa-chevron-left"></i> LeetCode-474-一和零
+    <a href="/posts/null/" rel="prev" title="LeetCode-279-完全平方数">
+      <i class="fa fa-chevron-left"></i> LeetCode-279-完全平方数
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/d4a2a498/" rel="next" title="LeetCode-518-零钱兑换II">
-      LeetCode-518-零钱兑换II <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -433,7 +448,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-text">完全背包问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86"><span class="nav-text">LeetCode 139 单词拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

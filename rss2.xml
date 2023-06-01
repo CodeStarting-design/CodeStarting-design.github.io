@@ -9,8 +9,57 @@
     <atom:link href="http://marksblog.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>心之所向，行之可往</description>
-    <pubDate>Tue, 30 May 2023 12:21:16 GMT</pubDate>
+    <pubDate>Thu, 01 Jun 2023 00:59:47 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>LeetCode-139-单词拆分</title>
+      <link>http://marksblog.cn/posts/4a1c4ee7/</link>
+      <guid>http://marksblog.cn/posts/4a1c4ee7/</guid>
+      <pubDate>Thu, 01 Jun 2023 00:58:59 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。&lt;/p&gt;
+&lt;p&gt;此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序）&lt;/p&gt;
+&lt;p&gt;考虑这样一种情况： &lt;code&gt;s=&amp;quot;applepenapple&amp;quot; wordDict=[&amp;quot;apple&amp;quot;,&amp;quot;pen&amp;quot;]&lt;/code&gt; 那么先遍历物品，再遍历背包，初始时只能使用 &lt;code&gt;apple&lt;/code&gt; 那么只能将第一个 &lt;code&gt;apple&lt;/code&gt; 恰好装满，在第二次迭代中，是只考虑增加 &lt;code&gt;pen&lt;/code&gt; 的情形，但实际上还需要使用 &lt;code&gt;apple&lt;/code&gt; 对尾部进行装填，也就是每次向背包中装入时，需要使用到全部的物品，所以应该先遍历背包再遍历物品。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[s.size()+1]&lt;/code&gt; 表示长度为 &lt;code&gt;s.size()&lt;/code&gt; 的字符串能否恰好装满&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的推导：在第 &lt;code&gt;j&lt;/code&gt; 次迭代中，判断字符从 &lt;code&gt;0-j-1&lt;/code&gt; 位置的字符串 &lt;code&gt;s&lt;/code&gt; 能否恰好装满，对于每一个物品 &lt;code&gt;wordDict[i]&lt;/code&gt; 都需要尝试从 &lt;code&gt;j-1&lt;/code&gt; 处向前装入试试，所以有：其中 &lt;code&gt;match&lt;/code&gt; 是字符串匹配操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(j&amp;gt;=wordDict[i].&lt;span class=&quot;built_in&quot;&gt;size&lt;/span&gt;())&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dp[j]=dp[j]||(dp[j-wordDict[i].&lt;span class=&quot;built_in&quot;&gt;size&lt;/span&gt;()]&amp;amp;&amp;amp;&lt;span class=&quot;built_in&quot;&gt;match&lt;/span&gt;(s,j&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;,wordDict[i]));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的初始化：对于&lt;code&gt;dp[0]&lt;/code&gt; 一定是能够恰好装满的，所以 &lt;code&gt;dp[0]=true&lt;/code&gt; 其他全部初始化为 &lt;code&gt;false&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的遍历顺序：此处采取先遍历背包，再遍历物品的方式，物品和背包都采取从前向后遍历的方式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;举例验证：对于 &lt;code&gt;s=&amp;quot;applepenapple&amp;quot; wordDict=[&amp;quot;apple&amp;quot;,&amp;quot;pen&amp;quot;]&lt;/code&gt; 动态规划数组的推导过程为：验证成立&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;  1,0,0,0,0,0,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,0,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,0,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,0,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,0,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,0,&lt;br&gt;    1,0,0,0,0,1,0,0,1,0,0,0,0,1,&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="LeetCode-139-单词拆分"><a href="#LeetCode-139-单词拆分" class="headerlink" title="LeetCode 139 单词拆分"></a>LeetCode 139 单词拆分</h1><p><a href="https://leetcode.cn/problems/word-break/">139.单词拆分</a></p><p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p><p>注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。</p><p>示例：</p><blockquote><p>  输入: s = “leetcode”, wordDict = [“leet”, “code”]<br>    输出: true<br>    解释: 返回 true 因为 “leetcode” 可以由 “leet” 和 “code” 拼接成。</p></blockquote><ul><li>1 &lt;= <code>s.length</code> &lt;= 300</li><li>1 &lt;= <code>wordDict.length</code> &lt;= 1000</li><li>1 &lt;= <code>wordDict[i].length</code> &lt;= 20</li><li><code>s</code> 和 <code>wordDict[i]</code> 仅有小写英文字母组成</li><li><code>wordDict</code> 中的所有字符串 互不相同</li></ul><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>将问题转化为完全背包问题：此处的背包问题并不是求解最优化，而是判断能否将背包装满。但是此处的背包不同于之前的背包，背包中装入的必须是特定的元素。</p><p>此处需要判断的是能否恰好装满，若是先遍历物品，再遍历背包，那么实际上限制了物品元素的使用。（本质上是一个排列问题，元素在背包中有序）</p><p>考虑这样一种情况： <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 那么先遍历物品，再遍历背包，初始时只能使用 <code>apple</code> 那么只能将第一个 <code>apple</code> 恰好装满，在第二次迭代中，是只考虑增加 <code>pen</code> 的情形，但实际上还需要使用 <code>apple</code> 对尾部进行装填，也就是每次向背包中装入时，需要使用到全部的物品，所以应该先遍历背包再遍历物品。</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[s.size()+1]</code> 表示长度为 <code>s.size()</code> 的字符串能否恰好装满</p></li><li><p>动态规划数组的推导：在第 <code>j</code> 次迭代中，判断字符从 <code>0-j-1</code> 位置的字符串 <code>s</code> 能否恰好装满，对于每一个物品 <code>wordDict[i]</code> 都需要尝试从 <code>j-1</code> 处向前装入试试，所以有：其中 <code>match</code> 是字符串匹配操作。</p></li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(j&gt;=wordDict[i].<span class="built_in">size</span>())&#123;</span><br><span class="line">    dp[j]=dp[j]||(dp[j-wordDict[i].<span class="built_in">size</span>()]&amp;&amp;<span class="built_in">match</span>(s,j<span class="number">-1</span>,wordDict[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol><li><p>动态规划数组的初始化：对于<code>dp[0]</code> 一定是能够恰好装满的，所以 <code>dp[0]=true</code> 其他全部初始化为 <code>false</code></p></li><li><p>动态规划数组的遍历顺序：此处采取先遍历背包，再遍历物品的方式，物品和背包都采取从前向后遍历的方式</p></li><li><p>举例验证：对于 <code>s=&quot;applepenapple&quot; wordDict=[&quot;apple&quot;,&quot;pen&quot;]</code> 动态规划数组的推导过程为：验证成立</p></li></ol><blockquote><p>  1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,0,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,0,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,0,<br>    1,0,0,0,0,1,0,0,1,0,0,0,0,1,</p></blockquote><p>代码实现：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">match</span><span class="params">(string&amp; s,<span class="type">int</span> j,string&amp; word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;word.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(word[i]!=s[j-word.<span class="built_in">size</span>()+<span class="number">1</span>+i])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">wordBreak</span><span class="params">(string s, vector&lt;string&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dp</span><span class="params">(s.size()+<span class="number">1</span>,<span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=s.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;wordDict.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;=wordDict[i].<span class="built_in">size</span>())&#123;</span><br><span class="line">                    dp[j]=dp[j]||(dp[j-wordDict[i].<span class="built_in">size</span>()]&amp;&amp;<span class="built_in">match</span>(s,j<span class="number">-1</span>,wordDict[i]));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.<span class="built_in">size</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/">完全背包</category>
+      
+      
+      <comments>http://marksblog.cn/posts/4a1c4ee7/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>LeetCode-279-完全平方数</title>
@@ -381,47 +430,6 @@
       
       
       <comments>http://marksblog.cn/posts/48c2c4ab/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>LeetCode-416-分割等和子集</title>
-      <link>http://marksblog.cn/posts/351f9b06/</link>
-      <guid>http://marksblog.cn/posts/351f9b06/</guid>
-      <pubDate>Sat, 20 May 2023 13:33:16 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;此处是集合的划分，要求划分的两个集合中元素的和相等。此处可以将问题转化为两个背包，并且两个背包的容量相同，都等于集合中全部元素总和的一半。那么子集划分的过程，也就是向背包中放入相应元素的过程，若是能将一个背包装满，那么另外一个也就一定能够装满。首先求得集合中全部元素的总和 &lt;code&gt;2n&lt;/code&gt; 。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的定义：初始的 &lt;code&gt;dp[i]&lt;/code&gt; 表示在元素 &lt;code&gt;0-0&lt;/code&gt; 中，背包容量为 &lt;code&gt;i&lt;/code&gt; 时，能否恰好将背包装满。能够装满则为 &lt;code&gt;true&lt;/code&gt; 不能为 &lt;code&gt;false&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的推导：在第 &lt;code&gt;i&lt;/code&gt; 次迭代时，在元素 &lt;code&gt;0-i&lt;/code&gt; 中进行选择，此处仅有两种情况，选取元素 &lt;code&gt;i&lt;/code&gt; 或者不选取元素 &lt;code&gt;i&lt;/code&gt; 。那么 &lt;code&gt;dp[j]=dp[j-nums[i]]||dp[j]&lt;/code&gt; &lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的初始化：在初始时，&lt;code&gt;dp[i]&lt;/code&gt; 表示在元素 &lt;code&gt;0-0&lt;/code&gt; 中，背包容量为 &lt;code&gt;i&lt;/code&gt; 时，能否恰好将背包装满。那么先全部初始化为 &lt;code&gt;false&lt;/code&gt; ，若是 &lt;code&gt;nums[0]&amp;lt;=n&lt;/code&gt; 则令 &lt;code&gt;dp[nums[0]]=true&lt;/code&gt; ，并且对于背包容量为 &lt;code&gt;0&lt;/code&gt; 时，本身就是满的，因此 &lt;code&gt;dp[0]=true;&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数据的遍历顺序：外层循环，是对元素个数进行遍历，不断增加可以放入背包的元素数量，从 &lt;code&gt;i=1,...,nums.size()-1&lt;/code&gt; 进行遍历，内层循环是对 &lt;code&gt;dp&lt;/code&gt; 数据进行遍历，并且dp数组的遍历过程是从右向左进行的。并且在遍历的过程中只要出现 &lt;code&gt;dp[n]==true&lt;/code&gt; 即可提前结束循环。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;举例验证：对于 &lt;code&gt;nums = [1,5,11,5]&lt;/code&gt; 那么 &lt;code&gt;dp&lt;/code&gt; 数组的长度为 &lt;code&gt;12&lt;/code&gt; 初始化为 &lt;code&gt;dp[1]=true&lt;/code&gt; 其他都为 &lt;code&gt;false&lt;/code&gt; ，然后开始循环，第一遍循环： &lt;code&gt;dp=&amp;#123;1,1,0,0,0,1,1,0,0,0,0,0&amp;#125;&lt;/code&gt; ，第二遍循环 &lt;code&gt;dp=&amp;#123;1,1,0,0,0,1,1,0,0,0,0,1&amp;#125;&lt;/code&gt; 循环提前结束，验证正确。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="LeetCode-416-分割等和子集"><a href="#LeetCode-416-分割等和子集" class="headerlink" title="LeetCode 416 分割等和子集"></a>LeetCode 416 分割等和子集</h1><p><a href="https://leetcode.cn/problems/partition-equal-subset-sum/">416.分割等和子集</a></p><p>给你一个只包含正整数的非空数组 <code>nums</code> 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p><p>示例：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">11</span>,<span class="number">5</span>]</span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：数组可以分割成 [<span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>] 和 [<span class="number">11</span>] 。</span><br></pre></td></tr></table></figure><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处是集合的划分，要求划分的两个集合中元素的和相等。此处可以将问题转化为两个背包，并且两个背包的容量相同，都等于集合中全部元素总和的一半。那么子集划分的过程，也就是向背包中放入相应元素的过程，若是能将一个背包装满，那么另外一个也就一定能够装满。首先求得集合中全部元素的总和 <code>2n</code> 。</p><ol><li><p>动态规划数组的定义：初始的 <code>dp[i]</code> 表示在元素 <code>0-0</code> 中，背包容量为 <code>i</code> 时，能否恰好将背包装满。能够装满则为 <code>true</code> 不能为 <code>false</code></p></li><li><p>动态规划数组的推导：在第 <code>i</code> 次迭代时，在元素 <code>0-i</code> 中进行选择，此处仅有两种情况，选取元素 <code>i</code> 或者不选取元素 <code>i</code> 。那么 <code>dp[j]=dp[j-nums[i]]||dp[j]</code> </p></li><li><p>动态规划数组的初始化：在初始时，<code>dp[i]</code> 表示在元素 <code>0-0</code> 中，背包容量为 <code>i</code> 时，能否恰好将背包装满。那么先全部初始化为 <code>false</code> ，若是 <code>nums[0]&lt;=n</code> 则令 <code>dp[nums[0]]=true</code> ，并且对于背包容量为 <code>0</code> 时，本身就是满的，因此 <code>dp[0]=true;</code></p></li><li><p>动态规划数据的遍历顺序：外层循环，是对元素个数进行遍历，不断增加可以放入背包的元素数量，从 <code>i=1,...,nums.size()-1</code> 进行遍历，内层循环是对 <code>dp</code> 数据进行遍历，并且dp数组的遍历过程是从右向左进行的。并且在遍历的过程中只要出现 <code>dp[n]==true</code> 即可提前结束循环。</p></li><li><p>举例验证：对于 <code>nums = [1,5,11,5]</code> 那么 <code>dp</code> 数组的长度为 <code>12</code> 初始化为 <code>dp[1]=true</code> 其他都为 <code>false</code> ，然后开始循环，第一遍循环： <code>dp=&#123;1,1,0,0,0,1,1,0,0,0,0,0&#125;</code> ，第二遍循环 <code>dp=&#123;1,1,0,0,0,1,1,0,0,0,0,1&#125;</code> 循环提前结束，验证正确。</p></li></ol><p>代码实现：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canPartition</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;a:nums) sum+=a;</span><br><span class="line">        <span class="keyword">if</span>(sum%<span class="number">2</span>||nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dp</span><span class="params">(sum/<span class="number">2</span>+<span class="number">1</span>,<span class="literal">false</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[<span class="number">0</span>]&lt;=sum/<span class="number">2</span>) dp[nums[<span class="number">0</span>]]=<span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=dp.<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;=nums[i];j--)&#123;</span><br><span class="line">                dp[j]=dp[j]||dp[j-nums[i]];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(dp.<span class="built_in">back</span>()==<span class="literal">true</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp.<span class="built_in">back</span>();        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      <category domain="http://marksblog.cn/tags/0-1%E8%83%8C%E5%8C%85/">0/1背包</category>
-      
-      
-      <comments>http://marksblog.cn/posts/351f9b06/#disqus_thread</comments>
       
     </item>
     
