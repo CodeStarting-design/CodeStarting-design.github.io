@@ -20,22 +20,23 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1.1 DFS实现在本题中使用DFS实现存在一定的难度，但是也不失为一种实现方式，基本思想为：采用根右左的方式进行深度优先搜索，那么在第一次到达新的一层时，访问的节点就是二叉树每层的最右侧节点。那么在DFS中需要做的是就是判断，何时时第一次当前层的。">
+  <meta name="description" content="完全背包问题总结首先，需要清楚的是对于完全背包问题的定义：有N件物品和一个最多能背重量为 W 的背包。第 i 件物品的重量是 weight[i] ，得到的价值是 value[i] 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。 相较于0&#x2F;1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 n 个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-199-二叉树的右视图">
-<meta property="og:url" content="http://marksblog.cn/posts/9e62f45f/index.html">
+<meta property="og:title" content="完全背包问题总结">
+<meta property="og:url" content="http://marksblog.cn/posts/97265db6/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="1.1 DFS实现在本题中使用DFS实现存在一定的难度，但是也不失为一种实现方式，基本思想为：采用根右左的方式进行深度优先搜索，那么在第一次到达新的一层时，访问的节点就是二叉树每层的最右侧节点。那么在DFS中需要做的是就是判断，何时时第一次当前层的。">
+<meta property="og:description" content="完全背包问题总结首先，需要清楚的是对于完全背包问题的定义：有N件物品和一个最多能背重量为 W 的背包。第 i 件物品的重量是 weight[i] ，得到的价值是 value[i] 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。 相较于0&#x2F;1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 n 个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-04T15:55:10.000Z">
-<meta property="article:modified_time" content="2023-05-04T15:56:29.157Z">
+<meta property="article:published_time" content="2023-06-02T12:30:17.000Z">
+<meta property="article:modified_time" content="2023-06-02T12:30:47.784Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="树和二叉树">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="完全背包">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/9e62f45f/">
+<link rel="canonical" href="http://marksblog.cn/posts/97265db6/">
 
 
 <script id="page-configurations">
@@ -48,7 +49,7 @@
   };
 </script>
 
-  <title>LeetCode-199-二叉树的右视图 | Mark's blogs</title>
+  <title>完全背包问题总结 | Mark's blogs</title>
   
 
 
@@ -187,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/9e62f45f/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/97265db6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -200,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-199-二叉树的右视图
+          完全背包问题总结
         </h1>
 
         <div class="post-meta">
@@ -211,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-05-04 23:55:10 / 修改时间：23:56:29" itemprop="dateCreated datePublished" datetime="2023-05-04T23:55:10+08:00">2023-05-04</time>
+              <time title="创建时间：2023-06-02 20:30:17 / 修改时间：20:30:47" itemprop="dateCreated datePublished" datetime="2023-06-02T20:30:17+08:00">2023-06-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/9e62f45f/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/9e62f45f/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/97265db6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/97265db6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -250,14 +251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -269,15 +270,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-199-二叉树的右视图"><a href="#LeetCode-199-二叉树的右视图" class="headerlink" title="LeetCode 199 二叉树的右视图"></a>LeetCode 199 二叉树的右视图</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-right-side-view/">199.二叉树的右视图</a></p>
-<p>给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。</p>
+        
+<h1 id="完全背包问题总结"><a href="#完全背包问题总结" class="headerlink" title="完全背包问题总结"></a>完全背包问题总结</h1><p>首先，需要清楚的是对于完全背包问题的定义：有N件物品和一个最多能背重量为 <code>W</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。</p>
+<p>相较于0/1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 <code>n</code> 个物品可供选择（即从所有的物品中做任意的选择）。</p>
+<p>完全背包问题的实现只需要在0/1背包的基础上稍作改动即可，依旧是采取滚动数组实现。</p>
+<ol>
+<li><p>对于先便利物品，再遍历背包的情形：那么完全背包相较于0/1背包的不同之处，在第 <code>i</code> 次迭代时，0/1背包只能使用一次物品 <code>weight[i]</code> ，因此采取从后向前的方式遍历，为了防止重复选择，但是完全背包可以使用任意次物品 <code>weight[i]</code> ，所以需要实现重复的选取，因此采取从前向后的遍历方式即可。并且这种先遍历物品再遍历背包的方式，本质上是在求解组合问题，也就是对于物品的选取顺序是不敏感的，仅对物品的个数敏感。（因为先遍历物品，因此也就确定了选取的顺序）</p>
+</li>
+<li><p>先遍历背包，再遍历物品：也就是对于每一种情形下的背包容量，都从全部的物品中进行选择。在单纯的完全背包问题下，递推公式和结果是不会改变的。但是这样的遍历方式，本质上是在求解排列问题，也就是对于物品的选取顺序是敏感的，因为先遍历的是背包容量，在背包容量增大的过程中，最后一次选取的物品不同将会是不同的情形。</p>
+</li>
+</ol>
 
-<h2 id="1-1-DFS实现"><a href="#1-1-DFS实现" class="headerlink" title="1.1 DFS实现"></a>1.1 DFS实现</h2><p>在本题中使用DFS实现存在一定的难度，但是也不失为一种实现方式，基本思想为：采用根右左的方式进行深度优先搜索，那么在第一次到达新的一层时，访问的节点就是二叉树每层的最右侧节点。那么在DFS中需要做的是就是判断，何时时第一次当前层的。</p>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//深度优先遍历</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; ret;</span><br><span class="line">    <span class="type">void</span> _rightView(TreeNode* node, <span class="type">int</span> depth) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (ret.<span class="built_in">size</span>() == depth) ret.<span class="built_in">emplace_back</span>(node-&gt;val);</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right) _rightView(node-&gt;right, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left) _rightView(node-&gt;left, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        _rightView(root, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>上述代码在实现上的巧妙性就在于：初始时传递的深度值为0，那么深度为n时，第一次到达n层，对应的数组的长度也是n，若不是第一次到达，那么数组的长度肯定是n+1，本质上是利用了数据中长度信息来记录是不是第一次到达当前层。</p>
-<h2 id="1-2-BFS实现"><a href="#1-2-BFS实现" class="headerlink" title="1.2 BFS实现"></a>1.2 BFS实现</h2><p>使用BFS能够在当前层中找到层的最后一个元素，此时就只需要将相应的元素添加到序列中即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> ans;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="type">int</span> levelSize=q.<span class="built_in">size</span>();</span><br><span class="line">            TreeNode *node;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;levelSize;i++)&#123;</span><br><span class="line">                node=q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node) ans.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode-377-组合总和Ⅳ"><a href="#LeetCode-377-组合总和Ⅳ" class="headerlink" title="LeetCode 377 组合总和Ⅳ"></a>LeetCode 377 组合总和Ⅳ</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum-iv/">377.组合总和 Ⅳ</a></p>
+<p>给你一个由不同整数组成的数组 <code>nums</code> ，和一个目标整数 <code>target</code> 。请你从 <code>nums</code> 中找出并返回总和为 <code>target</code> 的元素组合的个数。</p>
+<p>本题求解的并不是组合问题，是一个排序问题，在题目示例中将 <code>1,2,1</code> 和 <code>1,1,2</code> 视为两种不同的组合，也就是对于元素的选取顺序是敏感的。那么应该先遍历背包再遍历物品，并且此处求解的是恰好装满的情形，相应的递推公式为 <code>dp[j]+=dp[j-nums[i]]</code></p>
+<h2 id="LeetCode-518-零钱兑换II"><a href="#LeetCode-518-零钱兑换II" class="headerlink" title="LeetCode 518 零钱兑换II"></a>LeetCode 518 零钱兑换II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change-ii/">518.零钱兑换II</a></p>
+<p>给你一个整数数组 <code>coins</code> 表示不同面额的硬币，另给一个整数 <code>amount</code> 表示总金额。</p>
+<p>请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 <code>0</code> 。</p>
+<p>根据题中的示例，本题求解的是一个组合问题。</p>
+<p>并且此处的背包问题是一个恰好装满的情形，那么对于组合问题基本思路就是先遍历物品再遍历背包，那么递推公式为： <code>dp[j]+=dp[j-coins[i]]</code> ，在进行初始化是一定要将 <code>dp[0]=1</code> </p>
+<h2 id="LeetCode-322-零钱兑换"><a href="#LeetCode-322-零钱兑换" class="headerlink" title="LeetCode 322 零钱兑换"></a>LeetCode 322 零钱兑换</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change/">322.零钱兑换</a></p>
+<p>给你一个整数数组 <code>coins</code> ，表示不同面额的硬币；以及一个整数 <code>amount</code> ，表示总金额。</p>
+<p>计算并返回可以凑成总金额所需的最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。</p>
+<p>此处的最优化问题为：求解能够恰好装满背包的最少硬币数量，那么对于组合和排列都是相同的，两种遍历顺序都是可以的。基本的递推公式为：<code>dp[j]=min(dp[j],dp[j-coins[i]]+1)</code> ，要让上述递推公式成立，需要在数组的初始化时进行特殊处理，对于 <code>dp[0]</code> 只需要0个硬币即可装满。那么对于其他的值明显都装不满，因此初始为 <code>INT_MAX</code> ，并且每次判断 <code>dp[j-coins[i]]!=INT_MAX</code></p>
+<h2 id="LeetCode-279-完全平方数"><a href="#LeetCode-279-完全平方数" class="headerlink" title="LeetCode 279 完全平方数"></a>LeetCode 279 完全平方数</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/perfect-squares/">279.完全平方数</a></p>
+<p>给你一个整数 <code>n</code> ，返回和为 <code>n</code> 的完全平方数的最少数量 。</p>
+<p>完全平方数是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。</p>
+<p>此处和上述问题是非常类似的，也是在求解将背包恰好装满的最少的元素数量。但是此处的元素要求是完全平方数，因此在遍历物品的同时去生成相应的完全平方数即可。对于 <code>dp[0]</code> 依旧是初始化为0。其他元素全部初始化为 <code>INT_MAX</code> 。对应的递推公式为 <code>dp[j]=min(dp[j],dp[j-nums[i]]+1)</code> 要求 <code>dp[j-nums[i]]!=INT_MAX</code></p>
+<h2 id="LeetCode-139-单词拆分"><a href="#LeetCode-139-单词拆分" class="headerlink" title="LeetCode 139 单词拆分"></a>LeetCode 139 单词拆分</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/word-break/">139.单词拆分</a></p>
+<p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p>
+<p>注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。</p>
+<p>此处需要注意的是：本题是一个排列问题，一定要先遍历背包，再遍历物品，也就是对于任意的背包大小都要能够使用全部的物品去进行填充，否则对于 <code>applepenapple</code> 这样的情形，在仅使用 <code>apple</code> 时，不能将后续的也标记为装满。那么在使用 <code>pen</code> 去填充时，无法使用 <code>apple</code> 将后续填满。</p>
 
     </div>
 
@@ -303,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/9e62f45f/" title="LeetCode-199-二叉树的右视图">http://marksblog.cn/posts/9e62f45f/</a>
+    <a href="http://marksblog.cn/posts/97265db6/" title="完全背包问题总结">http://marksblog.cn/posts/97265db6/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -344,7 +367,8 @@
           <div class="post-tags">
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-              <a href="/tags/%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 树和二叉树</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/" rel="tag"># 完全背包</a>
           </div>
 
         
@@ -353,13 +377,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/dc02b901/" rel="prev" title="LeetCode-78-子集">
-      <i class="fa fa-chevron-left"></i> LeetCode-78-子集
+    <a href="/posts/4a1c4ee7/" rel="prev" title="LeetCode-139-单词拆分">
+      <i class="fa fa-chevron-left"></i> LeetCode-139-单词拆分
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/8565921e/" rel="next" title="LeetCode-90-子集II">
-      LeetCode-90-子集II <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -419,7 +440,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-199-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE"><span class="nav-text">LeetCode 199 二叉树的右视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-DFS%E5%AE%9E%E7%8E%B0"><span class="nav-text">1.1 DFS实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-BFS%E5%AE%9E%E7%8E%B0"><span class="nav-text">1.2 BFS实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="nav-text">完全背包问题总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-377-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%E2%85%A3"><span class="nav-text">LeetCode 377 组合总和Ⅳ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2II"><span class="nav-text">LeetCode 518 零钱兑换II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2"><span class="nav-text">LeetCode 322 零钱兑换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0"><span class="nav-text">LeetCode 279 完全平方数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86"><span class="nav-text">LeetCode 139 单词拆分</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
