@@ -293,6 +293,125 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/34469175/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/34469175/" class="post-title-link" itemprop="url">LeetCode-377-组合总和Ⅳ</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-28 17:20:06 / 修改时间：17:23:26" itemprop="dateCreated datePublished" datetime="2023-05-28T17:20:06+08:00">2023-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/34469175/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/34469175/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处就是一个完全背包问题，但是背包的最优化问题是最多的方案数。并且在题中指出了，顺序不同的序列将会被视为不同的组合，也就是此处元素的选择上是有序的。那么采取滚动数组的方式来实现，需要先遍历背包，再遍历元素，因为只有这样才能保证选取上的有序。</p>
+<ol>
+<li><p>动态规划数组的定义：定义数组 <code>dp[target+1]</code> 表示总和为 <code>target</code> 的元素选择方案个数。</p>
+</li>
+<li><p>动态规划数组的推导：在 <code>j</code> 次迭代中，从元素 <code>0-n</code> 中进行选择，那么相较于前面的方案，主要是背包容量增大。那么 <code>dp[j]=dp[j]+dp[j-nums[i]]</code></p>
+</li>
+<li><p>动态规划数组的初始化：在初始时，装满 <code>dp[0]</code> 的方案有一种，那么 <code>dp[0]=1</code></p>
+</li>
+<li><p>动态规划数组的遍历顺序：此处是先遍历背包再遍历物品，那么先从前向后遍历背包再从前向后遍历物品。</p>
+</li>
+<li><p>举例验证：对于 <code>nums=&#123;1,2,3&#125; , target=4</code> 动态规划的过程为:</p>
+</li>
+</ol>
+<blockquote>
+<p>  dp={1,0,0,0,0}<br>    dp={1,1,0,0,0}<br>    dp={1,1,2,0,0}<br>    dp={1,1,2,4,0}<br>    dp={1,1,2,4,7}</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/34469175/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/d4a2a498/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1330,132 +1449,10 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/8922dec9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/8922dec9/" class="post-title-link" itemprop="url">LeetCode-63-不同路径II</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-16 20:30:22" itemprop="dateCreated datePublished" datetime="2023-05-16T20:30:22+08:00">2023-05-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-18 20:54:30" itemprop="dateModified" datetime="2023-05-18T20:54:30+08:00">2023-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/8922dec9/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/8922dec9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处相较于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-paths/">62.不同路径</a>的不同之处在于网格中存在障碍物，那么在进行动态规划数组的推导时，将会存在不同之处，也对网格中值为 <code>0</code> 的元素，依旧就是可以从上方和左方到达： <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，对于网格中值为 <code>1</code> 的位置应该将其置为不可达的状态： <code>dp[i][j]=0</code> 。相应的，动态规划数组在初始化是也存在不同。</p>
-<ol>
-<li><p>确定动态规划数组： <code>dp[i][j]</code> 表示从起点 <code>[0][0]</code> 到达 <code>[i][j]</code> 存在的路径数。</p>
-</li>
-<li><p>动态规划数组的推导方式： 首先判断 <code>obstacleGrid[i][j]==0?</code> 若是成立，那么 <code>dp[i][j]=dp[i-1][j]+dp[i][j-1]</code> ，不成立那么 <code>dp[i][j]=0</code> 。</p>
-</li>
-<li><p>动态规划数组的初始化：依旧是对第一行和第一列进行初始化，在第一行中 <code>dp[0][0]=1</code> 接下来判断 <code>obstacleGrid[0][j]==0?</code> ，若是成立，那么 <code>dp[0][j]=1</code> ，否则 <code>dp[0][j]=0</code> 并且后续的 <code>dp[0][j]</code> 也全部为0。对于第一列的初始化：判断 <code>obstacleGrid[i][0]==0?</code> ，若是成立，那么 <code>dp[i][0]=1</code> ，否则 <code>dp[i][0]=0</code> 并且后续的 <code>dp[i][0]</code> 也全部初始化为0。</p>
-</li>
-<li><p>数组的遍历顺序：采取从前向后，逐行遍历的方式</p>
-</li>
-<li><p>举例验证：<code>obstacleGrid = [[0,1],[0,0]]</code> 那么初始为 <code>dp[0][0]=1,dp[0][1]=0,dp[1][0]=1</code> 计算 <code>dp[1][1]=dp[0][1]+dp[1][0]=1</code> 验证正确</p>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/8922dec9/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1522,7 +1519,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1592,18 +1589,18 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">100k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:29</span>
+    <span title="站点阅读时长">1:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共43.6k字</span>
+  <span class="post-count">博客全站共44.8k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>

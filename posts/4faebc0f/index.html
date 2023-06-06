@@ -20,25 +20,23 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="深度优先改变了相邻节点的定义：此处是在一棵二叉树中进行节点的选取，使得节点的和值最大，那么从父节点开始遍历，选取了父节点就不能选取子节点。 暴力搜索实现：遍历每一种合法的选取情形，判断能够选取到的最大值。 代码实现： 1234567891011121314151617class Solution &amp;#123;public:    int robTree(TreeNode* root)&amp;#123;">
+  <meta name="description" content="贪心相较于121.买卖股票的最佳时机，本题的主要区别在于：考虑的不只是单次买卖股票的情形，可以对一只股票多次进行买卖，需要求解的是整体的最优化。 要想实现最大的利润，那么本质上就是在序列中寻找单调区间，将序列中的全部单调增区间的区间长度相加，就是最大的利润值。 1234567891011121314151617181920class Solution &amp;#123;public:    int ma">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-337-打家劫舍III">
-<meta property="og:url" content="http://marksblog.cn/posts/1aa3096f/index.html">
+<meta property="og:title" content="LeetCode-122-买卖股票的最佳时机II">
+<meta property="og:url" content="http://marksblog.cn/posts/4faebc0f/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="深度优先改变了相邻节点的定义：此处是在一棵二叉树中进行节点的选取，使得节点的和值最大，那么从父节点开始遍历，选取了父节点就不能选取子节点。 暴力搜索实现：遍历每一种合法的选取情形，判断能够选取到的最大值。 代码实现： 1234567891011121314151617class Solution &amp;#123;public:    int robTree(TreeNode* root)&amp;#123;">
+<meta property="og:description" content="贪心相较于121.买卖股票的最佳时机，本题的主要区别在于：考虑的不只是单次买卖股票的情形，可以对一只股票多次进行买卖，需要求解的是整体的最优化。 要想实现最大的利润，那么本质上就是在序列中寻找单调区间，将序列中的全部单调增区间的区间长度相加，就是最大的利润值。 1234567891011121314151617181920class Solution &amp;#123;public:    int ma">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://marksblog.cn/posts/1aa3096f/img/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII.png">
-<meta property="article:published_time" content="2023-06-05T14:31:28.000Z">
-<meta property="article:modified_time" content="2023-06-05T15:27:00.302Z">
+<meta property="article:published_time" content="2023-06-06T11:49:25.000Z">
+<meta property="article:modified_time" content="2023-06-06T11:50:18.030Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="打家劫舍">
+<meta property="article:tag" content="股票买卖">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://marksblog.cn/posts/1aa3096f/img/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII.png">
 
-<link rel="canonical" href="http://marksblog.cn/posts/1aa3096f/">
+<link rel="canonical" href="http://marksblog.cn/posts/4faebc0f/">
 
 
 <script id="page-configurations">
@@ -51,7 +49,7 @@
   };
 </script>
 
-  <title>LeetCode-337-打家劫舍III | Mark's blogs</title>
+  <title>LeetCode-122-买卖股票的最佳时机II | Mark's blogs</title>
   
 
 
@@ -190,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/1aa3096f/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4faebc0f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -203,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-337-打家劫舍III
+          LeetCode-122-买卖股票的最佳时机II
         </h1>
 
         <div class="post-meta">
@@ -214,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-06-05 22:31:28 / 修改时间：23:27:00" itemprop="dateCreated datePublished" datetime="2023-06-05T22:31:28+08:00">2023-06-05</time>
+              <time title="创建时间：2023-06-06 19:49:25 / 修改时间：19:50:18" itemprop="dateCreated datePublished" datetime="2023-06-06T19:49:25+08:00">2023-06-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/1aa3096f/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1aa3096f/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/4faebc0f/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/4faebc0f/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,14 +251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -272,40 +270,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-337-打家劫舍III"><a href="#LeetCode-337-打家劫舍III" class="headerlink" title="LeetCode 337 打家劫舍III"></a>LeetCode 337 打家劫舍III</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber-iii/">打家劫舍III</a></p>
-<p>小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为 <code>root</code> 。</p>
-<p>除了 <code>root</code> 之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果 两个直接相连的房子在同一天晚上被打劫 ，房屋将自动报警。</p>
-<p>给定二叉树的 <code>root</code> 。返回在不触动警报的情况下 ，小偷能够盗取的最高金额 。</p>
+        <h1 id="LeetCode-122-买卖股票的最佳时机II"><a href="#LeetCode-122-买卖股票的最佳时机II" class="headerlink" title="LeetCode 122 买卖股票的最佳时机II"></a>LeetCode 122 买卖股票的最佳时机II</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122.买卖股票的最佳时机II</a></p>
+<p>给你一个整数数组 <code>prices</code> ，其中 <code>prices[i]</code> 表示某支股票第 <code>i</code> 天的价格。</p>
+<p>在每一天，你可以决定是否购买和/或出售股票。你在任何时候最多只能持有一股股票。你也可以先购买，然后在同一天出售。</p>
+<p>返回你能获得的最大利润。</p>
 <p>示例：</p>
-<p><img src="img/打家劫舍III.png" alt="打家劫舍III"></p>
 <blockquote>
-<p>  输入: root = [3,2,3,null,3,null,1]<br>    输出: 7<br>    解释: 小偷一晚能够盗取的最高金额 3 + 3 + 1 = 7</p>
+<p>输入：prices = [7,1,5,3,6,4]<br>输出：7<br>解释：在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4 。<br>     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6 - 3 = 3 。<br>     总利润为 4 + 3 = 7 。</p>
 </blockquote>
 
-<h2 id="深度优先"><a href="#深度优先" class="headerlink" title="深度优先"></a>深度优先</h2><p>改变了相邻节点的定义：此处是在一棵二叉树中进行节点的选取，使得节点的和值最大，那么从父节点开始遍历，选取了父节点就不能选取子节点。</p>
-<p>暴力搜索实现：遍历每一种合法的选取情形，判断能够选取到的最大值。</p>
-<p>代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">robTree</span><span class="params">(TreeNode* root)</span></span>&#123; <span class="comment">// 计算对于以root为根节点能够抢到的最大的值</span></span><br><span class="line">        <span class="keyword">if</span>(root)&#123; <span class="comment">// 当前节点非空</span></span><br><span class="line">            <span class="keyword">if</span>(!root-&gt;left&amp;&amp;!root-&gt;right) <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">            <span class="type">int</span> val1=root-&gt;val;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left) val1+=(<span class="built_in">robTree</span>(root-&gt;left-&gt;left)+<span class="built_in">robTree</span>(root-&gt;left-&gt;right));</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;right) val1+=(<span class="built_in">robTree</span>(root-&gt;right-&gt;left)+<span class="built_in">robTree</span>(root-&gt;right-&gt;right));</span><br><span class="line">            <span class="type">int</span> val2=<span class="built_in">robTree</span>(root-&gt;left)+<span class="built_in">robTree</span>(root-&gt;right);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(val1,val2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">robTree</span>(root);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这样的实现方式，本质上是在进行穷举，不断尝试选取方案，类似于是回溯的方法实现，在LeetCode的测试用例中将会超出时间限制。</p>
-<p>记忆化搜索：在上述的计算过程中存在较多的重复计算。比如在计算 <code>robTree(root-&gt;left)</code> 的时候就重复计算了 <code>(robTree(root-&gt;left-&gt;left)+robTree(root-&gt;left-&gt;right))</code> ，使用一个map记录计算的过程，从而减少计算。此处在基于记忆化搜索时，有一个非常需要注意的点：使用一个Map进行记录，那么对于正在寻找最大值的当前节点，在开始遍历前，尝试访问map中的数据，若是访问成功，那么本次求解直接结束（在非空和非叶子节点的情形下），若是访问失败，那么按照正常的遍历方式去进行DFS，在本次访问返回前将相应的数值存储在map中。</p>
+<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><p>相较于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">121.买卖股票的最佳时机</a>，本题的主要区别在于：考虑的不只是单次买卖股票的情形，可以对一只股票多次进行买卖，需要求解的是整体的最优化。</p>
+<p>要想实现最大的利润，那么本质上就是在序列中寻找单调区间，将序列中的全部单调增区间的区间长度相加，就是最大的利润值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> start=prices[<span class="number">0</span>],last=start;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i]&gt;=last)&#123;</span><br><span class="line">                last=prices[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                res+=last-start;</span><br><span class="line">                start=prices[i];</span><br><span class="line">                last=start;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res+=last-start;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>更加高效的贪心实现：在本题中，交易的次数是不存在限制的，因此完全可以采取如下策略。</p>
+<p>对于 <code>i</code> 和 <code>i-1</code> 只要 <code>prices[i]&gt;prices[i-1]</code> 那么就在 <code>i-1</code> 买入，在 <code>i</code> 天卖出，也就是赚取全部能够赚取的利润。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res+=<span class="built_in">max</span>(<span class="number">0</span>,prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;TreeNode* , <span class="type">int</span>&gt; umap; <span class="comment">// 记录计算过的结果</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>) <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (umap[root]) <span class="keyword">return</span> umap[root]; <span class="comment">// 如果umap里已经有记录则直接返回</span></span><br><span class="line">        <span class="comment">// 偷父节点</span></span><br><span class="line">        <span class="type">int</span> val1 = root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left) val1 += <span class="built_in">rob</span>(root-&gt;left-&gt;left) + <span class="built_in">rob</span>(root-&gt;left-&gt;right); <span class="comment">// 跳过root-&gt;left</span></span><br><span class="line">        <span class="keyword">if</span> (root-&gt;right) val1 += <span class="built_in">rob</span>(root-&gt;right-&gt;left) + <span class="built_in">rob</span>(root-&gt;right-&gt;right); <span class="comment">// 跳过root-&gt;right</span></span><br><span class="line">        <span class="comment">// 不偷父节点</span></span><br><span class="line">        <span class="type">int</span> val2 = <span class="built_in">rob</span>(root-&gt;left) + <span class="built_in">rob</span>(root-&gt;right); <span class="comment">// 考虑root的左右孩子</span></span><br><span class="line">        umap[root] = <span class="built_in">max</span>(val1, val2); <span class="comment">// umap记录一下结果</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(val1, val2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处的动态规划实现，基本上和记忆化搜索类似。也是在递归的基础上实现。进行动态规划的基本思路依旧是：对于以 <code>root</code> 为根的子树，能够选取到的最大的节点数值总和为，max(选取当前节点+两棵子树后代的最大值，不选当前节点两棵子树的最大值之和) 。</p>
-<p>此处需要基于动态规划实现，并且要避免重复的计算操作，那么使用一个递归函数，返回一个长度为2的数组，分别记录：选取根节点能够获取的最大值，不选取根节点能够获取到的最大值。</p>
+<p>当然，寻找单调递增区间的操作基于暴力法也是能够实现的。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处使用动态规划进行求解存在两个要点：首先是动态规划数组的定义，其次是动态规划数组的定义（本质上还是如何对问题进行划分）</p>
 <ol>
-<li><p>动态规划数组的定义：对于递归函数 <code>robTree(TreeNode* root)</code>，返回 <code>vector&lt;int&gt; dp(2)</code> ，分别记录：选取根节点能够获取的最大值，不选取根节点能够获取到的最大值。</p>
+<li><p>动态规划数组的定义：定义一个二维的动态规划数组 <code>dp[n][2]</code> ，其中 <code>dp[i][0]</code> 表示在第 <code>i</code> 持有股票所拥有的现金， <code>dp[i][1]</code> 表示在第 <code>i</code> <strong>天不持有股票所能获得最多的现金</strong>。关于现金的含义：在初始状态现金为0，那么在某天买入后现金是 <code>-prices[i]</code> ，只有在股票卖出后当前持有的现金才会发生改变。</p>
 </li>
-<li><p>动态规划数组的推导：在当前的递归函数层中，需要计算的有两个值，其中 <code>dp[0]</code> 表示的是选取根节点能够获取到的最大值，那么左右孩子节点是一定不能够选取的 <code>dp[0]=root-&gt;val+robTree(root-&gt;left)[1]+robTree(root-&gt;right)[1]</code> ，对于<code>dp[1]</code> 表示的是不选取根节点能够获取到的最大值，此时左右孩子节点是可选可不选的，那么具体能否进行选取，取决那种方式能够获取到更大的值 <code>dp[1]=max(robTree(root-&gt;left)[0],robTree(root-&gt;left)[1])+max(robTree(root-&gt;right)[0],robTree(root-&gt;right)[1])</code></p>
+<li><p>动态规划数组的推导：</p>
 </li>
-<li><p>动态规划数组的初始化：对于空节点 <code>robTree(nullptr)=&#123;0,0&#125;</code></p>
+</ol>
+<p>对于 <code>dp[i][0]</code> 的推导：本质上还是针对于前一天的情形进行推导</p>
+<ul>
+<li>前一天持有的情形，在第 <code>i</code> 天无需对股票进行操作 <code>dp[i][0]=dp[i-1][0]</code> </li>
+<li>前一天不持有的情形， <code>dp[i][0]=dp[i-1][1]-prices[i]</code> 也就是在第 <code>i</code> 天进行了股票的买入</li>
+</ul>
+<p>对于 <code>dp[i][1]</code> 的推导：在前一天持有或不持有两种情形</p>
+<ul>
+<li>前一天持有的情形，在第 <code>i</code> 天对股票进行卖出操作 <code>dp[i][1]=dp[i-1][0]+prices[i]</code> </li>
+<li>前一天不持有的情形， <code>dp[i][1]=dp[i-1][1]</code> 也就是在第 <code>i</code> 天不对股票进行操作</li>
+</ul>
+<ol>
+<li><p>动态规划数组的初始化：对于第0天的情形，不持有股票现金为0，持有股票现金为 <code>-prices[0]</code> ，那么 <code>dp[0][0]=-prices[0],dp[0][1]=0</code></p>
 </li>
-<li><p>动态规划数组的遍历顺序：本质上就是DFS，并且对于根节点而言是后序遍历</p>
+<li><p>动态规划数组的遍历顺序：从前向后遍历</p>
 </li>
 </ol>
 <p>代码实现：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">robTree</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; val1=<span class="built_in">robTree</span>(root-&gt;left);</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; val2=<span class="built_in">robTree</span>(root-&gt;right);</span><br><span class="line">            <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">res</span><span class="params">(<span class="number">2</span>)</span></span>;</span><br><span class="line">            res[<span class="number">0</span>]=root-&gt;val+val1[<span class="number">1</span>]+val2[<span class="number">1</span>];</span><br><span class="line">            res[<span class="number">1</span>]=<span class="built_in">max</span>(val1[<span class="number">0</span>],val1[<span class="number">1</span>])+<span class="built_in">max</span>(val2[<span class="number">0</span>],val2[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">       vector&lt;<span class="type">int</span>&gt; res=<span class="built_in">robTree</span>(root);</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">max</span>(res[<span class="number">0</span>],res[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在动态规划的过程中，采取的是后序遍历的方式，上层节点的值是在底层节点的值完成计算后，才得到的，并且使用一个vector数组同时记录了选取根节点和不选取根节点的最优解。但是由于在递归函数的返回值中使用的是vector数组，vector数组在创建时将会预分配较大的内存空间，导致程序的开销较大，此处改用 <code>pair</code> ，将会使得LeetCode上的运行时间和内存空间大大降低。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; <span class="title">robTree</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; val1=<span class="built_in">robTree</span>(root-&gt;left);</span><br><span class="line">            pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; val2=<span class="built_in">robTree</span>(root-&gt;right);</span><br><span class="line">            pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; res;</span><br><span class="line">            res.first=root-&gt;val+val1.second+val2.second;</span><br><span class="line">            res.second=<span class="built_in">max</span>(val1.first,val1.second)+<span class="built_in">max</span>(val2.first,val2.second);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">       pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; res=<span class="built_in">robTree</span>(root);</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">max</span>(res.first,res.second);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">2</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[i][<span class="number">0</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>],dp[i<span class="number">-1</span>][<span class="number">1</span>]-prices[i]);</span><br><span class="line">            dp[i][<span class="number">1</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>]+prices[i],dp[i<span class="number">-1</span>][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[n<span class="number">-1</span>][<span class="number">0</span>],dp[n<span class="number">-1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>改为滚动数组实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(<span class="number">2</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">2</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">0</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>],dp[<span class="number">0</span>][<span class="number">1</span>]-prices[i]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">1</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>]+prices[i],dp[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">0</span>],dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -331,7 +339,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/1aa3096f/" title="LeetCode-337-打家劫舍III">http://marksblog.cn/posts/1aa3096f/</a>
+    <a href="http://marksblog.cn/posts/4faebc0f/" title="LeetCode-122-买卖股票的最佳时机II">http://marksblog.cn/posts/4faebc0f/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -373,7 +381,7 @@
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
-              <a href="/tags/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" rel="tag"># 打家劫舍</a>
+              <a href="/tags/%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96/" rel="tag"># 股票买卖</a>
           </div>
 
         
@@ -382,13 +390,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/null/" rel="prev" title="LeetCode-213-打家劫舍II">
-      <i class="fa fa-chevron-left"></i> LeetCode-213-打家劫舍II
+    <a href="/posts/3f336a0e/" rel="prev" title="LeetCode-121-买卖股票的最佳时机">
+      <i class="fa fa-chevron-left"></i> LeetCode-121-买卖股票的最佳时机
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/3f336a0e/" rel="next" title="LeetCode-121-买卖股票的最佳时机">
-      LeetCode-121-买卖股票的最佳时机 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -448,7 +453,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-337-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII"><span class="nav-text">LeetCode 337 打家劫舍III</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88"><span class="nav-text">深度优先</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII"><span class="nav-text">LeetCode 122 买卖股票的最佳时机II</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83"><span class="nav-text">贪心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
