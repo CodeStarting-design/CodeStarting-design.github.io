@@ -9,8 +9,69 @@
     <atom:link href="http://marksblog.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>心之所向，行之可往</description>
-    <pubDate>Tue, 06 Jun 2023 11:50:34 GMT</pubDate>
+    <pubDate>Wed, 07 Jun 2023 12:30:14 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>LeetCode-123-买卖股票的最佳时机III</title>
+      <link>http://marksblog.cn/posts/bc28a03e/</link>
+      <guid>http://marksblog.cn/posts/bc28a03e/</guid>
+      <pubDate>Wed, 07 Jun 2023 12:29:32 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：此处不能使用贪心进行求解，贪心的思想为：在给定的价格数组中，寻找单调增区间，选取两个区间宽度最大的单调增区间，两个区间的宽度的相加就是最大利润，也可能不存在这样的两个或一个区间。但是对于数组 &lt;code&gt;[1,2,4,2,5,7,2,4,9,0]&lt;/code&gt; ，此时贪心求解的值为12，但实际的最大利润为13。&lt;/p&gt;
+&lt;p&gt;基于动态规划实现：重点依旧是动态规划数组的定义和推导。（此处的定义，使用的是持有，也就是不关系具体是在那一天进行买卖，也就是关心的是在某一天是否拥有股票）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;动态规划数组得到定义：定义数组 &lt;code&gt;dp[n][5]&lt;/code&gt; ，那么数组的含义为：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dp[i][0]&lt;/code&gt; 表示在第 &lt;code&gt;i&lt;/code&gt; 天不对股票进行操作所拥有的最大现金数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][1]&lt;/code&gt; 表示在第 &lt;code&gt;i&lt;/code&gt; 天第一次持有股票所拥有的最大现金数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][2]&lt;/code&gt; 表示在第 &lt;code&gt;i&lt;/code&gt; 天第一次不持有股票所拥有的最大现金数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][3]&lt;/code&gt; 表示在第 &lt;code&gt;i&lt;/code&gt; 天第二次持有股票所拥有的最大现金数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][4]&lt;/code&gt; 表示在第 &lt;code&gt;i&lt;/code&gt; 天第二次不持有股票所拥有的最大现金数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;动态规划数组的推导：在第 &lt;code&gt;i&lt;/code&gt; 天需要对5个状态进行推导。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dp[i][0]=0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][1]&lt;/code&gt; 此处有两种情况：第一，是在第 &lt;code&gt;i&lt;/code&gt; 天买入的 &lt;code&gt;=dp[i-1][0]-prices[i]&lt;/code&gt; ，第二是在之前买入的 &lt;code&gt;=dp[i-1][1]&lt;/code&gt; ，所以 &lt;code&gt;dp[i][1]=max(dp[i-1][0]-prices[i],dp[i-1][1])&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][2]&lt;/code&gt; 也有两种情况：第一，是在第 &lt;code&gt;i&lt;/code&gt; 天卖出的 &lt;code&gt;=dp[i-1][1]+prices[i]&lt;/code&gt; ，第二是在之前卖出的 &lt;code&gt;=dp[i-1][2]&lt;/code&gt; ， 所以 &lt;code&gt;dp[i][2]=max(dp[i-1][1]+prices[i],dp[i-1][2])&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][3]&lt;/code&gt; 此处有两种情况：第一，是在第 &lt;code&gt;i&lt;/code&gt; 天买入的 &lt;code&gt;=dp[i-1][2]-prices[i]&lt;/code&gt; ，第二是在之前买入的 &lt;code&gt;=dp[i-1][3]&lt;/code&gt; ，所以 &lt;code&gt;dp[i][3]=max(dp[i-1][2]-prices[i],dp[i-1][3])&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dp[i][2]&lt;/code&gt; 也有两种情况：第一，是在第 &lt;code&gt;i&lt;/code&gt; 天卖出的 &lt;code&gt;=dp[i-1][3]+prices[i]&lt;/code&gt; ，第二是在之前卖出的 &lt;code&gt;=dp[i-1][4]&lt;/code&gt; ， 所以 &lt;code&gt;dp[i][4]=max(dp[i-1][3]+prices[i],dp[i-1][4])&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的初始化：此处主要是对第 &lt;code&gt;0&lt;/code&gt; 天进行初始化，不操作 &lt;code&gt;dp[0][0]=0&lt;/code&gt; ，那么在第 &lt;code&gt;0&lt;/code&gt; 天第一次持有 &lt;code&gt;dp[0][1]=-prices[0]&lt;/code&gt; 在第 &lt;code&gt;0&lt;/code&gt; 天第一次不持有，本质上就是买入后当天卖出 &lt;code&gt;dp[0][2]=0&lt;/code&gt; ，那么同理第二次持有和不持有的情形，也是当天买入后，当天卖出 &lt;code&gt;dp[0][3]=-prices[0],dp[0][4]=0&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的遍历：从前向后遍历的方式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;举例验证：对于数组 &lt;code&gt;prices = [3,3,5,0,0,3,1,4]&lt;/code&gt; ，对应的动态规划数组为：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;0 ,-3 , 0 ,-3 , 0 ,&lt;br&gt;0 ,-3 , 0 ,-3 , 0 ,&lt;br&gt;0 ,-3 , 2 ,-3 , 2 ,&lt;br&gt;0 , 0 , 2 , 2 , 2 ,&lt;br&gt;0 , 0 , 2 , 2 , 2 ,&lt;br&gt;0 , 0 , 3 , 2 , 5 ,&lt;br&gt;0 , 0 , 3 , 2 , 5 ,&lt;br&gt;0 , 0 , 4 , 2 , 6 ,&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="LeetCode-123-买卖股票的最佳时机III"><a href="#LeetCode-123-买卖股票的最佳时机III" class="headerlink" title="LeetCode 123 买卖股票的最佳时机III"></a>LeetCode 123 买卖股票的最佳时机III</h1><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/">123.买卖股票的最佳时机III</a></p><p>给定一个数组，它的第 <code>i</code> 个元素是一支给定的股票在第 <code>i</code> 天的价格。</p><p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 <strong>两笔</strong> 交易。</p><p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p><p>示例：</p><blockquote><p>输入：prices = [3,3,5,0,0,3,1,4]<br>输出：6<br>解释：在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。<br>     随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。</p></blockquote><p>对于交易的次数进行了限制，最多只能进行两次交易，也就是交易次数&lt;=2。</p><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p><strong>注</strong>：此处不能使用贪心进行求解，贪心的思想为：在给定的价格数组中，寻找单调增区间，选取两个区间宽度最大的单调增区间，两个区间的宽度的相加就是最大利润，也可能不存在这样的两个或一个区间。但是对于数组 <code>[1,2,4,2,5,7,2,4,9,0]</code> ，此时贪心求解的值为12，但实际的最大利润为13。</p><p>基于动态规划实现：重点依旧是动态规划数组的定义和推导。（此处的定义，使用的是持有，也就是不关系具体是在那一天进行买卖，也就是关心的是在某一天是否拥有股票）</p><ol><li>动态规划数组得到定义：定义数组 <code>dp[n][5]</code> ，那么数组的含义为：</li></ol><ul><li><code>dp[i][0]</code> 表示在第 <code>i</code> 天不对股票进行操作所拥有的最大现金数</li><li><code>dp[i][1]</code> 表示在第 <code>i</code> 天第一次持有股票所拥有的最大现金数</li><li><code>dp[i][2]</code> 表示在第 <code>i</code> 天第一次不持有股票所拥有的最大现金数</li><li><code>dp[i][3]</code> 表示在第 <code>i</code> 天第二次持有股票所拥有的最大现金数</li><li><code>dp[i][4]</code> 表示在第 <code>i</code> 天第二次不持有股票所拥有的最大现金数</li></ul><ol><li>动态规划数组的推导：在第 <code>i</code> 天需要对5个状态进行推导。</li></ol><ul><li><code>dp[i][0]=0</code></li><li><code>dp[i][1]</code> 此处有两种情况：第一，是在第 <code>i</code> 天买入的 <code>=dp[i-1][0]-prices[i]</code> ，第二是在之前买入的 <code>=dp[i-1][1]</code> ，所以 <code>dp[i][1]=max(dp[i-1][0]-prices[i],dp[i-1][1])</code></li><li><code>dp[i][2]</code> 也有两种情况：第一，是在第 <code>i</code> 天卖出的 <code>=dp[i-1][1]+prices[i]</code> ，第二是在之前卖出的 <code>=dp[i-1][2]</code> ， 所以 <code>dp[i][2]=max(dp[i-1][1]+prices[i],dp[i-1][2])</code></li><li><code>dp[i][3]</code> 此处有两种情况：第一，是在第 <code>i</code> 天买入的 <code>=dp[i-1][2]-prices[i]</code> ，第二是在之前买入的 <code>=dp[i-1][3]</code> ，所以 <code>dp[i][3]=max(dp[i-1][2]-prices[i],dp[i-1][3])</code></li><li><code>dp[i][2]</code> 也有两种情况：第一，是在第 <code>i</code> 天卖出的 <code>=dp[i-1][3]+prices[i]</code> ，第二是在之前卖出的 <code>=dp[i-1][4]</code> ， 所以 <code>dp[i][4]=max(dp[i-1][3]+prices[i],dp[i-1][4])</code></li></ul><ol><li><p>动态规划数组的初始化：此处主要是对第 <code>0</code> 天进行初始化，不操作 <code>dp[0][0]=0</code> ，那么在第 <code>0</code> 天第一次持有 <code>dp[0][1]=-prices[0]</code> 在第 <code>0</code> 天第一次不持有，本质上就是买入后当天卖出 <code>dp[0][2]=0</code> ，那么同理第二次持有和不持有的情形，也是当天买入后，当天卖出 <code>dp[0][3]=-prices[0],dp[0][4]=0</code></p></li><li><p>动态规划数组的遍历：从前向后遍历的方式</p></li><li><p>举例验证：对于数组 <code>prices = [3,3,5,0,0,3,1,4]</code> ，对应的动态规划数组为：</p></li></ol><blockquote><p>0 ,-3 , 0 ,-3 , 0 ,<br>0 ,-3 , 0 ,-3 , 0 ,<br>0 ,-3 , 2 ,-3 , 2 ,<br>0 , 0 , 2 , 2 , 2 ,<br>0 , 0 , 2 , 2 , 2 ,<br>0 , 0 , 3 , 2 , 5 ,<br>0 , 0 , 3 , 2 , 5 ,<br>0 , 0 , 4 , 2 , 6 ,</p></blockquote><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">5</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">3</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[i][<span class="number">1</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>]-prices[i],dp[i<span class="number">-1</span>][<span class="number">1</span>]);</span><br><span class="line">            dp[i][<span class="number">2</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">1</span>]+prices[i],dp[i<span class="number">-1</span>][<span class="number">2</span>]);</span><br><span class="line">            dp[i][<span class="number">3</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">2</span>]-prices[i],dp[i<span class="number">-1</span>][<span class="number">3</span>]);</span><br><span class="line">            dp[i][<span class="number">4</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">3</span>]+prices[i],dp[i<span class="number">-1</span>][<span class="number">4</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[n<span class="number">-1</span>][<span class="number">0</span>],<span class="built_in">max</span>(dp[n<span class="number">-1</span>][<span class="number">2</span>],dp[n<span class="number">-1</span>][<span class="number">4</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>此处也是只使用了前一天的数据，可以使用滚动数组优化：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(<span class="number">2</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">5</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">3</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">1</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>]-prices[i],dp[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">2</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">1</span>]+prices[i],dp[<span class="number">0</span>][<span class="number">2</span>]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">3</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">2</span>]-prices[i],dp[<span class="number">0</span>][<span class="number">3</span>]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">4</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">3</span>]+prices[i],dp[<span class="number">0</span>][<span class="number">4</span>]);</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">0</span>],<span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">2</span>],dp[<span class="number">1</span>][<span class="number">4</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96/">股票买卖</category>
+      
+      
+      <comments>http://marksblog.cn/posts/bc28a03e/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>LeetCode-122-买卖股票的最佳时机II</title>
@@ -384,47 +445,6 @@
       
       
       <comments>http://marksblog.cn/posts/d74e0b6/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>01背包问题总结</title>
-      <link>http://marksblog.cn/posts/39479a98/</link>
-      <guid>http://marksblog.cn/posts/39479a98/</guid>
-      <pubDate>Sun, 28 May 2023 09:21:41 GMT</pubDate>
-      
-      <description>&lt;h1 id=&quot;01背包问题总结&quot;&gt;&lt;a href=&quot;#01背包问题总结&quot; class=&quot;headerlink&quot; title=&quot;01背包问题总结&quot;&gt;&lt;/a&gt;01背包问题总结&lt;/h1&gt;&lt;p&gt;首先，需要清楚的是0/1背包问题本身：有 &lt;code&gt;n&lt;/code&gt; 件物品和一个最多能背重量为 &lt;code&gt;w&lt;/code&gt; 的背包。第 &lt;code&gt;i&lt;/code&gt; 件物品的重量是 &lt;code&gt;weight[i]&lt;/code&gt; ，得到的价值是 &lt;code&gt;value[i]&lt;/code&gt; 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。&lt;/p&gt;
-&lt;p&gt;此处使用动态规划求解，问题的划分方式为：使用一个二维数组对问题进行两部分的划分。对于 &lt;code&gt;dp[i][j]&lt;/code&gt; 求解的是，当背包容量为 &lt;code&gt;j&lt;/code&gt; 时，在物品 &lt;code&gt;0-i&lt;/code&gt; 中选择能够获取到的最大的容量。&lt;/p&gt;
-&lt;p&gt;那么在采取逐行遍历的方式，就是每一次增加物品的数量，递推公式为： &lt;code&gt;dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;采取逐列遍历的方式，每一次增加的是背包的容量，那么递推公式为： &lt;code&gt;dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;使用滚动数组实现动态规划的过程：基于背包容量的滚动数组实现，那么此处就一定要先遍历物品再遍历背包了，因为动态规划数组的含义是，在第 &lt;code&gt;i&lt;/code&gt; 次迭代中，使用 &lt;code&gt;0-i&lt;/code&gt; 个物品去填充背包，能够得到的背包中物品的最大价值。并且是0/1背包问题，那么对于背包的遍历顺序一定要是&lt;/p&gt;
-&lt;p&gt;能否基于物品数量的滚动数组实现：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[n]&lt;/code&gt; ，在初始时表示，当背包容量为0时，能够装下的最大的物品价值。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的推导：对于第 &lt;code&gt;j&lt;/code&gt; 次迭代时，表示当背包容量为 &lt;code&gt;j&lt;/code&gt; 时，能够装下的物品的最大价值。在一维的情形下，背包容量减去 &lt;code&gt;weight[i]&lt;/code&gt; 的情形无法实现递推。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;因此在0/1背包中使用滚动数组，只能基于背包容量的数组来实现。&lt;/p&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="01背包问题总结"><a href="#01背包问题总结" class="headerlink" title="01背包问题总结"></a>01背包问题总结</h1><p>首先，需要清楚的是0/1背包问题本身：有 <code>n</code> 件物品和一个最多能背重量为 <code>w</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。</p><p>此处使用动态规划求解，问题的划分方式为：使用一个二维数组对问题进行两部分的划分。对于 <code>dp[i][j]</code> 求解的是，当背包容量为 <code>j</code> 时，在物品 <code>0-i</code> 中选择能够获取到的最大的容量。</p><p>那么在采取逐行遍历的方式，就是每一次增加物品的数量，递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p><p>采取逐列遍历的方式，每一次增加的是背包的容量，那么递推公式为： <code>dp[i][j]=max(dp[i][j],dp[i-1][j-weight[i]]+value[i])</code></p><p>使用滚动数组实现动态规划的过程：基于背包容量的滚动数组实现，那么此处就一定要先遍历物品再遍历背包了，因为动态规划数组的含义是，在第 <code>i</code> 次迭代中，使用 <code>0-i</code> 个物品去填充背包，能够得到的背包中物品的最大价值。并且是0/1背包问题，那么对于背包的遍历顺序一定要是</p><p>能否基于物品数量的滚动数组实现：</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[n]</code> ，在初始时表示，当背包容量为0时，能够装下的最大的物品价值。</p></li><li><p>动态规划数组的推导：对于第 <code>j</code> 次迭代时，表示当背包容量为 <code>j</code> 时，能够装下的物品的最大价值。在一维的情形下，背包容量减去 <code>weight[i]</code> 的情形无法实现递推。</p></li></ol><p>因此在0/1背包中使用滚动数组，只能基于背包容量的数组来实现。</p><h2 id="LeetCode-416-分割等和子集"><a href="#LeetCode-416-分割等和子集" class="headerlink" title="LeetCode 416 分割等和子集"></a>LeetCode 416 分割等和子集</h2><p><a href="https://leetcode.cn/problems/partition-equal-subset-sum/">416.分割等和子集</a></p><p>给你一个只包含正整数的非空数组 <code>nums</code> 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p><p>此处的重点是问题的转化，要求两个子集的元素和相等，将元素的和转化为背包的大小，也就是使用一个容量等于全部元素和一半的背包去装数组元素能否恰好将背包装满。这一半能够装满，那么另外一半也能够装满。也就完成了划分。</p><p>动态规划数组的定义为： <code>dp[j]</code> 表示：当背包容量为 <code>j</code> 时，能够恰好将背包装满，那么递推公式就为：在第 <code>i</code> 次迭代中在 <code>0-i</code> 个元素中进行选择，<code>dp[j]=dp[j]||dp[j-nums[i]]</code> 此处的背包也是需要从后向前遍历，为了防止重复选择。</p><p>本题的重点在于问题的转化，将等和子集划分，转化为一个0/1背包问题。</p><h2 id="LeetCode-1049-最后一块石头的重量II"><a href="#LeetCode-1049-最后一块石头的重量II" class="headerlink" title="LeetCode 1049 最后一块石头的重量II"></a>LeetCode 1049 最后一块石头的重量II</h2><p><a href="https://leetcode.cn/problems/last-stone-weight-ii/">1049.最后一块石头的重量II</a></p><p>有一堆石头，用整数数组 <code>stones</code> 表示。其中 <code>stones[i]</code> 表示第 <code>i</code> 块石头的重量。</p><p>每一回合，从中选出任意两块石头，然后将它们一起粉碎。假设石头的重量分别为 <code>x</code> 和 <code>y</code>，且 <code>x &lt;= y</code> 。那么粉碎的可能结果如下：</p><ul><li>如果 <code>x == y</code> ，那么两块石头都会被完全粉碎；</li><li>如果 <code>x != y</code> ，那么重量为 <code>x</code> 的石头将会完全粉碎，而重量为 <code>y</code> 的石头新重量为 <code>y-x</code> 。</li></ul><p>最后，最多只会剩下一块石头。返回此石头最小的可能重量。如果没有石头剩下，就返回0。</p><p>本题的求解方式也是需要对问题进行转化，两块石头粉碎后的重量一定是小重量石头的两倍，那问题就像是一个消消乐游戏。那么想要找到最优的方案，就是将石头划分为两个集合，这两个集合的石头总重量要尽可能的接近。</p><p>最接近的划分方式就是：两个集合的总重量恰好为全部石头总重量的一半，转为背包容量为sum/2，能否将背包恰好装满。定义动态规划数组 <code>dp[sum/2+1]</code> ，表示能否恰好将 <code>sum/2</code> 容量的背包装满，那么最后只要找到能够恰好装满的最大容量的背包即可。问题和分割等和子集类似。</p><h2 id="LeetCode-494-目标和"><a href="#LeetCode-494-目标和" class="headerlink" title="LeetCode 494 目标和"></a>LeetCode 494 目标和</h2><p><a href="https://leetcode.cn/problems/target-sum/">494.目标和</a></p><p>给你一个整数数组 <code>nums</code> 和一个整数 <code>target</code> 。</p><p>向数组中的每个整数前添加 <code>+</code> 或 <code>-</code> ，然后串联起所有整数，可以构造一个表达式：</p><p>例如，<code>nums = [2, 1]</code> ，可以在 <code>2</code> 之前添加 <code>+</code> ，在 <code>1</code> 之前添加 <code>-</code> ，然后串联起来得到表达式 <code>+2-1</code> 。<br>返回可以通过上述方法构造的、运算结果等于 <code>target</code> 的不同表达式的数目。</p><p>本题对于问题的转化是相对复杂的：首先，假设在表达式中为负号元素的总和为 <code>neg</code> ，所有元素的总和为 <code>sum</code> ，那么就有 <code>sum-neg-neg=target</code> ，那么就有 <code>neg=(sum-neg)/2</code> 此处 <code>sum&lt;target</code> 或 <code>(sum-target)%2==1</code> 说明没有可行方案。</p><p>那么讲问题转化为：将容量为 <code>neg</code> 的背包装满有多少种方案。依旧是使用基于滚动数组的动态规划实现，先便利物品在遍历背包，背包从后向前遍历。此处主要是递推公式存在区别 <code>dp[j]=dp[j]+dp[j-nums[i]]</code> 此处的含义在于：包含的方案有在第 <code>i</code> 次迭代时，不选择 <code>nums[i]</code> 的方案 <code>dp[j]</code> 和选择 <code>nums[i]</code> 的方案 <code>dp[j-nums[i]]</code></p><h2 id="LeetCode-474-一和零"><a href="#LeetCode-474-一和零" class="headerlink" title="LeetCode 474 一和零"></a>LeetCode 474 一和零</h2><p><a href="https://leetcode.cn/problems/ones-and-zeroes/">474.一和零</a></p><p>给你一个二进制字符串数组 <code>strs</code> 和两个整数 <code>m</code> 和 <code>n</code> 。</p><p>请你找出并返回 <code>strs</code> 的最大子集的长度，该子集中最多有 <code>m</code> 个 <code>0</code> 和 <code>n</code> 个 <code>1</code> 。</p><p>如果 <code>x</code> 的所有元素也是 <code>y</code> 的元素，集合 <code>x</code> 是集合 <code>y</code> 的子集 。</p><p>此处也是一个0/1背包问题，但是将背包的容量转变为了2维，此处每一个物品的价值都为1，那么创建一个二维数组，基于滚动数组的方式实现。那么依旧是在第 <code>k</code> 次迭代中，在元素 <code>0-k</code> 中进行选择。递推公式 <code>dp[i][j]=max(dp[i][j],dp[i-k0][j-k1]+1)</code> 也就是在第 <code>k</code> 迭代中，比较选取元素 <code>strs[k]</code> 或者不选择，哪一个能够获得最大长度。</p>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      <category domain="http://marksblog.cn/tags/0-1%E8%83%8C%E5%8C%85/">0/1背包</category>
-      
-      
-      <comments>http://marksblog.cn/posts/39479a98/#disqus_thread</comments>
       
     </item>
     
