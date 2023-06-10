@@ -181,6 +181,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/73871f91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/73871f91/" class="post-title-link" itemprop="url">LeetCode-188-买卖股票的最佳时机IV</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-10 19:59:20 / 修改时间：20:00:18" itemprop="dateCreated datePublished" datetime="2023-06-10T19:59:20+08:00">2023-06-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/73871f91/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/73871f91/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>相较于 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/">123.买卖股票的最佳时机III</a>，此处对于交易的次数进行了另一种限定，交易的次数是可变的。尝试依旧采取同样的方式去定义动态规划数组：</p>
+<ol>
+<li>动态规划数组的定义：定义数组 <code>dp[i][2*k+1]</code> ，分别表示在第 <code>i</code> 天的 <code>2*k+1</code> 种状态</li>
+</ol>
+<ul>
+<li><code>dp[i][0]</code> 表示在第 <code>i</code> 天未对股票进行任何操作所拥有的最大现金数</li>
+<li><code>dp[i][1]</code> 表示在第 <code>i</code> 天第一次持有股票所拥有的最大现金数</li>
+<li><code>dp[i][2]</code> 表示在第 <code>i</code> 天第一次不持有股票所拥有的最大现金数</li>
+<li>…</li>
+</ul>
+<ol>
+<li>动态规划数组的推导：推导的方式依旧是是从前一天进行推导。</li>
+</ol>
+<ul>
+<li><code>dp[i][1]</code> 表示在第 <code>i</code> 天第一次持有股票所拥有的最大现金数，那么只有前一天就持有和前一天不持有两种情况： <code>dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i])</code></li>
+<li><code>dp[i][2]</code> 表示在第 <code>i</code> 天第一次不持有股票所拥有的最大现金数，那么只有前一天持有和前一天不持有两种情况： <code>dp[i][2]=max(dp[i-1][1]+prices[i],dp[i-1][2])</code></li>
+<li><ul>
+<li><code>dp[i][3]</code> 表示在第 <code>i</code> 天第二次持有股票所拥有的最大现金数，那么只有前一天就持有和前一天不持有两种情况： <code>dp[i][3]=max(dp[i-1][3],dp[i-1][2]-prices[i])</code></li>
+</ul>
+</li>
+<li><code>dp[i][4]</code> 表示在第 <code>i</code> 天第二次不持有股票所拥有的最大现金数，那么只有前一天持有和前一天不持有两种情况： <code>dp[i][4]=max(dp[i-1][3]+prices[i],dp[i-1][4])</code></li>
+<li>…</li>
+</ul>
+<ol>
+<li>动态规划数组的初始化：对于第 <code>0</code> 天情形，不操作股票现金为0： <code>dp[0][0]=0</code> 。第 <code>2i+1</code> 次持有就是在当天买入 <code>dp[0][2i+1]=-prices[0]</code> 第 <code>2i</code> 次持有就是在当天卖出 <code>dp[0][2i]=0</code></li>
+<li>动态规划数组的遍历：对于当前状态的推导需要使用前一天的数据，从前向后遍历。</li>
+<li>举例验证：对于 <code>k = 2, prices = [2,4,1]</code> ，求解的过程为：</li>
+</ol>
+<blockquote>
+<p>  dp={0,-2, 0,-2, 0}<br>    dp={0,-2, 2,-2, 2}<br>    dp={0, 0, 0, 0, 0}<br>    dp={0,-2, 0,-2, 0}<br>    dp={0,-2, 2,-2, 2}<br>    dp={0,-1, 2, 1, 2}</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/73871f91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/bc28a03e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,7 +340,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-06-07 20:29:32 / 修改时间：20:30:14" itemprop="dateCreated datePublished" datetime="2023-06-07T20:29:32+08:00">2023-06-07</time>
+              <time title="创建时间：2023-06-07 20:29:32 / 修改时间：20:30:35" itemprop="dateCreated datePublished" datetime="2023-06-07T20:29:32+08:00">2023-06-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1257,126 +1391,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/d74e0b6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/d74e0b6/" class="post-title-link" itemprop="url">LeetCode-322-零钱兑换</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-05-30 10:17:35 / 修改时间：10:18:59" itemprop="dateCreated datePublished" datetime="2023-05-30T10:17:35+08:00">2023-05-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/d74e0b6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/d74e0b6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>不同于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change-ii/">518.零钱兑换II</a>，此处需要求解的是，使用最少的硬币个数得到整数 <code>amount</code> ，此处的硬币数量是无限的。此处是一个组合问题，不存在选取顺序的问题。将之转化为完全背包问题：背包的容量为 <code>amount</code> ，物品的重量为 <code>coins</code> ，每一个物品的价值都为1，此处求解的是物品的最小价值。但是，此处的不同点在与，在向背包中装入物品时，要求将背包恰好装满。</p>
-<ol>
-<li><p>动态规划数组的定义：定义动态规划数组 <code>dp[amount+1]</code> 表示将 <code>amount</code> 装满所需的最少硬币个数。</p>
-</li>
-<li><p>动态规划数组的推导：在第 <code>i</code> 次迭代中，在硬币 <code>0-i</code> 中进行选择，那么主要是 <code>coins[i]</code> 的选择问题。此处在进行递推时，需要考虑到可行的条件。首先是 <code>dp[j]</code> 的值，若是 <code>dp[j]=-1</code> 说明之前不存在方案将之装满，那么就需要查看 <code>dp[j-coins[i]]</code> 的值是否为 <code>-1</code> ，若是为说明当前依旧无法装满，不修改值，负责当前存在从 <code>dp[j-coins[i]]</code> 的基础上将之装满的方案，对应需要的最少硬币数就是 <code>dp[j-coins[i]]+1</code> ，若是 <code>dp[j]!=-1</code> ，说明当前就存在可以装满的方案，那么尝试装入 <code>coins[i]</code> 看能否更少，当然需要 <code>dp[j-coins[i]]!=-1</code> ，那么总体的推导过程就是：</p>
-</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(dp[j]!=<span class="number">-1</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">        dp[j]=<span class="built_in">min</span>(dp[j],dp[j-coins[i]]+<span class="number">1</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[j-coins[i]]!=<span class="number">-1</span>)</span><br><span class="line">        dp[j]=dp[j-coins[i]]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>动态规划数组的初始化：在初始时全部初始为 <code>-1</code> 表示不存在装满的方案，而对于 <code>dp[0]</code> 装满0的背包，只需要0个硬币，初始化为 <code>dp[0]=0</code></p>
-</li>
-<li><p>动态规划数组的遍历顺序：此处先遍历物品，再遍历背包，并且在对背包遍历时从前向后遍历。</p>
-</li>
-<li><p>举例验证： <code>coins = [1, 2, 5], amount = 11</code> 那么动态规划数组的推导过程为：</p>
-</li>
-</ol>
-<p>&gt;<br>    dp={0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11}<br>    dp={0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6}<br>    dp={0, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2, 3}</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/d74e0b6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1447,7 +1461,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1517,18 +1531,18 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">103k</span>
+    <span title="站点总字数">105k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:34</span>
+    <span title="站点阅读时长">1:35</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共46.1k字</span>
+  <span class="post-count">博客全站共47.1k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
