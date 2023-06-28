@@ -181,6 +181,159 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/null/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/null/" class="post-title-link" itemprop="url">LeetCode-309-最佳买卖股票时机含冷冻期</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-06-28 20:59:05 / 修改时间：20:59:32" itemprop="dateCreated datePublished" datetime="2023-06-28T20:59:05+08:00">2023-06-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/null/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/null/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+<h1 id="LeetCode-309-最佳买卖股票时机含冷冻期"><a href="#LeetCode-309-最佳买卖股票时机含冷冻期" class="headerlink" title="LeetCode 309 最佳买卖股票时机含冷冻期"></a>LeetCode 309 最佳买卖股票时机含冷冻期</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/">309.最佳买卖股票时机含冷冻期</a></p>
+<p>给定一个整数数组prices，其中第  <code>prices[i]</code> 表示第 <code>i</code> 天的股票价格 。​</p>
+<p>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
+<p>卖出股票后，你无法在第二天买入股票 (即冷冻期为 <code>1</code> 天)。<br>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入: prices = [1,2,3,0,2]<br>输出: 3<br>解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]</p>
+</blockquote>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>要使用动态规划对本题进行求解，重点依旧是动态规划数组的定义。对于股票买卖的次数是不做限制的，对于股票的状态也仅有两种状态，持有或不持有，但是对于卖出股票后，需要限制在后一天买入股票，也就是后一天是无法持有股票的。此处需要对于每一天的状态进行进一步细分</p>
+<ol>
+<li>动态规划数组的定义：定义数组 <code>dp[n][4]</code> ，其中 </li>
+</ol>
+<ul>
+<li><code>dp[i][0]</code> 表示在 <code>i</code> 天持有股票所拥有的最大现金， </li>
+<li><code>dp[i][1]</code> 表示在第 <code>i</code> 天不持有股票并且不是冷冻期所拥有的最大现金数</li>
+<li><code>dp[i][2]</code> 表示在第 <code>i</code> 天卖出股票所拥有的最大现金数</li>
+<li><code>dp[i][3]</code> 表示在第 <code>i</code> 天为冷冻期所拥有的最大现金数</li>
+</ul>
+<ol>
+<li>动态规划数组的推导：</li>
+</ol>
+<p>对于 <code>dp[i][0]</code> 的推导：三种情形进行推导</p>
+<ul>
+<li>前一天持有的情形，在第 <code>i</code> 天无需对股票进行操作 <code>dp[i][0]=dp[i-1][0]</code> </li>
+<li>前一天不持有的情形：<ul>
+<li>前一天是不持有的并且不是冷冻期： <code>dp[i][0]=dp[i-1][1]-prices[i]</code> </li>
+<li>前一天是冷冻期，在今天恰好可以买入： <code>dp[i][0]=dp[i-1][3]-prices[i]</code> </li>
+</ul>
+</li>
+</ul>
+<p>对于 <code>dp[i][1]</code> 的推导：两种情形</p>
+<ul>
+<li>前一天不持有且不是冷冻期的情形： <code>dp[i][1]=dp[i-1][1]</code></li>
+<li>前一天是冷冻期的情形： <code>dp[i][1]=dp[i-1][3]</code></li>
+</ul>
+<p>对于 <code>dp[i][2]</code> 的推导：一种情形</p>
+<ul>
+<li>前一天持有股票： <code>dp[i][2]=dp[i-1][0]+prices[i]</code></li>
+</ul>
+<p>对于 <code>dp[i][3]</code> 的推导：一种情形</p>
+<ul>
+<li>前一天卖出股票： <code>dp[i][3]=dp[i-1][2]</code></li>
+</ul>
+<p>综上所述，总体的递推代码为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp[i][<span class="number">0</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>],<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">1</span>]-prices[i],dp[i<span class="number">-1</span>][<span class="number">3</span>]-prices[i]));</span><br><span class="line">dp[i][<span class="number">1</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">1</span>],dp[i<span class="number">-1</span>][<span class="number">3</span>]);</span><br><span class="line">dp[i][<span class="number">2</span>]=dp[i<span class="number">-1</span>][<span class="number">0</span>]+prices[i];</span><br><span class="line">dp[i][<span class="number">3</span>]=dp[i<span class="number">-1</span>][<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>动态规划数组的初始化：对于 <code>dp[0][0]</code> 在第一天买入 <code>dp[0][0]=-prices[0]</code> ，对于 <code>dp[0][1]</code> 是不持有的状态，那么就只需要在一开始就不买入： <code>dp[0][1]=0</code> 对于 <code>dp[0][2]</code> 也就是当天买入当天卖出 <code>dp[0][2]=0</code> 不存在第一天为冷冻期的情形，那么此时的现金数就一定是0</p>
+</li>
+<li><p>动态规划数组的遍历顺序：从前向后遍历</p>
+</li>
+<li><p>举例验证：</p>
+</li>
+</ol>
+<p>代码实现：使用滚动数组实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(<span class="number">2</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">4</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">0</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>],<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">1</span>]-prices[i],dp[<span class="number">0</span>][<span class="number">3</span>]-prices[i]));</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">1</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">1</span>],dp[<span class="number">0</span>][<span class="number">3</span>]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">2</span>]=dp[<span class="number">0</span>][<span class="number">0</span>]+prices[i];</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">3</span>]=dp[<span class="number">0</span>][<span class="number">2</span>];</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">0</span>],<span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">1</span>],<span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">2</span>],dp[<span class="number">1</span>][<span class="number">3</span>])));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>本题的重点在于对状态的细分，不能简单划分为持有或不持有两种，需要将当天卖出进行单独划分，根本的原因在于卖出后将会有一天的冷冻期。冷冻这一天是不允许对股票进行操作的，并且也是一种不持有股票的状态，因此状态2和状态4是能够合并的。</p>
+
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/73871f91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,7 +359,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-06-10 19:59:20 / 修改时间：20:00:18" itemprop="dateCreated datePublished" datetime="2023-06-10T19:59:20+08:00">2023-06-10</time>
+              <time title="创建时间：2023-06-10 19:59:20 / 修改时间：20:00:34" itemprop="dateCreated datePublished" datetime="2023-06-10T19:59:20+08:00">2023-06-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1270,127 +1423,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/null/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/null/" class="post-title-link" itemprop="url">LeetCode-279-完全平方数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-05-30 20:20:19 / 修改时间：20:21:16" itemprop="dateCreated datePublished" datetime="2023-05-30T20:20:19+08:00">2023-05-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/null/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/null/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>将问题转化为完全背包问题，那么此处背包的容量就是 <code>n</code> ，并没有给定相应的物品，但是要将背包 <code>n</code> 装满，那么使用的物品就应该是 <code>1-n</code> 中的全部完全平方数，首先创建物品数组。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; nums;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i*i&lt;=n;i++)&#123;</span><br><span class="line">    nums.<span class="built_in">push_back</span>(i*i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么此处的物品数组就是 <code>nums</code> ，在物品数组中选取物品将背包装满，要求使用的物品数量能少。那么此处的处理方式就是和<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change/">322.零钱兑换</a>完全相同。此处求解的是最少的完全平方数的个数，不存在组合和排列的问题，因此既可以先遍历背包也可以先遍历物品。</p>
-<ol>
-<li><p>动态规划数组的定义：定义数组 <code>dp[n+1]</code> 表示总和为 <code>n</code> 的最少的完全平方数的数量</p>
-</li>
-<li><p>动态规划数组的推导：在第 <code>i</code> 次迭代中，考虑元素 <code>nums[i]</code> ，尝试使用 <code>nums[i]</code> 来减少数量 <code>dp[j]=min(dp[j],dp[j-nums[i]]+1)</code> （此处需要判断 <code>dp[j-nums[i]]!=INT_MAX</code>）</p>
-</li>
-<li><p>动态规划数组的初始化：对于 <code>dp[0]</code> 实际是不符合问题的定义，为了满足后续的计算，将其初始化为 <code>dp[0]=0</code> ，对于其他元素，由于递推方式为 <code>dp[j]=min(dp[j],dp[j-nums[i]]+1)</code> 那么对于初始不能恰好装满的容量，都初始化为 <code>INT_MAX</code> 。</p>
-</li>
-<li><p>动态规划数组的遍历顺序：此处先遍历物品再遍历背包，并且都采用从前向后的遍历方式。</p>
-</li>
-<li><p>举例验证：<code>n=13</code> </p>
-</li>
-</ol>
-<blockquote>
-<p>  dp={0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13}<br>    dp={0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5, 3, 4}<br>    dp={0, 1, 2, 3, 1, 2, 3, 4, 2, 1, 2, 3, 3, 2}</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/null/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1461,7 +1493,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1531,18 +1563,18 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">105k</span>
+    <span title="站点总字数">107k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:35</span>
+    <span title="站点阅读时长">1:37</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共47.1k字</span>
+  <span class="post-count">博客全站共48.1k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
