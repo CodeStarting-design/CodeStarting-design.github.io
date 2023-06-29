@@ -20,23 +20,23 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="动态规划此处是一个非常明显的动态规划问题，在物品的选取上，主要的限制在于不能选取两个相邻的物品，在此条件下实现物品价值的最大化。  动态规划数组的定义：定义数组 dp[nums.size()+1] 表示在 nums.size() 个物品中进行选取能够得到的最大的物品价值。  动态规划数组的推导：在 j 个物品中选取，可以选取第 j 个物品也可以不进行选取，那么 dp[j]&#x3D;max(dp[j-1],">
+  <meta name="description" content="动态规划依旧是对交易的次数不进行限制，但是每买卖一次都会产生相应的手续费。使用动态规划求解，重点依旧是动态规划数组的定义。本题相对于122.买卖股票的最佳时机II改变的仅仅是  动态规划数组的定义：定义动态规划数组 dp[n][2] ，其中 dp[i][0] 表示在第 i 天持有股票所拥有的最大现金数， dp[i][1] 表示在第 i 天不持有股票所拥有的最大现金数  动态规划数组的推导：分别推导">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-198-打家劫舍">
-<meta property="og:url" content="http://marksblog.cn/posts/9b6273f5/index.html">
+<meta property="og:title" content="LeetCode-714-买卖股票的最佳时机含手续费">
+<meta property="og:url" content="http://marksblog.cn/posts/4c381603/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="动态规划此处是一个非常明显的动态规划问题，在物品的选取上，主要的限制在于不能选取两个相邻的物品，在此条件下实现物品价值的最大化。  动态规划数组的定义：定义数组 dp[nums.size()+1] 表示在 nums.size() 个物品中进行选取能够得到的最大的物品价值。  动态规划数组的推导：在 j 个物品中选取，可以选取第 j 个物品也可以不进行选取，那么 dp[j]&#x3D;max(dp[j-1],">
+<meta property="og:description" content="动态规划依旧是对交易的次数不进行限制，但是每买卖一次都会产生相应的手续费。使用动态规划求解，重点依旧是动态规划数组的定义。本题相对于122.买卖股票的最佳时机II改变的仅仅是  动态规划数组的定义：定义动态规划数组 dp[n][2] ，其中 dp[i][0] 表示在第 i 天持有股票所拥有的最大现金数， dp[i][1] 表示在第 i 天不持有股票所拥有的最大现金数  动态规划数组的推导：分别推导">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-03T11:33:06.000Z">
-<meta property="article:modified_time" content="2023-06-03T11:34:00.752Z">
+<meta property="article:published_time" content="2023-06-29T12:17:18.000Z">
+<meta property="article:modified_time" content="2023-06-29T12:18:25.695Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="打家劫舍">
+<meta property="article:tag" content="股票买卖">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/9b6273f5/">
+<link rel="canonical" href="http://marksblog.cn/posts/4c381603/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>LeetCode-198-打家劫舍 | Mark's blogs</title>
+  <title>LeetCode-714-买卖股票的最佳时机含手续费 | Mark's blogs</title>
   
 
 
@@ -188,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/9b6273f5/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/4c381603/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -201,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-198-打家劫舍
+          LeetCode-714-买卖股票的最佳时机含手续费
         </h1>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-06-03 19:33:06 / 修改时间：19:34:00" itemprop="dateCreated datePublished" datetime="2023-06-03T19:33:06+08:00">2023-06-03</time>
+              <time title="创建时间：2023-06-29 20:17:18 / 修改时间：20:18:25" itemprop="dateCreated datePublished" datetime="2023-06-29T20:17:18+08:00">2023-06-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/9b6273f5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/9b6273f5/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/4c381603/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/4c381603/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -251,14 +251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>912</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -270,34 +270,57 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode 198 打家劫舍"></a>LeetCode 198 打家劫舍</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber/">198.打家劫舍</a></p>
-<p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
-<p>给定一个代表每个房屋存放金额的非负整数数组，计算你不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
+        <h1 id="LeetCode-714-买卖股票的最佳时机含手续费"><a href="#LeetCode-714-买卖股票的最佳时机含手续费" class="headerlink" title="LeetCode 714 买卖股票的最佳时机含手续费"></a>LeetCode 714 买卖股票的最佳时机含手续费</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/">714.买卖股票的最佳时机含手续费</a></p>
+<p>给定一个整数数组 <code>prices</code> ，其中 <code>prices[i]</code> 表示第 <code>i</code> 天的股票价格 ；整数 <code>fee</code> 代表了交易股票的手续费用。</p>
+<p>你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。</p>
+<p>返回获得利润的最大值。</p>
+<p>注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续</p>
 <p>示例：</p>
 <blockquote>
-<p>  输入：[1,2,3,1]<br>    输出：4<br>    解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。<br>        偷窃到的最高金额 = 1 + 3 = 4 。</p>
+<p>输入：prices = [1, 3, 2, 8, 4, 9], fee = 2<br>输出：8<br>解释：能够达到的最大利润:<br>在此处买入 prices[0] = 1<br>在此处卖出 prices[3] = 8<br>在此处买入 prices[4] = 4<br>在此处卖出 prices[5] = 9<br>总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8</p>
 </blockquote>
 
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处是一个非常明显的动态规划问题，在物品的选取上，主要的限制在于不能选取两个相邻的物品，在此条件下实现物品价值的最大化。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>依旧是对交易的次数不进行限制，但是每买卖一次都会产生相应的手续费。使用动态规划求解，重点依旧是动态规划数组的定义。本题相对于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122.买卖股票的最佳时机II</a>改变的仅仅是</p>
 <ol>
-<li><p>动态规划数组的定义：定义数组 <code>dp[nums.size()+1]</code> 表示在 <code>nums.size()</code> 个物品中进行选取能够得到的最大的物品价值。</p>
+<li><p>动态规划数组的定义：定义动态规划数组 <code>dp[n][2]</code> ，其中 <code>dp[i][0]</code> 表示在第 <code>i</code> 天持有股票所拥有的最大现金数， <code>dp[i][1]</code> 表示在第 <code>i</code> 天不持有股票所拥有的最大现金数</p>
 </li>
-<li><p>动态规划数组的推导：在 <code>j</code> 个物品中选取，可以选取第 <code>j</code> 个物品也可以不进行选取，那么 <code>dp[j]=max(dp[j-1],dp[j-2]+nums[j-1])</code></p>
+<li><p>动态规划数组的推导：分别推导 <code>dp[i][0]</code> 和 <code>dp[i][1]</code></p>
 </li>
-<li><p>动态规划数组的初始化：对于 <code>dp[0]</code> 不存在可选元素， <code>dp[0]=0</code> ，对于 <code>dp[1]</code> 只能选取第一个元素 <code>dp[1]=nums[0]</code> </p>
+</ol>
+<p>对于 <code>dp[i][0]</code> 的推导：</p>
+<ul>
+<li>前一天持有： <code>dp[i][0]=dp[i-1][0]</code> </li>
+<li>前一天不持有： <code>dp[i][0]=dp[i-1][1]-prices[i]</code></li>
+</ul>
+<p>对于 <code>dp[i][1]</code> 的推导：</p>
+<ul>
+<li>前一天持有： <code>dp[i][1]=dp[i-1][0]+prices[i]-fee</code> </li>
+<li>前一天不持有： <code>dp[i][1]=dp[i-1][1]</code></li>
+</ul>
+<p>总体的推导为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[i][<span class="number">0</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>],dp[i<span class="number">-1</span>][<span class="number">1</span>]-prices[i]);</span><br><span class="line">dp[i][<span class="number">1</span>]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>]+prices[i]-fee,dp[i<span class="number">-1</span>][<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>动态规划数组的初始化：在第一天 <code>dp[0][0]=-peices[0]</code> 买入，不持有只需不买入 <code>dp[0][1]=0</code></p>
 </li>
-<li><p>动态规划数组的遍历顺序：在递推的过程中使用到的前面的数据，因此从前向后遍历。</p>
+<li><p>动态规划数组的遍历顺序：从前向后遍历</p>
 </li>
-<li><p>举例验证：对于 <code>nums=[1,2,3,1]</code> </p>
+<li><p>举例验证：对于 <code>prices = [1, 3, 2, 8, 4, 9], fee = 2</code> 动态规划数组的变化过程为：（仅展示最后一位）</p>
 </li>
 </ol>
 <blockquote>
-<p>dp={0,1,0,0,0}<br>dp={0,1,2,0,0}<br>dp={0,1,2,4,0}<br>dp={0,1,2,4,4}</p>
+<p>dp[i]<br>-1 0<br>-1 0<br>-1 0<br>-1 5<br>1 5<br>1 8</p>
 </blockquote>
 
-<p>验证正确。</p>
-<p>此处在进行计算时，实际上只使用到了前两个元素的值，那么只需要常数的元素空间。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> nums.<span class="built_in">front</span>();</span><br><span class="line">        <span class="type">int</span> n0=<span class="number">0</span>,n1=nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            res=<span class="built_in">max</span>(n1,n0+nums[i<span class="number">-1</span>]);</span><br><span class="line">            n0=n1;</span><br><span class="line">            n1=res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>代码实现：基于滚动数组实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices, <span class="type">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(<span class="number">2</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">2</span>,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]-=prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">0</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>],dp[<span class="number">0</span>][<span class="number">1</span>]-prices[i]);</span><br><span class="line">            dp[<span class="number">1</span>][<span class="number">1</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>][<span class="number">0</span>]+prices[i]-fee,dp[<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp[<span class="number">1</span>][<span class="number">0</span>],dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="贪心实现"><a href="#贪心实现" class="headerlink" title="贪心实现"></a>贪心实现</h2><p>此处要基于贪心实现，相较于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122.买卖股票的最佳时机II</a>是有区别的，在122题中，不限交易次数的同时，交易是不需要手续费的，因此可以单纯的寻找全部的单调区间相加即可。</p>
+<p>此处要基于贪心实现：将手续费的计算转移到股票买入阶段，使用一个变量 <code>buy</code> 记录买入股票的费用，假设在第 <code>i</code> 天买入，那么 <code>buy=prices[i]+fee</code> ，从前向后遍历 <code>prices</code> 数组。</p>
+<ul>
+<li>当 <code>prices[i]+fee&lt;buy</code> 时，说明在当天买入股票，能够使用更少的花费，那么对 <code>buy</code> 进行更新。</li>
+<li>当 <code>prices[i]&gt;buy</code> 时，也就是在当天卖出是能够盈利的，但是并不能保证全局最优，但是在全局最优的情形下，这一部分的利润是一定能够赚取的，因此将这一部分利润加入总利润，并且令 <code>buy=prices[i]</code> ，不加手续费的原因在于当天并不是真的卖出后买入，主要是为了更新花费，在此基础上，若是后一天 <code>prices[i+1]&gt;buy</code> 也就是说明在后面买可以赚更多，继续抽取利润，更新费用 <code>buy=prices[i+1]</code> ，若是 <code>prices[i+1]+fee&lt;buy</code> 也就是在后一天已经不能赚钱，此时就在后一天假设买入 <code>buy=prices[i+1]+fee</code> (也就是在前一天实际进行了卖出)</li>
+</ul>
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices, <span class="type">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> profit=<span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> buy=prices[<span class="number">0</span>]+fee;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i]+fee&lt;buy)&#123;</span><br><span class="line">                buy=prices[i]+fee;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(prices[i]&gt;buy)&#123;</span><br><span class="line">                profit+=prices[i]-buy;</span><br><span class="line">                buy=prices[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> profit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -323,7 +346,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/9b6273f5/" title="LeetCode-198-打家劫舍">http://marksblog.cn/posts/9b6273f5/</a>
+    <a href="http://marksblog.cn/posts/4c381603/" title="LeetCode-714-买卖股票的最佳时机含手续费">http://marksblog.cn/posts/4c381603/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -365,7 +388,7 @@
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
-              <a href="/tags/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" rel="tag"># 打家劫舍</a>
+              <a href="/tags/%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96/" rel="tag"># 股票买卖</a>
           </div>
 
         
@@ -374,13 +397,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/97265db6/" rel="prev" title="完全背包问题总结">
-      <i class="fa fa-chevron-left"></i> 完全背包问题总结
+    <a href="/posts/dafcc9d7/" rel="prev" title="LeetCode-309-最佳买卖股票时机含冷冻期">
+      <i class="fa fa-chevron-left"></i> LeetCode-309-最佳买卖股票时机含冷冻期
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/null/" rel="next" title="LeetCode-213-打家劫舍II">
-      LeetCode-213-打家劫舍II <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -440,7 +460,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D"><span class="nav-text">LeetCode 198 打家劫舍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9"><span class="nav-text">LeetCode 714 买卖股票的最佳时机含手续费</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83%E5%AE%9E%E7%8E%B0"><span class="nav-text">贪心实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
