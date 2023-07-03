@@ -9,8 +9,115 @@
     <atom:link href="http://marksblog.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>心之所向，行之可往</description>
-    <pubDate>Thu, 29 Jun 2023 12:20:00 GMT</pubDate>
+    <pubDate>Mon, 03 Jul 2023 08:40:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>LeetCode-674-最长连续递增序列</title>
+      <link>http://marksblog.cn/posts/2dc2c415/</link>
+      <guid>http://marksblog.cn/posts/2dc2c415/</guid>
+      <pubDate>Mon, 03 Jul 2023 08:38:35 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;贪心实现&quot;&gt;&lt;a href=&quot;#贪心实现&quot; class=&quot;headerlink&quot; title=&quot;贪心实现&quot;&gt;&lt;/a&gt;贪心实现&lt;/h2&gt;&lt;p&gt;基于贪心实现，使用双指针的方式，只需要对数组进行一次遍历。&lt;/p&gt;
+&lt;p&gt;定义指针 &lt;code&gt;i&lt;/code&gt; 直线当前连续递增子序列的第一个元素，指针 &lt;code&gt;j&lt;/code&gt; 指向当前递增子序列的最后一个元素。初始时 &lt;code&gt;i==j&lt;/code&gt; ，指针 &lt;code&gt;j&lt;/code&gt; 后移一位，若是 &lt;code&gt;nums[j]&amp;gt;nums[j+1]&lt;/code&gt; 那么 &lt;code&gt;j++&lt;/code&gt; ，否则 &lt;code&gt;len=j-i,res=max(res,len)&lt;/code&gt; ，然后 &lt;code&gt;i=j&lt;/code&gt; 继续循环。&lt;/p&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="LeetCode-674-最长连续递增序列"><a href="#LeetCode-674-最长连续递增序列" class="headerlink" title="LeetCode 674 最长连续递增序列"></a>LeetCode 674 最长连续递增序列</h1><p><a href="https://leetcode.cn/problems/longest-continuous-increasing-subsequence/">674.最长连续递增序列</a></p><p>给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。</p><p>连续递增的子序列 可以由两个下标 <code>l</code> 和 <code>r（l &lt; r）</code> 确定，如果对于每个 <code>l &lt;= i &lt; r</code> ，都有 <code>nums[i] &lt; nums[i + 1]</code> ，那么子序列 <code>[nums[l], nums[l + 1], ..., nums[r - 1], nums[r]]</code> 就是连续递增子序列。</p><p>示例：</p><blockquote><p>输入：nums = [1,3,5,4,7]<br>输出：3<br>解释：最长连续递增序列是 [1,3,5], 长度为3。<br>尽管 [1,3,5,7] 也是升序的子序列, 但它不是连续的，因为 5 和 7 在原数组里被 4 隔开。 </p></blockquote><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>本题相较于<a href="https://leetcode.cn/problems/longest-increasing-subsequence/">300.最长递增子序列</a>中，要求序列是连续的，那么对于动态规划数组的定义就需要做出相应的改变。</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[i]</code> 表示以元素 <code>nums[i]</code> 结尾的最长的连续子序列的长度。</p></li><li><p>动态规划数组的推导：对于 <code>dp[i]</code> 判断 <code>nums[i]&gt;nums[i-1]</code> ，成立则 <code>dp[i]=dp[i-1]+1</code> 否则 <code>dp[i]=1</code></p></li><li><p>动态规划数组的初始化：对于第一个元素 <code>nums[0]</code> 最长的连续序列的长度必然为1，那么 <code>dp[0]=1</code></p></li><li><p>动态规划数组的遍历顺序：从前先后遍历</p></li><li><p>举例验证：对于 <code>nums = [1,3,5,4,7]</code> 动态规划数组的值为：</p></li></ol><blockquote><p>dp=[1,2,3,1,2]</p></blockquote><p>代码实现：在推导时只需要使用前一个元素的值，使用滚动数组实现</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&gt;nums[i<span class="number">-1</span>])</span><br><span class="line">                dp[<span class="number">1</span>]=dp[<span class="number">0</span>]+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">            res=<span class="built_in">max</span>(res,dp[<span class="number">1</span>]);</span><br><span class="line">            dp[<span class="number">0</span>]=dp[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="贪心实现"><a href="#贪心实现" class="headerlink" title="贪心实现"></a>贪心实现</h2><p>基于贪心实现，使用双指针的方式，只需要对数组进行一次遍历。</p><p>定义指针 <code>i</code> 直线当前连续递增子序列的第一个元素，指针 <code>j</code> 指向当前递增子序列的最后一个元素。初始时 <code>i==j</code> ，指针 <code>j</code> 后移一位，若是 <code>nums[j]&gt;nums[j+1]</code> 那么 <code>j++</code> ，否则 <code>len=j-i,res=max(res,len)</code> ，然后 <code>i=j</code> 继续循环。</p><p>代码实现：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[j]&lt;=nums[j<span class="number">-1</span>])&#123;</span><br><span class="line">                res=<span class="built_in">max</span>(res,j-i);</span><br><span class="line">                i=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res=<span class="built_in">max</span>(res,j-i);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/">子序列问题</category>
+      
+      <category domain="http://marksblog.cn/tags/%E8%B4%AA%E5%BF%83/">贪心</category>
+      
+      
+      <comments>http://marksblog.cn/posts/2dc2c415/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>LeetCode-300-最长递增子序列</title>
+      <link>http://marksblog.cn/posts/92bc8f5b/</link>
+      <guid>http://marksblog.cn/posts/92bc8f5b/</guid>
+      <pubDate>Mon, 03 Jul 2023 08:38:19 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;此处子序列是不连续的。本题的重点依旧是动态规划数组的定义：也就是如何从i推导到i+1。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[i]&lt;/code&gt; 表示 &lt;code&gt;i&lt;/code&gt; 之前包括 &lt;code&gt;i&lt;/code&gt; 的以 &lt;code&gt;nums[i]&lt;/code&gt; 结尾的最长递增子序列的长度。本题的重点应该就是关注于递增序列的结尾元素，因此要让递增序列继续增长，那么就需要和序列末尾的元素进行比较，因此将动态规划数组做此定义。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的推导：那么 &lt;code&gt;dp[i+1]&lt;/code&gt; 则表示，在 &lt;code&gt;i+1&lt;/code&gt; 之前包括 &lt;code&gt;i+1&lt;/code&gt; 的以 &lt;code&gt;nums[i+1]&lt;/code&gt; 结尾的最长递增子序列的长度，那么推导为：&lt;code&gt;dp[i+1]=max(dp[j])+1&lt;/code&gt; 其中 &lt;code&gt;j=0...i&lt;/code&gt; 并且要求 &lt;code&gt;nums[j]&amp;lt;nums[i+1]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的初始化：&lt;code&gt;dp[0]&lt;/code&gt; 只包含一个元素，最长的递增子序列长度为1， &lt;code&gt;dp[0]=1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态规划数组的遍历顺序：从前向后遍历&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;举例验证：输入 &lt;code&gt;nums=[10,9,2,5,3,7,101,18]&lt;/code&gt; 动态规划数组的变化过程为：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dp=[1,1,0,0,0,0,0,0]&lt;br&gt;dp=[1,1,1,0,0,0,0,0]&lt;br&gt;dp=[1,1,1,2,0,0,0,0]&lt;br&gt;dp=[1,1,1,2,2,0,0,0]&lt;br&gt;dp=[1,1,1,2,2,3,0,0]&lt;br&gt;dp=[1,1,1,2,2,3,4,0]&lt;br&gt;dp=[1,1,1,2,2,3,4,4]&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="LeetCode-300-最长递增子序列"><a href="#LeetCode-300-最长递增子序列" class="headerlink" title="LeetCode 300 最长递增子序列"></a>LeetCode 300 最长递增子序列</h1><p><a href="https://leetcode.cn/problems/longest-increasing-subsequence/">300.最长递增子序列</a></p><p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><p>示例：</p><blockquote><p>输入：nums = [10,9,2,5,3,7,101,18]<br>输出：4<br>解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p></blockquote><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处子序列是不连续的。本题的重点依旧是动态规划数组的定义：也就是如何从i推导到i+1。</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[i]</code> 表示 <code>i</code> 之前包括 <code>i</code> 的以 <code>nums[i]</code> 结尾的最长递增子序列的长度。本题的重点应该就是关注于递增序列的结尾元素，因此要让递增序列继续增长，那么就需要和序列末尾的元素进行比较，因此将动态规划数组做此定义。</p></li><li><p>动态规划数组的推导：那么 <code>dp[i+1]</code> 则表示，在 <code>i+1</code> 之前包括 <code>i+1</code> 的以 <code>nums[i+1]</code> 结尾的最长递增子序列的长度，那么推导为：<code>dp[i+1]=max(dp[j])+1</code> 其中 <code>j=0...i</code> 并且要求 <code>nums[j]&lt;nums[i+1]</code></p></li><li><p>动态规划数组的初始化：<code>dp[0]</code> 只包含一个元素，最长的递增子序列长度为1， <code>dp[0]=1</code></p></li><li><p>动态规划数组的遍历顺序：从前向后遍历</p></li><li><p>举例验证：输入 <code>nums=[10,9,2,5,3,7,101,18]</code> 动态规划数组的变化过程为：</p></li></ol><blockquote><p>dp=[1,1,0,0,0,0,0,0]<br>dp=[1,1,1,0,0,0,0,0]<br>dp=[1,1,1,2,0,0,0,0]<br>dp=[1,1,1,2,2,0,0,0]<br>dp=[1,1,1,2,2,3,0,0]<br>dp=[1,1,1,2,2,3,4,0]<br>dp=[1,1,1,2,2,3,4,4]</p></blockquote><p>代码实现：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">lengthOfLIS</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="type">int</span> maxLen=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])&#123;</span><br><span class="line">                    maxLen=<span class="built_in">max</span>(maxLen,dp[j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i]=maxLen+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res=<span class="built_in">max</span>(res,dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/">子序列问题</category>
+      
+      
+      <comments>http://marksblog.cn/posts/92bc8f5b/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>股票买卖问题总结</title>
+      <link>http://marksblog.cn/posts/febad6b5/</link>
+      <guid>http://marksblog.cn/posts/febad6b5/</guid>
+      <pubDate>Fri, 30 Jun 2023 12:10:37 GMT</pubDate>
+      
+      <description>&lt;h1 id=&quot;股票买卖问题总结&quot;&gt;&lt;a href=&quot;#股票买卖问题总结&quot; class=&quot;headerlink&quot; title=&quot;股票买卖问题总结&quot;&gt;&lt;/a&gt;股票买卖问题总结&lt;/h1&gt;&lt;p&gt;问题的描述都为：给定一支股票的价格变动数组，根据相应的价格变动数组买卖股票，要求能够获得最大的利润。&lt;/p&gt;
+&lt;p&gt;条件上的改变：股票只能交易一次，股票可以交易任意次，股票可以交易常数次，股票可以交易k次，股票在卖出后的一天冷冻期不能交易，股票交易需要收取手续费。&lt;/p&gt;
+&lt;p&gt;基本的求解方式为：动态规划和贪心&lt;/p&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="股票买卖问题总结"><a href="#股票买卖问题总结" class="headerlink" title="股票买卖问题总结"></a>股票买卖问题总结</h1><p>问题的描述都为：给定一支股票的价格变动数组，根据相应的价格变动数组买卖股票，要求能够获得最大的利润。</p><p>条件上的改变：股票只能交易一次，股票可以交易任意次，股票可以交易常数次，股票可以交易k次，股票在卖出后的一天冷冻期不能交易，股票交易需要收取手续费。</p><p>基本的求解方式为：动态规划和贪心</p><h2 id="LeetCode-121-买卖股票的最佳时机"><a href="#LeetCode-121-买卖股票的最佳时机" class="headerlink" title="LeetCode 121 买卖股票的最佳时机"></a>LeetCode 121 买卖股票的最佳时机</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">121.买卖股票的最佳时机</a></p><p>给定一个数组 <code>prices</code> ，它的第 <code>i</code> 个元素 <code>prices[i]</code> 表示一支给定股票第 <code>i</code> 天的价格。</p><p>你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。</p><p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 <code>0</code> 。</p><p>本题中智能对股票进行一次买卖，要求解最大的利润，存在两种方法。</p><ol><li><p>基于动态规划实现：重点依旧是动态规划数组的定义，依旧是定义为二维的动态规划数组 <code>dp[i][0]</code> 表示持有股票的最大现金数， <code>dp[i][1]</code> 表示不持有股票的最大现金数，但是限制了交易次数为1次。相较于不限次数的交易方式区别在于动态规划数组的推导。推导过程为： <code>dp[i][0]=max(dp[i-1][0],-prices[i])</code> 由于只能买入一次，在 <code>i</code> 天想要持有股票只能在前面买了，或者前面没买在 <code>prices[i]</code> 时买入。 <code>dp[i][1]=max(dp[i-1][0]+prices[i],dp[i-1][1])</code> </p></li><li><p>贪心实现：从前向后遍历，不断寻找相应的最小值，最小值就是买入那天的价格，在最小值后面能够使得利润最大的值就是卖出那天的价格。</p></li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> buy=prices[<span class="number">0</span>],result=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">    buy=<span class="built_in">min</span>(buy,prices[i]);</span><br><span class="line">    result=<span class="built_in">max</span>(result,prices[i]-buy);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>或者另外一种动态规划数组的定义： <code>dp[i]</code> 表示在第 <code>i</code> 天买入能够获得最大利润，也就是考虑到卖出的那一天一定是买入股票价格后最贵的一天。</p><h2 id="LeetCode-122-买卖股票的最佳时机II"><a href="#LeetCode-122-买卖股票的最佳时机II" class="headerlink" title="LeetCode 122 买卖股票的最佳时机II"></a>LeetCode 122 买卖股票的最佳时机II</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122.买卖股票的最佳时机II</a></p><p>给你一个整数数组 <code>prices</code> ，其中 <code>prices[i]</code> 表示某支股票第 <code>i</code> 天的价格。</p><p>在每一天，你可以决定是否购买和/或出售股票。你在任何时候最多只能持有一股股票。你也可以先购买，然后在同一天出售。</p><p>返回你能获得的最大利润。</p><p>在本体中对买卖的次数不做限制，依旧是动态规划和贪心两种实现方式。</p><ol><li><p>基于动态规划实现：重点依旧是动态规划数组的定义，依旧是定义为二维的动态规划数组 <code>dp[i][0]</code> 表示持有股票的最大现金数， <code>dp[i][1]</code> 表示不持有股票的最大现金数，不限制交易次数。推导过程为： <code>dp[i][0]=max(dp[i-1][0],dp[i-1][1]-prices[i])</code> 在 <code>i</code> 天想要持有股票可以前一天就持有，也可以前一天不持有，在 <code>prices[i]</code> 时买入。 <code>dp[i][1]=max(dp[i-1][0]+prices[i],dp[i-1][1])</code> </p></li><li><p>贪心实现：要基于贪心实现就简单很多。价格数组就是一个折线图，只需要在折线图中找到全面的增区间，将这些增区间全部相加即可。 <code>res+=max(0,prices[i]-prices[i-1]);</code></p></li></ol><h2 id="LeetCode-123-买卖股票的最佳时机III"><a href="#LeetCode-123-买卖股票的最佳时机III" class="headerlink" title="LeetCode 123 买卖股票的最佳时机III"></a>LeetCode 123 买卖股票的最佳时机III</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/">123.买卖股票的最佳时机III</a></p><p>给定一个数组，它的第 <code>i</code> 个元素是一支给定的股票在第 <code>i</code> 天的价格。</p><p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 <strong>两笔</strong> 交易。</p><p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p><p>此处是交易次数为常数次的情形，并且需要理解的是，此处是最多交易两笔。本题只能使用动态规划进行求解，动态规划求解的重点依旧是动态规划数组的定义。</p><p>数组定义： <code>dp[i][5]</code> </p><ul><li><code>dp[i][0]</code> 表示不对股票进行任何操作所持有的最大现金数，一定是为0的</li><li><code>dp[i][1]</code> 表示第一次持有股票，所拥有的最大现金数（也就是当前是持有股票的，并且是在第一次买入后没有卖出的状态）</li><li><code>dp[i][2]</code> 表示第一次不持有股票，所拥有的最大现金数（也就是当前是不持有股票的，也就是是在第一次买入后再卖出后的状态）</li><li><code>dp[i][3]</code> 表示第二次持有股票，所拥有的最大现金数（也就是当前是持有股票的，也就是在第二次买入后没有卖出的状态）</li><li><code>dp[i][4]</code> 表示第二次不持有股票，所拥有的最大现金数（也就是当前是不持有股票的，也就是是在第二次买入后再卖出后的状态）</li></ul><p>在此基础上既可以实现动态规划数组的推导从而求解。</p><h2 id="LeetCode-188-买卖股票的最佳时机IV"><a href="#LeetCode-188-买卖股票的最佳时机IV" class="headerlink" title="LeetCode 188 买卖股票的最佳时机IV"></a>LeetCode 188 买卖股票的最佳时机IV</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/">188.买卖股票的最佳时机IV</a></p><p>给定一个整数数组 <code>prices</code> ，它的第 <code>i</code> 个元素 <code>prices[i]</code> 是一支给定的股票在第 <code>i</code> 天的价格，和一个整型 <code>k</code> 。</p><p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 <code>k</code> 笔交易。也就是说，你最多可以买 <code>k</code> 次，卖 <code>k</code> 次。</p><p><strong>注意</strong>：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p><p>本题中的交易此处不再是一个常数，而是一个变量，那么也就是在上一题基础上进行了变更，只需要将动态规划数组的定义从 <code>dp[i][5]</code> 拓展到 <code>dp[i][2k+1]</code> 即可。递推公式也是相同，只需要基于循环实现即可。</p><h2 id="LeetCode-309-最佳买卖股票时机含冷冻期"><a href="#LeetCode-309-最佳买卖股票时机含冷冻期" class="headerlink" title="LeetCode 309 最佳买卖股票时机含冷冻期"></a>LeetCode 309 最佳买卖股票时机含冷冻期</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/">309.最佳买卖股票时机含冷冻期</a></p><p>给定一个整数数组prices，其中第  <code>prices[i]</code> 表示第 <code>i</code> 天的股票价格 。​</p><p>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p><p>卖出股票后，你无法在第二天买入股票 (即冷冻期为 <code>1</code> 天)。<br>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p><p>相较于前述题目，本题的变动是最大的，在加入了冷冻期的限制后，动态规划数组的定义需要改变，同时推导方式也需要改变。</p><p>动态规划数组的定义，此处每一天存在四种状态：持有股票、不持有股票并且不是冷冻期、当天卖出股票、冷冻期</p><p>在此基础上去推导：</p><ul><li><code>dp[i][0]</code> ：可能前一天持有，也可能当天买入（前一天可能是冷冻期也可能不是） <code>dp[i][0]=max(max(dp[i-1][0],dp[i-1][1]-peices[i]),dp[i-1][3]-prices[i])</code></li><li><code>dp[i][1]</code> ：前一天可能是冷冻期或者不是 <code>dp[i][1]=max(dp[i-1][1],dp[i-1][3])</code></li><li><code>dp[i][2]</code> ：前一天必然持有股票 <code>dp[i][1]=dp[i-1][0]+prices[i]</code></li><li><code>dp[i][3]</code> ：前一天必然卖出股票 <code>dp[i][3]=dp[i-1][2]</code></li></ul><h2 id="LeetCode-714-买卖股票的最佳时机含手续费"><a href="#LeetCode-714-买卖股票的最佳时机含手续费" class="headerlink" title="LeetCode 714 买卖股票的最佳时机含手续费"></a>LeetCode 714 买卖股票的最佳时机含手续费</h2><p><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/">714.买卖股票的最佳时机含手续费</a></p><p>给定一个整数数组 <code>prices</code> ，其中 <code>prices[i]</code> 表示第 <code>i</code> 天的股票价格 ；整数 <code>fee</code> 代表了交易股票的手续费用。</p><p>你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。</p><p>返回获得利润的最大值。</p><p>注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续</p><p>此处可以使用动态规划和贪心两种算法进行求解</p><ol><li>动态规划求解：</li></ol><p>此处使用动态规划求解，求解的方式和<a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122.买卖股票的最佳时机II</a>基本相同，只需要在推导过程中，若是某天卖出在计算利润时减去手续费 <code>fee</code> 即可。</p><ol><li>使用贪心求解：</li></ol><p>此处使用贪心求解较为巧妙，将手续的收取归入股票买入阶段，假设在第一天买入股票，那么 <code>buy=prices[0]+fee</code> 就是股票买入的花费，对数组进行遍历，</p><ul><li>若是出现 <code>prices[i]+fee&lt;buy</code> 那么说明在，在这一天买入股票成本更低，更新 <code>buy</code></li><li>若是出现 <code>prices[i]&gt;buy</code> 说明此时股票的价格卖出后是可以赚钱的，并且是不限制交易次数的，那么在全局最优的情况下，这部分利润一定是能够得到的，先 <code>res+=peices[i]-buy</code> 并且 <code>buy=peices[i]</code> ，不收取手续费的原因在于，并不是真的卖出后买入，在后面若是 <code>prices[i+1]&gt;buy</code> 也就是在后一天卖出可以赚更多（相同处理），若是 <code>prices[i+1]+fee&lt;buy</code> 说明在后一天买入成本更低，那么更新 <code>buy</code> </li></ul><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(buy&gt;prices[i]+fee)&#123;</span><br><span class="line">        buy=prices[i]+fee;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(buy&lt;prices[i])&#123;</span><br><span class="line">        res+=peices[i]-buy;</span><br><span class="line">        buy=prices[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
+      
+      
+      <category domain="http://marksblog.cn/tags/c/">c++</category>
+      
+      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
+      
+      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
+      
+      <category domain="http://marksblog.cn/tags/%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96/">股票买卖</category>
+      
+      
+      <comments>http://marksblog.cn/posts/febad6b5/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>LeetCode-714-买卖股票的最佳时机含手续费</title>
@@ -367,134 +474,6 @@
       
       
       <comments>http://marksblog.cn/posts/1aa3096f/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>LeetCode-213-打家劫舍II</title>
-      <link>http://marksblog.cn/posts/null/</link>
-      <guid>http://marksblog.cn/posts/null/</guid>
-      <pubDate>Sat, 03 Jun 2023 12:13:54 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;本题相较于&lt;a href=&quot;https://leetcode.cn/problems/house-robber/&quot;&gt;198.打家劫舍&lt;/a&gt;的主要区别在于，首尾的元素也成了相邻元素，导致元素成为了一个环，因此不能采取前面的方式计算。&lt;/p&gt;
-&lt;p&gt;此处可以将问题进行转化：此处的首尾元素只有一个可以被选取，那么将问题划分为两部分。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;不选取首元素，那么此时尾元素就可以选取，问题转化为在后n-1个元素不相邻选取最大值，求得res1&lt;/li&gt;
-&lt;li&gt;不选取尾元素，那么此时首元素就可以选取，问题转化为在前n-1个元素不相邻选取最大值，求得res2&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;在得到res1和res2后，只需要选取其中较大的即可，在此基础上，使用动态规划求解：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[i]&lt;/code&gt; 表示在 &lt;code&gt;0-i&lt;/code&gt; 的元素中选取，能够得到的最大值&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的推导：不选取当前元素 &lt;code&gt;i&lt;/code&gt; 那么 &lt;code&gt;i-1&lt;/code&gt; 是可以被选取(不代表一定选取)，选取当前元素 &lt;code&gt;i&lt;/code&gt; 那么 &lt;code&gt;i-1&lt;/code&gt; 不可选取，从 &lt;code&gt;dp[i-2]&lt;/code&gt; 计算 &lt;code&gt;dp[i]=max(dp[i-1],dp[i-2]+nums[i])&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的初始化：对于情况2 &lt;code&gt;dp[0]=nums[0],dp[1]=max(nums[0],nums[1])&lt;/code&gt; ，对于情况1 &lt;code&gt;dp[0]=nums[1],dp[1]=max(nums[1],nums[2])&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的遍历顺序：需要使用前面的两个元素，从前向后遍历&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;举例验证：对于 &lt;code&gt;nums=[2,3,2]&lt;/code&gt; 输出结果为 &lt;code&gt;3&lt;/code&gt; ，验证正确&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="LeetCode-213-打家劫舍II"><a href="#LeetCode-213-打家劫舍II" class="headerlink" title="LeetCode 213 打家劫舍II"></a>LeetCode 213 打家劫舍II</h1><p><a href="https://leetcode.cn/problems/house-robber-ii/">213.打家劫舍II</a></p><p>你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。</p><p>给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。</p><p>示例：</p><blockquote><p>  输入：nums = [2,3,2]<br>    输出：3<br>    解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。</p></blockquote><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>本题相较于<a href="https://leetcode.cn/problems/house-robber/">198.打家劫舍</a>的主要区别在于，首尾的元素也成了相邻元素，导致元素成为了一个环，因此不能采取前面的方式计算。</p><p>此处可以将问题进行转化：此处的首尾元素只有一个可以被选取，那么将问题划分为两部分。</p><ol><li>不选取首元素，那么此时尾元素就可以选取，问题转化为在后n-1个元素不相邻选取最大值，求得res1</li><li>不选取尾元素，那么此时首元素就可以选取，问题转化为在前n-1个元素不相邻选取最大值，求得res2</li></ol><p>在得到res1和res2后，只需要选取其中较大的即可，在此基础上，使用动态规划求解：</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[i]</code> 表示在 <code>0-i</code> 的元素中选取，能够得到的最大值</p></li><li><p>动态规划数组的推导：不选取当前元素 <code>i</code> 那么 <code>i-1</code> 是可以被选取(不代表一定选取)，选取当前元素 <code>i</code> 那么 <code>i-1</code> 不可选取，从 <code>dp[i-2]</code> 计算 <code>dp[i]=max(dp[i-1],dp[i-2]+nums[i])</code></p></li><li><p>动态规划数组的初始化：对于情况2 <code>dp[0]=nums[0],dp[1]=max(nums[0],nums[1])</code> ，对于情况1 <code>dp[0]=nums[1],dp[1]=max(nums[1],nums[2])</code></p></li><li><p>动态规划数组的遍历顺序：需要使用前面的两个元素，从前向后遍历</p></li><li><p>举例验证：对于 <code>nums=[2,3,2]</code> 输出结果为 <code>3</code> ，验证正确</p></li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">2</span>) <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="type">int</span> n0=nums[<span class="number">0</span>],n1=<span class="built_in">max</span>(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="type">int</span> res1=<span class="built_in">max</span>(nums[<span class="number">0</span>],nums[<span class="number">1</span>]),res2=<span class="built_in">max</span>(nums[<span class="number">1</span>],nums[<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;nums.<span class="built_in">size</span>()<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            res1=<span class="built_in">max</span>(n1,n0+nums[i]);</span><br><span class="line">            n0=n1;</span><br><span class="line">            n1=res1;</span><br><span class="line">        &#125;</span><br><span class="line">        n0=nums[<span class="number">1</span>],n1=<span class="built_in">max</span>(nums[<span class="number">1</span>],nums[<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            res2=<span class="built_in">max</span>(n1,n0+nums[i]);</span><br><span class="line">            n0=n1;</span><br><span class="line">            n1=res2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(res1,res2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>将求解非环状序列的操作封装为函数：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">robRange</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums,<span class="type">int</span> start,<span class="type">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="type">int</span> n0=nums[start],n1=<span class="built_in">max</span>(nums[start],nums[start+<span class="number">1</span>]);</span><br><span class="line">        <span class="type">int</span> res=n1;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=start+<span class="number">2</span>;i&lt;end;i++)&#123;</span><br><span class="line">            res=<span class="built_in">max</span>(n1,n0+nums[i]);</span><br><span class="line">            n0=n1;</span><br><span class="line">            n1=res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">2</span>) <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="type">int</span> res1=<span class="built_in">robRange</span>(nums,<span class="number">0</span>,nums.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">        <span class="type">int</span> res2=<span class="built_in">robRange</span>(nums,<span class="number">1</span>,nums.<span class="built_in">size</span>());</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(res1,res2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      <category domain="http://marksblog.cn/tags/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/">打家劫舍</category>
-      
-      
-      <comments>http://marksblog.cn/posts/null/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>LeetCode-198-打家劫舍</title>
-      <link>http://marksblog.cn/posts/9b6273f5/</link>
-      <guid>http://marksblog.cn/posts/9b6273f5/</guid>
-      <pubDate>Sat, 03 Jun 2023 11:33:06 GMT</pubDate>
-      
-      <description>&lt;h2 id=&quot;动态规划&quot;&gt;&lt;a href=&quot;#动态规划&quot; class=&quot;headerlink&quot; title=&quot;动态规划&quot;&gt;&lt;/a&gt;动态规划&lt;/h2&gt;&lt;p&gt;此处是一个非常明显的动态规划问题，在物品的选取上，主要的限制在于不能选取两个相邻的物品，在此条件下实现物品价值的最大化。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的定义：定义数组 &lt;code&gt;dp[nums.size()+1]&lt;/code&gt; 表示在 &lt;code&gt;nums.size()&lt;/code&gt; 个物品中进行选取能够得到的最大的物品价值。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的推导：在 &lt;code&gt;j&lt;/code&gt; 个物品中选取，可以选取第 &lt;code&gt;j&lt;/code&gt; 个物品也可以不进行选取，那么 &lt;code&gt;dp[j]=max(dp[j-1],dp[j-2]+nums[j-1])&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的初始化：对于 &lt;code&gt;dp[0]&lt;/code&gt; 不存在可选元素， &lt;code&gt;dp[0]=0&lt;/code&gt; ，对于 &lt;code&gt;dp[1]&lt;/code&gt; 只能选取第一个元素 &lt;code&gt;dp[1]=nums[0]&lt;/code&gt; &lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;动态规划数组的遍历顺序：在递推的过程中使用到的前面的数据，因此从前向后遍历。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;举例验证：对于 &lt;code&gt;nums=[1,2,3,1]&lt;/code&gt; &lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;dp={0,1,0,0,0}&lt;br&gt;dp={0,1,2,0,0}&lt;br&gt;dp={0,1,2,4,0}&lt;br&gt;dp={0,1,2,4,4}&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode 198 打家劫舍"></a>LeetCode 198 打家劫舍</h1><p><a href="https://leetcode.cn/problems/house-robber/">198.打家劫舍</a></p><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p><p>给定一个代表每个房屋存放金额的非负整数数组，计算你不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p><p>示例：</p><blockquote><p>  输入：[1,2,3,1]<br>    输出：4<br>    解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。<br>        偷窃到的最高金额 = 1 + 3 = 4 。</p></blockquote><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>此处是一个非常明显的动态规划问题，在物品的选取上，主要的限制在于不能选取两个相邻的物品，在此条件下实现物品价值的最大化。</p><ol><li><p>动态规划数组的定义：定义数组 <code>dp[nums.size()+1]</code> 表示在 <code>nums.size()</code> 个物品中进行选取能够得到的最大的物品价值。</p></li><li><p>动态规划数组的推导：在 <code>j</code> 个物品中选取，可以选取第 <code>j</code> 个物品也可以不进行选取，那么 <code>dp[j]=max(dp[j-1],dp[j-2]+nums[j-1])</code></p></li><li><p>动态规划数组的初始化：对于 <code>dp[0]</code> 不存在可选元素， <code>dp[0]=0</code> ，对于 <code>dp[1]</code> 只能选取第一个元素 <code>dp[1]=nums[0]</code> </p></li><li><p>动态规划数组的遍历顺序：在递推的过程中使用到的前面的数据，因此从前向后遍历。</p></li><li><p>举例验证：对于 <code>nums=[1,2,3,1]</code> </p></li></ol><blockquote><p>dp={0,1,0,0,0}<br>dp={0,1,2,0,0}<br>dp={0,1,2,4,0}<br>dp={0,1,2,4,4}</p></blockquote><p>验证正确。</p><p>此处在进行计算时，实际上只使用到了前两个元素的值，那么只需要常数的元素空间。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> nums.<span class="built_in">front</span>();</span><br><span class="line">        <span class="type">int</span> n0=<span class="number">0</span>,n1=nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            res=<span class="built_in">max</span>(n1,n0+nums[i<span class="number">-1</span>]);</span><br><span class="line">            n0=n1;</span><br><span class="line">            n1=res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      <category domain="http://marksblog.cn/tags/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/">打家劫舍</category>
-      
-      
-      <comments>http://marksblog.cn/posts/9b6273f5/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>完全背包问题总结</title>
-      <link>http://marksblog.cn/posts/97265db6/</link>
-      <guid>http://marksblog.cn/posts/97265db6/</guid>
-      <pubDate>Fri, 02 Jun 2023 12:30:17 GMT</pubDate>
-      
-      <description>&lt;h1 id=&quot;完全背包问题总结&quot;&gt;&lt;a href=&quot;#完全背包问题总结&quot; class=&quot;headerlink&quot; title=&quot;完全背包问题总结&quot;&gt;&lt;/a&gt;完全背包问题总结&lt;/h1&gt;&lt;p&gt;首先，需要清楚的是对于完全背包问题的定义：有N件物品和一个最多能背重量为 &lt;code&gt;W&lt;/code&gt; 的背包。第 &lt;code&gt;i&lt;/code&gt; 件物品的重量是 &lt;code&gt;weight[i]&lt;/code&gt; ，得到的价值是 &lt;code&gt;value[i]&lt;/code&gt; 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。&lt;/p&gt;
-&lt;p&gt;相较于0/1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 &lt;code&gt;n&lt;/code&gt; 个物品可供选择（即从所有的物品中做任意的选择）。&lt;/p&gt;
-&lt;p&gt;完全背包问题的实现只需要在0/1背包的基础上稍作改动即可，依旧是采取滚动数组实现。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;对于先便利物品，再遍历背包的情形：那么完全背包相较于0/1背包的不同之处，在第 &lt;code&gt;i&lt;/code&gt; 次迭代时，0/1背包只能使用一次物品 &lt;code&gt;weight[i]&lt;/code&gt; ，因此采取从后向前的方式遍历，为了防止重复选择，但是完全背包可以使用任意次物品 &lt;code&gt;weight[i]&lt;/code&gt; ，所以需要实现重复的选取，因此采取从前向后的遍历方式即可。并且这种先遍历物品再遍历背包的方式，本质上是在求解组合问题，也就是对于物品的选取顺序是不敏感的，仅对物品的个数敏感。（因为先遍历物品，因此也就确定了选取的顺序）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;先遍历背包，再遍历物品：也就是对于每一种情形下的背包容量，都从全部的物品中进行选择。在单纯的完全背包问题下，递推公式和结果是不会改变的。但是这样的遍历方式，本质上是在求解排列问题，也就是对于物品的选取顺序是敏感的，因为先遍历的是背包容量，在背包容量增大的过程中，最后一次选取的物品不同将会是不同的情形。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="完全背包问题总结"><a href="#完全背包问题总结" class="headerlink" title="完全背包问题总结"></a>完全背包问题总结</h1><p>首先，需要清楚的是对于完全背包问题的定义：有N件物品和一个最多能背重量为 <code>W</code> 的背包。第 <code>i</code> 件物品的重量是 <code>weight[i]</code> ，得到的价值是 <code>value[i]</code> 。每件物品都有无限个（也就是可以放入背包多次），求解将哪些物品装入背包里物品价值总和最大。</p><p>相较于0/1背包问题，完全背包问题最大的不同之处在物品的个数是无限。那么在进行选择时，就是每一次向背包中添加物品时，都有 <code>n</code> 个物品可供选择（即从所有的物品中做任意的选择）。</p><p>完全背包问题的实现只需要在0/1背包的基础上稍作改动即可，依旧是采取滚动数组实现。</p><ol><li><p>对于先便利物品，再遍历背包的情形：那么完全背包相较于0/1背包的不同之处，在第 <code>i</code> 次迭代时，0/1背包只能使用一次物品 <code>weight[i]</code> ，因此采取从后向前的方式遍历，为了防止重复选择，但是完全背包可以使用任意次物品 <code>weight[i]</code> ，所以需要实现重复的选取，因此采取从前向后的遍历方式即可。并且这种先遍历物品再遍历背包的方式，本质上是在求解组合问题，也就是对于物品的选取顺序是不敏感的，仅对物品的个数敏感。（因为先遍历物品，因此也就确定了选取的顺序）</p></li><li><p>先遍历背包，再遍历物品：也就是对于每一种情形下的背包容量，都从全部的物品中进行选择。在单纯的完全背包问题下，递推公式和结果是不会改变的。但是这样的遍历方式，本质上是在求解排列问题，也就是对于物品的选取顺序是敏感的，因为先遍历的是背包容量，在背包容量增大的过程中，最后一次选取的物品不同将会是不同的情形。</p></li></ol><h2 id="LeetCode-377-组合总和Ⅳ"><a href="#LeetCode-377-组合总和Ⅳ" class="headerlink" title="LeetCode 377 组合总和Ⅳ"></a>LeetCode 377 组合总和Ⅳ</h2><p><a href="https://leetcode.cn/problems/combination-sum-iv/">377.组合总和 Ⅳ</a></p><p>给你一个由不同整数组成的数组 <code>nums</code> ，和一个目标整数 <code>target</code> 。请你从 <code>nums</code> 中找出并返回总和为 <code>target</code> 的元素组合的个数。</p><p>本题求解的并不是组合问题，是一个排序问题，在题目示例中将 <code>1,2,1</code> 和 <code>1,1,2</code> 视为两种不同的组合，也就是对于元素的选取顺序是敏感的。那么应该先遍历背包再遍历物品，并且此处求解的是恰好装满的情形，相应的递推公式为 <code>dp[j]+=dp[j-nums[i]]</code></p><h2 id="LeetCode-518-零钱兑换II"><a href="#LeetCode-518-零钱兑换II" class="headerlink" title="LeetCode 518 零钱兑换II"></a>LeetCode 518 零钱兑换II</h2><p><a href="https://leetcode.cn/problems/coin-change-ii/">518.零钱兑换II</a></p><p>给你一个整数数组 <code>coins</code> 表示不同面额的硬币，另给一个整数 <code>amount</code> 表示总金额。</p><p>请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 <code>0</code> 。</p><p>根据题中的示例，本题求解的是一个组合问题。</p><p>并且此处的背包问题是一个恰好装满的情形，那么对于组合问题基本思路就是先遍历物品再遍历背包，那么递推公式为： <code>dp[j]+=dp[j-coins[i]]</code> ，在进行初始化是一定要将 <code>dp[0]=1</code> </p><h2 id="LeetCode-322-零钱兑换"><a href="#LeetCode-322-零钱兑换" class="headerlink" title="LeetCode 322 零钱兑换"></a>LeetCode 322 零钱兑换</h2><p><a href="https://leetcode.cn/problems/coin-change/">322.零钱兑换</a></p><p>给你一个整数数组 <code>coins</code> ，表示不同面额的硬币；以及一个整数 <code>amount</code> ，表示总金额。</p><p>计算并返回可以凑成总金额所需的最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。</p><p>此处的最优化问题为：求解能够恰好装满背包的最少硬币数量，那么对于组合和排列都是相同的，两种遍历顺序都是可以的。基本的递推公式为：<code>dp[j]=min(dp[j],dp[j-coins[i]]+1)</code> ，要让上述递推公式成立，需要在数组的初始化时进行特殊处理，对于 <code>dp[0]</code> 只需要0个硬币即可装满。那么对于其他的值明显都装不满，因此初始为 <code>INT_MAX</code> ，并且每次判断 <code>dp[j-coins[i]]!=INT_MAX</code></p><h2 id="LeetCode-279-完全平方数"><a href="#LeetCode-279-完全平方数" class="headerlink" title="LeetCode 279 完全平方数"></a>LeetCode 279 完全平方数</h2><p><a href="https://leetcode.cn/problems/perfect-squares/">279.完全平方数</a></p><p>给你一个整数 <code>n</code> ，返回和为 <code>n</code> 的完全平方数的最少数量 。</p><p>完全平方数是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。</p><p>此处和上述问题是非常类似的，也是在求解将背包恰好装满的最少的元素数量。但是此处的元素要求是完全平方数，因此在遍历物品的同时去生成相应的完全平方数即可。对于 <code>dp[0]</code> 依旧是初始化为0。其他元素全部初始化为 <code>INT_MAX</code> 。对应的递推公式为 <code>dp[j]=min(dp[j],dp[j-nums[i]]+1)</code> 要求 <code>dp[j-nums[i]]!=INT_MAX</code></p><h2 id="LeetCode-139-单词拆分"><a href="#LeetCode-139-单词拆分" class="headerlink" title="LeetCode 139 单词拆分"></a>LeetCode 139 单词拆分</h2><p><a href="https://leetcode.cn/problems/word-break/">139.单词拆分</a></p><p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p><p>注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。</p><p>此处需要注意的是：本题是一个排列问题，一定要先遍历背包，再遍历物品，也就是对于任意的背包大小都要能够使用全部的物品去进行填充，否则对于 <code>applepenapple</code> 这样的情形，在仅使用 <code>apple</code> 时，不能将后续的也标记为装满。那么在使用 <code>pen</code> 去填充时，无法使用 <code>apple</code> 将后续填满。</p>]]></content:encoded>
-      
-      
-      <category domain="http://marksblog.cn/categories/LeetCode/">LeetCode</category>
-      
-      
-      <category domain="http://marksblog.cn/tags/c/">c++</category>
-      
-      <category domain="http://marksblog.cn/tags/LeetCode/">LeetCode</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</category>
-      
-      <category domain="http://marksblog.cn/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/">完全背包</category>
-      
-      
-      <comments>http://marksblog.cn/posts/97265db6/#disqus_thread</comments>
       
     </item>
     
