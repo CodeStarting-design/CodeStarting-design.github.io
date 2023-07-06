@@ -20,22 +20,23 @@
     var CONFIG = {"hostname":"marksblog.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="和组合问题类似，当前元素仅有两种状态，选或不选，进行简单的剪枝，当前值相加超过总和n或者当前元素值已经大于所需元素值则停止，元素不足时则停止的方式剪枝：">
+  <meta name="description" content="动态规划本题也是一个求解最长公共子序列的问题，但是不同于718.最长重复子数组，在本题中的子序列是不连续的，那么使用动态规划进行求解，就需要改变动态规划数组的定义。  动态规划数组的定义：定义数组 dp[text1.size()+1][text2.size()+1] ，其中 dp[i][j] 表示在 text1[i-1] 和 text2[j-1] 前的最长子序列的长度  动态规划数组的推导：对于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-216-组合总和III">
-<meta property="og:url" content="http://marksblog.cn/posts/1e0d822d/index.html">
+<meta property="og:title" content="LeetCode-1143-最长公共子序列">
+<meta property="og:url" content="http://marksblog.cn/posts/f4069d5b/index.html">
 <meta property="og:site_name" content="Mark&#39;s blogs">
-<meta property="og:description" content="和组合问题类似，当前元素仅有两种状态，选或不选，进行简单的剪枝，当前值相加超过总和n或者当前元素值已经大于所需元素值则停止，元素不足时则停止的方式剪枝：">
+<meta property="og:description" content="动态规划本题也是一个求解最长公共子序列的问题，但是不同于718.最长重复子数组，在本题中的子序列是不连续的，那么使用动态规划进行求解，就需要改变动态规划数组的定义。  动态规划数组的定义：定义数组 dp[text1.size()+1][text2.size()+1] ，其中 dp[i][j] 表示在 text1[i-1] 和 text2[j-1] 前的最长子序列的长度  动态规划数组的推导：对于">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-02T08:04:21.000Z">
-<meta property="article:modified_time" content="2023-05-03T01:48:53.880Z">
+<meta property="article:published_time" content="2023-07-06T11:40:51.000Z">
+<meta property="article:modified_time" content="2023-07-06T11:42:07.666Z">
 <meta property="article:author" content="Mark">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="回溯法">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="子序列问题">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://marksblog.cn/posts/1e0d822d/">
+<link rel="canonical" href="http://marksblog.cn/posts/f4069d5b/">
 
 
 <script id="page-configurations">
@@ -48,7 +49,7 @@
   };
 </script>
 
-  <title>LeetCode-216-组合总和III | Mark's blogs</title>
+  <title>LeetCode-1143-最长公共子序列 | Mark's blogs</title>
   
 
 
@@ -187,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/1e0d822d/">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/f4069d5b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -200,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-216-组合总和III
+          LeetCode-1143-最长公共子序列
         </h1>
 
         <div class="post-meta">
@@ -209,16 +210,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-05-02 16:04:21" itemprop="dateCreated datePublished" datetime="2023-05-02T16:04:21+08:00">2023-05-02</time>
+              <time title="创建时间：2023-07-06 19:40:51 / 修改时间：19:42:07" itemprop="dateCreated datePublished" datetime="2023-07-06T19:40:51+08:00">2023-07-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-03 09:48:53" itemprop="dateModified" datetime="2023-05-03T09:48:53+08:00">2023-05-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -245,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/1e0d822d/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1e0d822d/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/f4069d5b/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/f4069d5b/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -256,7 +251,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,20 +270,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-216-组合总和III"><a href="#LeetCode-216-组合总和III" class="headerlink" title="LeetCode 216 组合总和III"></a>LeetCode 216 组合总和III</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum-iii/">216.组合总和III</a></p>
-<p>找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：</p>
-<ul>
-<li>只使用数字1到9</li>
-<li>每个数字最多使用一次</li>
-</ul>
-<p>返回所有可能的有效组合的列表 。该列表不能包含相同的组合两次，组合可以以任何顺序返回。</p>
-<p>本质上就是在9个数中选取k个数，要求k个数的和为n。</p>
-<h2 id="回溯递归实现"><a href="#回溯递归实现" class="headerlink" title="回溯递归实现"></a>回溯递归实现</h2>
-<p>和组合问题类似，当前元素仅有两种状态，选或不选，进行简单的剪枝，当前值相加超过总和n或者当前元素值已经大于所需元素值则停止，元素不足时则停止的方式剪枝：<br></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combinationSum3</span>(<span class="type">int</span> k, <span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">DFS</span>(<span class="number">1</span>,k,n);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">int</span> cur,<span class="type">int</span> k,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==k&amp;&amp;n==<span class="number">0</span>)&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">0</span>||cur&gt;n) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(<span class="number">10</span>-cur)&lt;k) <span class="keyword">return</span>;</span><br><span class="line">        path.<span class="built_in">push_back</span>(cur);</span><br><span class="line">        n=n-cur;</span><br><span class="line">        <span class="built_in">DFS</span>(cur+<span class="number">1</span>,k,n); <span class="comment">// 第一次递归</span></span><br><span class="line">        path.<span class="built_in">pop_back</span>();</span><br><span class="line">        n+=cur;</span><br><span class="line">        <span class="built_in">DFS</span>(cur+<span class="number">1</span>,k,n); <span class="comment">// 回溯后第二次递归</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>注：将vector数组作为函数参数进行传递，将会导致传参时对参数进行复制，同时导致空间复杂度和时间复杂度的上升。</p>
-<p>同时在本题中，使用的回溯递归方式为：选取当前字符进行递归，再不选取进行一次递归，这样递归的方式将会导致深度工作栈的深度更深，从到导致空间复杂度上升。此处要提升空间复杂度，修改为加大树的宽度，使用for循环实现。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combinationSum3</span>(<span class="type">int</span> k, <span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">DFS</span>(<span class="number">1</span>,k,n);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">int</span> cur,<span class="type">int</span> k,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()==k&amp;&amp;n==<span class="number">0</span>)&#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">0</span>||cur&gt;n) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(path.<span class="built_in">size</span>()+(<span class="number">10</span>-cur)&lt;k) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=cur;i&lt;=<span class="number">9</span>;i++)&#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(i);</span><br><span class="line">            n=n-i;</span><br><span class="line">            <span class="built_in">DFS</span>(i+<span class="number">1</span>,k,n); <span class="comment">// 第一次递归</span></span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">            n+=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h1 id="LeetCode-1143-最长公共子序列"><a href="#LeetCode-1143-最长公共子序列" class="headerlink" title="LeetCode 1143 最长公共子序列"></a>LeetCode 1143 最长公共子序列</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-subsequence/">1143.最长公共子序列</a></p>
+<p>给定两个字符串 <code>text1</code> 和 <code>text2</code> ，返回这两个字符串的最长公共子序列的长度。如果不存在公共子序列 ，返回 0 。</p>
+<p>一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。</p>
+<p>例如，”ace” 是 “abcde” 的子序列，但 “aec” 不是 “abcde” 的子序列。<br>两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：text1 = “abcde”, text2 = “ace”<br>输出：3<br>解释：最长公共子序列是 “ace” ，它的长度为 3 。</p>
+</blockquote>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>本题也是一个求解最长公共子序列的问题，但是不同于<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-length-of-repeated-subarray/">718.最长重复子数组</a>，在本题中的子序列是不连续的，那么使用动态规划进行求解，就需要改变动态规划数组的定义。</p>
+<ol>
+<li><p>动态规划数组的定义：定义数组 <code>dp[text1.size()+1][text2.size()+1]</code> ，其中 <code>dp[i][j]</code> 表示在 <code>text1[i-1]</code> 和 <code>text2[j-1]</code> 前的最长子序列的长度</p>
+</li>
+<li><p>动态规划数组的推导：对于 <code>dp[i][j]</code> ，那么首先需要判断 <code>text1[i-1]==text2[j-1]</code> ，不相等 <code>dp[i][j]=max(dp[i-1][j],dp[i][j-1])</code> （也就是等于两个更短序列的最长的公共子序列的长度，更短的方式有两种，分别是缺少 <code>text1[i-2]</code> 和 <code>text2[j-2]</code> ），若是相等， <code>dp[i][j]=dp[i-1][j-1]+1</code> ，相等则是在 <code>text1[i-2]</code> 和 <code>text2[j-2]</code> 的基础上在增加一个长度值。</p>
+</li>
+<li><p>动态规划数组的初始化：在初始时只需要全部初始化为0即可。</p>
+</li>
+<li><p>动态规划数组的遍历：逐行遍历，在行内采取从前向后的遍历方式。</p>
+</li>
+<li><p>举例验证：对于 <code>text1 = &quot;abcde&quot;, text2 = &quot;ace&quot;</code> 对应的动态规划数组为：</p>
+</li>
+</ol>
+<blockquote>
+<p>0,0,0,0,<br>0,1,1,1,<br>0,1,1,1,<br>0,1,2,2,<br>0,1,2,2,<br>0,1,2,3,</p>
+</blockquote>
+
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=text1.<span class="built_in">size</span>()+<span class="number">1</span>,m=text2.<span class="built_in">size</span>()+<span class="number">1</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(m,<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;m;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(text1[i<span class="number">-1</span>]==text2[j<span class="number">-1</span>])&#123;</span><br><span class="line">                    dp[i][j]=dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j]=<span class="built_in">max</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>][m<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -314,7 +323,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://marksblog.cn/posts/1e0d822d/" title="LeetCode-216-组合总和III">http://marksblog.cn/posts/1e0d822d/</a>
+    <a href="http://marksblog.cn/posts/f4069d5b/" title="LeetCode-1143-最长公共子序列">http://marksblog.cn/posts/f4069d5b/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -355,7 +364,8 @@
           <div class="post-tags">
               <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-              <a href="/tags/%E5%9B%9E%E6%BA%AF%E6%B3%95/" rel="tag"># 回溯法</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" rel="tag"># 子序列问题</a>
           </div>
 
         
@@ -364,13 +374,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/7567a5e4/" rel="prev" title="LeetCode-77-组合">
-      <i class="fa fa-chevron-left"></i> LeetCode-77-组合
+    <a href="/posts/2417182a/" rel="prev" title="LeetCode-718-最长重复子数组">
+      <i class="fa fa-chevron-left"></i> LeetCode-718-最长重复子数组
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/36115911/" rel="next" title="LeetCode-17-电话号码的字母组合">
-      LeetCode-17-电话号码的字母组合 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -430,7 +437,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII"><span class="nav-text">LeetCode 216 组合总和III</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0"><span class="nav-text">回溯递归实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-text">LeetCode 1143 最长公共子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">动态规划</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
