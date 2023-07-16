@@ -181,6 +181,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/c7c0552e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Mark">
+      <meta itemprop="description" content="心之所向，行之可往">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mark's blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c7c0552e/" class="post-title-link" itemprop="url">LeetCode-392-判断子序列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-07-16 20:25:04 / 修改时间：20:26:51" itemprop="dateCreated datePublished" datetime="2023-07-16T20:25:04+08:00">2023-07-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/c7c0552e/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/c7c0552e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p>使用两个指针 <code>i,j</code> 分别指向串 <code>s</code> 和串 <code>t</code> ，<code>s[i]==t[j],i++,j++</code> 否则 <code>j++</code> 当 <code>i=s.size()</code> 时，说明是子序列，否则移动到 <code>j=t.size()</code> 结束。</p>
+<p>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isSubsequence</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=s.<span class="built_in">size</span>(),m=t.<span class="built_in">size</span>(),i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;i&lt;n,j&lt;m;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]==t[j]) i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i==n) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/c7c0552e/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+ 
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/f8e7c5a5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,7 +312,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-07-11 23:04:29 / 修改时间：23:05:39" itemprop="dateCreated datePublished" datetime="2023-07-11T23:04:29+08:00">2023-07-11</time>
+              <time title="创建时间：2023-07-11 23:04:29 / 修改时间：23:06:03" itemprop="dateCreated datePublished" datetime="2023-07-11T23:04:29+08:00">2023-07-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1278,142 +1384,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://marksblog.cn/posts/bc28a03e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="Mark">
-      <meta itemprop="description" content="心之所向，行之可往">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mark's blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/bc28a03e/" class="post-title-link" itemprop="url">LeetCode-123-买卖股票的最佳时机III</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-07 20:29:32 / 修改时间：20:30:35" itemprop="dateCreated datePublished" datetime="2023-06-07T20:29:32+08:00">2023-06-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/bc28a03e/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/bc28a03e/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p><strong>注</strong>：此处不能使用贪心进行求解，贪心的思想为：在给定的价格数组中，寻找单调增区间，选取两个区间宽度最大的单调增区间，两个区间的宽度的相加就是最大利润，也可能不存在这样的两个或一个区间。但是对于数组 <code>[1,2,4,2,5,7,2,4,9,0]</code> ，此时贪心求解的值为12，但实际的最大利润为13。</p>
-<p>基于动态规划实现：重点依旧是动态规划数组的定义和推导。（此处的定义，使用的是持有，也就是不关系具体是在那一天进行买卖，也就是关心的是在某一天是否拥有股票）</p>
-<ol>
-<li>动态规划数组得到定义：定义数组 <code>dp[n][5]</code> ，那么数组的含义为：</li>
-</ol>
-<ul>
-<li><code>dp[i][0]</code> 表示在第 <code>i</code> 天不对股票进行操作所拥有的最大现金数</li>
-<li><code>dp[i][1]</code> 表示在第 <code>i</code> 天第一次持有股票所拥有的最大现金数</li>
-<li><code>dp[i][2]</code> 表示在第 <code>i</code> 天第一次不持有股票所拥有的最大现金数</li>
-<li><code>dp[i][3]</code> 表示在第 <code>i</code> 天第二次持有股票所拥有的最大现金数</li>
-<li><code>dp[i][4]</code> 表示在第 <code>i</code> 天第二次不持有股票所拥有的最大现金数</li>
-</ul>
-<ol>
-<li>动态规划数组的推导：在第 <code>i</code> 天需要对5个状态进行推导。</li>
-</ol>
-<ul>
-<li><code>dp[i][0]=0</code></li>
-<li><code>dp[i][1]</code> 此处有两种情况：第一，是在第 <code>i</code> 天买入的 <code>=dp[i-1][0]-prices[i]</code> ，第二是在之前买入的 <code>=dp[i-1][1]</code> ，所以 <code>dp[i][1]=max(dp[i-1][0]-prices[i],dp[i-1][1])</code></li>
-<li><code>dp[i][2]</code> 也有两种情况：第一，是在第 <code>i</code> 天卖出的 <code>=dp[i-1][1]+prices[i]</code> ，第二是在之前卖出的 <code>=dp[i-1][2]</code> ， 所以 <code>dp[i][2]=max(dp[i-1][1]+prices[i],dp[i-1][2])</code></li>
-<li><code>dp[i][3]</code> 此处有两种情况：第一，是在第 <code>i</code> 天买入的 <code>=dp[i-1][2]-prices[i]</code> ，第二是在之前买入的 <code>=dp[i-1][3]</code> ，所以 <code>dp[i][3]=max(dp[i-1][2]-prices[i],dp[i-1][3])</code></li>
-<li><code>dp[i][2]</code> 也有两种情况：第一，是在第 <code>i</code> 天卖出的 <code>=dp[i-1][3]+prices[i]</code> ，第二是在之前卖出的 <code>=dp[i-1][4]</code> ， 所以 <code>dp[i][4]=max(dp[i-1][3]+prices[i],dp[i-1][4])</code></li>
-</ul>
-<ol>
-<li><p>动态规划数组的初始化：此处主要是对第 <code>0</code> 天进行初始化，不操作 <code>dp[0][0]=0</code> ，那么在第 <code>0</code> 天第一次持有 <code>dp[0][1]=-prices[0]</code> 在第 <code>0</code> 天第一次不持有，本质上就是买入后当天卖出 <code>dp[0][2]=0</code> ，那么同理第二次持有和不持有的情形，也是当天买入后，当天卖出 <code>dp[0][3]=-prices[0],dp[0][4]=0</code></p>
-</li>
-<li><p>动态规划数组的遍历：从前向后遍历的方式</p>
-</li>
-<li><p>举例验证：对于数组 <code>prices = [3,3,5,0,0,3,1,4]</code> ，对应的动态规划数组为：</p>
-</li>
-</ol>
-<blockquote>
-<p>0 ,-3 , 0 ,-3 , 0 ,<br>0 ,-3 , 0 ,-3 , 0 ,<br>0 ,-3 , 2 ,-3 , 2 ,<br>0 , 0 , 2 , 2 , 2 ,<br>0 , 0 , 2 , 2 , 2 ,<br>0 , 0 , 3 , 2 , 5 ,<br>0 , 0 , 3 , 2 , 5 ,<br>0 , 0 , 4 , 2 , 6 ,</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/bc28a03e/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
- 
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1484,7 +1454,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1554,18 +1524,18 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">120k</span>
+    <span title="站点总字数">121k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:49</span>
+    <span title="站点阅读时长">1:50</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共55.3k字</span>
+  <span class="post-count">博客全站共56k字</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
